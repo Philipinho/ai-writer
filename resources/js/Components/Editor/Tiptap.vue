@@ -50,9 +50,14 @@ export default {
                 TaskList,
                 TaskItem,
                 CharacterCount.configure({
-                    limit: 10000000000,
+                    limit: 10000,
                 }),
             ],
+            editorProps: {
+                attributes: {
+                    class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none',
+                },
+            },
         })
     },
 
@@ -72,7 +77,8 @@ export default {
     color: #0D0D0D;
     display: flex;
     flex-direction: column;
-    max-height: 26rem;
+    min-height: 20rem;
+    max-height: 35rem;
 
     &__header {
         align-items: center;
