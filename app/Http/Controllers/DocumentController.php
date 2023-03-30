@@ -12,4 +12,19 @@ class DocumentController extends Controller
         return Inertia::render('Documents/Show');
     }
 
+    public function create()
+    {
+
+    }
+
+    public function update()
+    {
+
+    }
+
+    public function delete()
+    {
+
+    }
+
 }
