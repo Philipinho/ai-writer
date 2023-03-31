@@ -16,12 +16,14 @@
 </template>
 
 <script>
+import {Editor, EditorContent, BubbleMenu, FloatingMenu} from '@tiptap/vue-3'
+import StarterKit from '@tiptap/starter-kit'
 import CharacterCount from '@tiptap/extension-character-count'
 import Highlight from '@tiptap/extension-highlight'
 import TaskItem from '@tiptap/extension-task-item'
 import TaskList from '@tiptap/extension-task-list'
-import StarterKit from '@tiptap/starter-kit'
-import {Editor, EditorContent, BubbleMenu, FloatingMenu} from '@tiptap/vue-3'
+import Placeholder from '@tiptap/extension-placeholder'
+
 
 import MenuBar from './MenuBar.vue'
 
@@ -51,6 +53,9 @@ export default {
                 TaskItem,
                 CharacterCount.configure({
                     limit: 10000,
+                }),
+                Placeholder.configure({
+                    emptyEditorClass: 'is-editor-empty',
                 }),
             ],
             editorProps: {
@@ -287,5 +292,14 @@ export default {
             }
         }
     }
+
+    p.is-editor-empty:first-child::before {
+        color: #adb5bd;
+        content: attr(data-placeholder);
+        float: left;
+        height: 0;
+        pointer-events: none;
+    }
 }
+
 </style>
