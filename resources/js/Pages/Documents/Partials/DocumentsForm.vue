@@ -1,5 +1,18 @@
+<script setup>
+import { ref } from 'vue';
+import { Link, router, useForm } from '@inertiajs/vue3';
+import ActionMessage from '@/Components/ActionMessage.vue';
+import FormSection from '@/Components/FormSection.vue';
+import InputError from '@/Components/InputError.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
+import TextInput from '@/Components/TextInput.vue';
+
+</script>
+
 <template>
-    <form>
+    <form method="post" >
         <div class="space-y-12">
             <div class="border-b border-gray-900/10 pb-5">
                 <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -82,12 +95,11 @@
 
         </div>
 
-        <div class="mt-6 flex items-center justify-end gap-x-6">
-            <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+
+        <div class="mt-4 mb-4 flex items-center gap-x-6">
+            <PrimaryButton>
+                Generate
+            </PrimaryButton>
         </div>
     </form>
 </template>
-
-<script setup>
-import { PhotoIcon, UserCircleIcon } from '@heroicons/vue/24/solid'
-</script>

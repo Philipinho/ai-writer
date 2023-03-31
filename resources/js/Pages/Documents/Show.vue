@@ -1,7 +1,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Tiptap from "@/Components/Editor/Tiptap.vue";
-import DocumentsForm from "@/Components/Custom/DocumentsForm.vue";
+import DocumentsForm from "@/Pages/Documents/Partials/DocumentsForm.vue";
 </script>
 
 <template>
@@ -11,8 +11,6 @@ import DocumentsForm from "@/Components/Custom/DocumentsForm.vue";
                 Document
             </h2>
         </template>
-
-
 
                 <div class="grid grid-cols-12 gap-6">
 
