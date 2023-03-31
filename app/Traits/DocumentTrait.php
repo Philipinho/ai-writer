@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Orhanerday\OpenAi\OpenAi;
 
 trait DocumentTrait
 {
@@ -90,7 +91,7 @@ trait DocumentTrait
                 'timeout' => config('settings.request_timeout') * 60,
                 'headers' => [
                     // 'User-Agent' => "",
-                    'Authorization' => 'Bearer ' . config('openai.key'),
+                    'Authorization' => 'Bearer ' . config('openai.api_key'),
                 ],
                 'json' => [
                     'model' => config('openai.model'),
@@ -121,5 +122,32 @@ trait DocumentTrait
         }
 
         return 1;
+    }
+
+    public function generateContent(Request $request, $prompt)
+    {
+        $openAI = new OpenAi(config('openai.api_key'));
+
+        $chat_completion = $openAI->chat([
+            'model' => config('openai.model'),
+            'messages' => [
+                [
+                    "role" => "system",
+                    "content" => "You are a helpful assistant."
+                ],
+                [
+                    'role' => 'user',
+                    'content' => $prompt
+                ]
+            ],
+            'temperature' => $request->has('creativity') ? (float)$request->input('creativity') : 0.5,
+            'n' => $request->has('variations') ? (float)$request->input('variations') : 1.0,
+            'max_tokens' => 2040,
+            'frequency_penalty' => 0,
+            'presence_penalty' => 0,
+            'user' => 'user' . $request->user()->id
+        ]);
+
+        return json_decode($chat_completion);
     }
 }
