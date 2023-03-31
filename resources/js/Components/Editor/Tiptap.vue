@@ -55,7 +55,8 @@ export default {
             ],
             editorProps: {
                 attributes: {
-                    class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none',
+                    class: 'relative prose prose-sm sm:prose lg:prose-lg px-2 overflow-y-auto max-h-[50vh] !w-full !max-w-none focus-within:outline-none'
+                   // class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none',
                 },
             },
         })
