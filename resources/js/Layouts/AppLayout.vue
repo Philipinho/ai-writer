@@ -42,10 +42,7 @@ const sidebarOpen = ref(false)
 </script>
 
 <template>
-    <!--
-      <html class="h-full bg-white">
-      <body class="h-full">
-    -->
+
     <div>
         <Head :title="title" />
         <TransitionRoot as="template" :show="sidebarOpen">
