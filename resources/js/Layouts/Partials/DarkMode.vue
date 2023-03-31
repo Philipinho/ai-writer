@@ -56,6 +56,32 @@ export default DarkMode;
 </script>
 
 <style scoped>
+/* Light switch */
+.form-switch input[type="checkbox"].light-switch + label {
+    @apply bg-teal-500;
+}
+
+.dark .form-switch input[type="checkbox"].light-switch + label > span:first-child {
+    left: 22px;
+}
+
+.dark .h4 {
+    @apply font-bold;
+}
+
+.dark .form-input,
+.dark .form-textarea,
+.dark .form-multiselect,
+.dark .form-select,
+.dark .form-checkbox,
+.dark .form-radio {
+    @apply bg-gray-800 border border-gray-600 focus:border-gray-500;
+}
+
+.dark .form-input,
+.dark .form-textarea {
+    @apply placeholder-gray-400;
+}
 /* Switch element */
 .form-switch {
     @apply relative select-none;
