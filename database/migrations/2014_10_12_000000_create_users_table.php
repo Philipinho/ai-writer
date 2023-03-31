@@ -20,6 +20,14 @@ return new class extends Migration
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
+            $table->string('role')->default('user');
+            $table->smallInteger('default_variations')->nullable()->default(1);
+            $table->double('default_creativity', 8, 2)->nullable()->default(0.5);
+            $table->string('default_language', 16)->nullable()->default('en');
+            $table->integer('documents_month_count')->default(0);
+            $table->bigInteger('documents_total_count')->default(0);
+            $table->integer('words_month_count')->default(0);
+            $table->bigInteger('words_total_count')->default(0);
             $table->timestamps();
         });
     }
