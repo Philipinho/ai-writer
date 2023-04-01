@@ -36,7 +36,7 @@ Route::middleware([
 
     Route::get('document', [DocumentController::class, 'show'])->name('document.show');
 
-    Route::post('/document/create', [DocumentController::class, 'create'])->name('document.create');
+    Route::post('/document/store', [DocumentController::class, 'store'])->name('document.store');
 
     Route::post('/document/update', [DocumentController::class, 'update'])->name('document.update');
 

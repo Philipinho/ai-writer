@@ -1,7 +1,31 @@
-<script setup>
+<script>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Tiptap from "@/Components/Editor/Tiptap.vue";
 import DocumentsForm from "@/Pages/Documents/Partials/DocumentsForm.vue";
+
+export default {
+    components: {
+        AppLayout,
+        Tiptap,
+        DocumentsForm
+    },
+    props: {
+        data: {
+            type: Object,
+            default: '',
+        },
+        modelValue: {
+            type: String,
+            default: '',
+        },
+    },
+    data() {
+        return {
+            inputValue: '',
+        };
+    },
+    methods: {},
+};
 </script>
 
 <template>
@@ -16,11 +40,10 @@ import DocumentsForm from "@/Pages/Documents/Partials/DocumentsForm.vue";
 
                     <div class="flex flex-col col-span-full xl:col-span-5 bg-white shadow-lg rounded-sm border border-slate-200">
                         <header class="px-5 py-4 border-b border-slate-100 flex items-center">
-                            <h2 class="font-semibold text-slate-800">Prompt form</h2>
+                            <h2 class="font-semibold text-slate-800">Prompt</h2>
                         </header>
                         <div class="grow px-5">
-
-                            <DocumentsForm/>
+                            <DocumentsForm v-model="inputValue" :data="data"></DocumentsForm>
 
                         </div>
                     </div>
@@ -36,7 +59,7 @@ import DocumentsForm from "@/Pages/Documents/Partials/DocumentsForm.vue";
                             <div class="grow px-5 pt-3 pb-1">
                                 <div class="overflow-x-auto">
 
-                                    <Tiptap />
+                                    <Tiptap v-model="inputValue" />
 
                                 </div>
                             </div>
