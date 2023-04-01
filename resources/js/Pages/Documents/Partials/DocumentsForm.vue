@@ -37,7 +37,10 @@ export default {
     computed: {
         selectedFields() {
             return this.templates.data.find(item => item.key === this.selectedKey)?.fields || [];
-        }
+        },
+        selectedTemplateIndex() {
+            return this.templates.data.findIndex(item => item.key === this.selectedKey);
+        },
     },
     methods: {
         getFormData(form) {
@@ -132,7 +135,9 @@ export default {
                     </div>
 
 
-                    <div class="sm:col-span-3">
+
+                    <div v-if="templates.data[selectedTemplateIndex].tones" class="sm:col-span-3">
+
                         <label for="tone" class="block text-sm font-medium leading-6 text-gray-900">Tone</label>
                         <div class="mt-2">
                             <select id="tone" name="tone"
@@ -146,6 +151,7 @@ export default {
                             </select>
                         </div>
                     </div>
+
 
                     <div class="sm:col-span-3">
                         <label for="variations"
