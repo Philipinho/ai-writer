@@ -14,6 +14,9 @@ export default {
             type: Object,
             default: '',
         },
+        templates: {
+            type: Object,
+        },
         modelValue: {
             type: String,
             default: '',
@@ -43,7 +46,7 @@ export default {
                             <h2 class="font-semibold text-slate-800">Prompt</h2>
                         </header>
                         <div class="grow px-5">
-                            <DocumentsForm v-model="inputValue" :data="data"></DocumentsForm>
+                            <DocumentsForm :data="data" :templates="templates"></DocumentsForm>
 
                         </div>
                     </div>
@@ -59,7 +62,7 @@ export default {
                             <div class="grow px-5 pt-3 pb-1">
                                 <div class="overflow-x-auto">
 
-                                    <Tiptap v-model="inputValue" />
+                                    <Tiptap />
 
                                 </div>
                             </div>

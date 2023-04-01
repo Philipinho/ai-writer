@@ -19,6 +19,9 @@ export default {
     props: {
         data: {
             type: Object,
+        },
+        templates: {
+            type: Object
         }
     },
     remember: 'form',
@@ -28,7 +31,13 @@ export default {
                 name: this.data.values.name,
                 errors: [],
             },
+            selectedKey: "Summarize",
         };
+    },
+    computed: {
+        selectedFields() {
+            return this.templates.data.find(item => item.key === this.selectedKey)?.fields || [];
+        }
     },
     methods: {
         getFormData(form) {
@@ -41,6 +50,7 @@ export default {
         },
 
         createDocument() {
+            //this.form.processing = true;
             const form = this.$refs.documentCreateForm;
             const formData = this.getFormData(form);
             console.log('Form data:', formData);
@@ -48,6 +58,7 @@ export default {
             //axios.post(route('document.store')).then(response => {
             //     console.log(response.data)
             // });
+
         }
     }
 };
@@ -55,17 +66,17 @@ export default {
 
 
 <template>
-    <form ref="documentCreateForm" id="document_create" @submit.prevent="createDocument()">
+    <form v-if="selectedKey" ref="documentCreateForm" id="document_create" @submit.prevent="createDocument()">
         <div class="space-y-12">
             <div class="border-b border-gray-900/10 pb-5">
                 <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                     <div class="sm:col-span-4">
-                        <InputLabel for="name" value="Name"/>
+                        <InputLabel for="document_title" value="Name"/>
 
                         <TextInput
-                            id="name"
-                            name="name"
+                            id="document_title"
+                            name="document_title"
                             v-model="form.name"
                             type="text"
                             class="mt-1 block w-full"
@@ -74,26 +85,52 @@ export default {
 
                     </div>
 
-                    <div class="sm:col-span-3">
+                    <div class="sm:col-span-4">
                         <label for="type" class="block text-sm font-medium leading-6 text-gray-900">Type</label>
-                        <div class="mt-2">
-                            <select id="type" name="type"
-                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                <option>Summarize</option>
-                                <option>Explain</option>
-                                <option>Blog Title</option>
-                            </select>
-                        </div>
+                        <select name="template" v-model="selectedKey"
+                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                            <option v-for="item in templates.data" :value="item.key">{{ item.name }}</option>
+                        </select>
+
                     </div>
 
-                    <div class="col-span-full">
-                        <label for="prompt" class="block text-sm font-medium leading-6 text-gray-900">Prompt</label>
+                    <div v-for="field in selectedFields" class="col-span-full">
+
+                        <InputLabel :for="field.name" :value="field.label"/>
+
                         <div class="mt-2">
-                            <textarea id="prompt" name="prompt" rows="3"
-                                      class="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"/>
+
+                            <div v-if="field.type !== 'select'">
+
+                                <TextInput v-if="field.type === 'input'"
+                                           :name="field.name"
+                                           :placeholder="field.placeholder"
+                                           type="text"
+                                           class="mt-1 block w-full"
+                                           :required="!field.optional"
+                                />
+
+                                <textarea v-else-if="field.type === 'textarea'"
+                                          :name="field.name"
+                                          :placeholder="field.placeholder"
+                                          rows="3"
+                                          :required="!field.optional"
+                                          class="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"/>
+                            </div>
+
+                            <select v-else-if="field.type === 'select'"
+                                    :name="field.name"
+                                    :required="!field.optional"
+                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+
+                                <option v-for="option in field.options"
+                                        :value="option.value">{{ option.label }}
+                                </option>
+                            </select>
                         </div>
-                        <p class="mt-3 text-sm leading-6 text-gray-600">Write a few instructions.</p>
+
                     </div>
+
 
                     <div class="sm:col-span-3">
                         <label for="tone" class="block text-sm font-medium leading-6 text-gray-900">Tone</label>

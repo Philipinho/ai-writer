@@ -6,6 +6,7 @@ use App\Http\Resources\DocumentResource;
 use App\Traits\DocumentTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class DocumentController extends Controller
@@ -15,7 +16,6 @@ class DocumentController extends Controller
     public function show(Request $request): \Inertia\Response
     {
 
-        $templates = config('templates');
         $categories = config('categories');
 
         $values = [
@@ -23,22 +23,13 @@ class DocumentController extends Controller
             'language' => $request->input('language'),
             'variants' => $request->input('variants', 1),
             'creativity' => $request->input('creativity', 'original'),
-            'type' => $request->input('type', 'summarize'),
         ];
 
-        foreach ($templates as $key => $value) {
-            if ($value['single_input']) {
-                $values[$key . '_input'] = $request->input($key . '_input');
-            } else {
-                foreach ($value['inputs'] as $k => $v) {
-                    $values[$k] = $request->input($k);
-                }
-            }
-        }
+        $templates = json_decode(Storage::get('templates.json'));
 
         $data = (object)[
             'values' => $values,
-            'templates' => $templates,
+           // 'templates' => $templates,
             'categories' => $categories,
             'creativity_levels' => config('completions.creativity_levels'),
             'variations' => config('completions.variations'),
@@ -48,7 +39,7 @@ class DocumentController extends Controller
 
         Log::info("", (array)$data);
 
-        return Inertia::render('Documents/Show', compact('data'));
+        return Inertia::render('Documents/Show', compact('data', 'templates'));
     }
 
     public function store(Request $request)
