@@ -31,7 +31,7 @@ export default {
                 name: this.data.values.name,
                 errors: [],
             },
-            selectedKey: "Summarize",
+            selectedKey: this.getDefaultSelectedKey(),
         };
     },
     computed: {
@@ -41,8 +41,24 @@ export default {
         selectedTemplateIndex() {
             return this.templates.data.findIndex(item => item.key === this.selectedKey);
         },
+        selectedTemplate() {
+            if (this.templates.data && this.selectedTemplateIndex >= 0) {
+                return this.templates.data[this.selectedTemplateIndex];
+            }
+            return null;
+        }
     },
     methods: {
+        getDefaultSelectedKey() {
+            const defaultKey = "Summarize";
+
+            // Check if the provided template key exists in the templates array
+            const templateExists = this.templates.data.some((item) => item.key === this.data.values.template);
+
+            // If the provided template key exists, use it; otherwise, use the default key
+            return templateExists ? this.data.values.template : defaultKey;
+        },
+
         getFormData(form) {
             const formData = {};
             for (const input of form.elements) {
@@ -134,9 +150,7 @@ export default {
 
                     </div>
 
-
-
-                    <div v-if="templates.data[selectedTemplateIndex].tones" class="sm:col-span-3">
+                    <div v-if="selectedTemplate && selectedTemplate.tones" class="sm:col-span-3">
 
                         <label for="tone" class="block text-sm font-medium leading-6 text-gray-900">Tone</label>
                         <div class="mt-2">
