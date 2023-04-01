@@ -20,6 +20,7 @@ class DocumentController extends Controller
 
         $values = [
             'name' => $request->input('name'),
+            'template' => $request->input('template'),
             'language' => $request->input('language'),
             'variants' => $request->input('variants', 1),
             'creativity' => $request->input('creativity', 'original'),
@@ -50,10 +51,10 @@ class DocumentController extends Controller
             'type' => 'required|string',
         ]);
 
-        $templates = config('templates');
+        $templates = json_decode(Storage::get('templates.json'));
         $categories = config('categories');
 
-        $language = "en"; //mb_strtolower(config('languages')[$request->input('language')]['iso']);
+        $language = $request->input('language');
 
         // TODO: validate max words
 
@@ -92,6 +93,10 @@ class DocumentController extends Controller
             'message' => __('Resource not found.'),
             'status' => 404
         ], 404);
+
+    }
+
+    public function createDocument(){
 
     }
 
