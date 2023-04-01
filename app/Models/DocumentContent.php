@@ -5,25 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Document extends Model
+class DocumentContent extends Model
 {
     use HasFactory;
 
-    public function user(): BelongsTo
+    public function document(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Document::class);
     }
 
     public function template(): BelongsTo
     {
         return $this->belongsTo(Template::class);
     }
-
-    public function contents(): HasMany
-    {
-        return $this->hasMany(DocumentContent::class);
-    }
-
 }
