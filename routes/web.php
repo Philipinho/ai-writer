@@ -36,10 +36,12 @@ Route::middleware([
 
     Route::get('document', [DocumentController::class, 'show'])->name('document.show');
 
+    // create new doc with template id passed?
+    Route::post('/document/new', [DocumentController::class, 'store'])->name('document.new');
+    Route::post('/document/{uuid}', [DocumentController::class, 'store'])->name('document.view');
+    Route::post('/document/{uuid}/update', [DocumentController::class, 'update'])->name('document.update');
+
     Route::post('/document/store', [DocumentController::class, 'store'])->name('document.store');
-
-    Route::post('/document/update', [DocumentController::class, 'update'])->name('document.update');
-
     Route::post('/document/generate', [DocumentController::class, 'generate'])->name('document.generate');
 
 });
