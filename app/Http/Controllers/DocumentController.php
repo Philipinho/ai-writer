@@ -7,6 +7,7 @@ use App\Models\Document;
 use App\Traits\DocumentTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -78,7 +79,7 @@ class DocumentController extends Controller
                 }*/
 
         try {
-            $created = $this->generateContent($request, $prompt);//$this->storeDocument($request, $prompt);
+            $created = $this->getContent($request, $prompt);//$this->storeDocument($request, $prompt);
             if ($created) {
                 Log::info($created);
                 return json_encode($created);
@@ -134,6 +135,7 @@ class DocumentController extends Controller
 
         $values = [
             'name' => $document->name,
+            'content' => $document->content,
             'template' => $document->template_key,
             'language' => $request->input('language'), // preserve?
             'variants' => $request->input('variants', 1),
@@ -157,8 +159,33 @@ class DocumentController extends Controller
         return Inertia::render('Documents/Show', compact('data', 'templates'));
     }
 
-    public function update()
+    public function updateDocument($uuid)
     {
+        $document = Document::where('uuid', $uuid)
+            ->where('user_id', auth()->user()->id)
+            ->firstOrFail();
+
+        $document->update([
+            'name' => '',
+            'content' => '',
+            'word_count' => '',
+            'template_key' => ''
+        ]);
+
+        return response()->json(['success' => true]);
+    }
+
+    public function generateContent(Request $request, $prompt)
+    {
+        //call the openai for the template with prompt
+        // store the content of the api response inside the document_content table with relationships with documents table
+        // update word count of the document
+        // return json response of the open api single response and multi response array
+
+        // append editor with the recent content
+        // give user choice to decide whether to auto append new generation or
+        // to give them the choice to add or discard response
+        // with the later option, the reponses will be added below the prompt form
 
     }
 

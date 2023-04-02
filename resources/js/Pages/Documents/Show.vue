@@ -62,7 +62,7 @@ export default {
                             <div class="grow px-5 pt-3 pb-1">
                                 <div class="overflow-x-auto">
 
-                                    <Tiptap />
+                                    <Tiptap :data="data" />
 
                                 </div>
                             </div>

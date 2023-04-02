@@ -12,6 +12,10 @@
                 {{ editor.storage.characterCount.words() }} words
             </div>
         </div>
+
+        <div v-html="liveHTML"></div>
+        {{ liveHTML }}
+
     </div>
 </template>
 
@@ -35,10 +39,29 @@ export default {
         FloatingMenu,
     },
 
+    props: {
+        data: {
+            type: Object,
+        }
+
+    },
+
     data() {
         return {
             editor: null,
+            document_content: this.data.values.content,
+            liveHTML: '',
         }
+    },
+
+    computed: {
+        liveHTML() {
+            if (this.editor) {
+                return this.editor.getHTML()
+            }
+            return ''
+        },
+
     },
 
     mounted() {
@@ -58,6 +81,11 @@ export default {
                     emptyEditorClass: 'is-editor-empty',
                 }),
             ],
+            content: this.document_content,
+            onUpdate: ({ editor }) => {
+                this.liveHTML = editor.getHTML()
+            },
+
             editorProps: {
                 attributes: {
                     class: 'relative prose prose-sm sm:prose lg:prose-lg px-2 overflow-y-auto max-h-[50vh] !w-full !max-w-none focus-within:outline-none'

@@ -124,7 +124,7 @@ trait DocumentTrait
         return 1;
     }
 
-    public function generateContent(Request $request, $prompt)
+    public function getContent(Request $request, $prompt)
     {
         $openAI = new OpenAi(config('openai.api_key'));
 
