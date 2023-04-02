@@ -12,7 +12,7 @@ trait HasUuid
         static::creating(function ($model) {
             $columnName = static::getUuidColumn();
 
-            $model->$columnName = Str::uuid4();
+            $model->$columnName = Str::uuid();
         });
     }
 
