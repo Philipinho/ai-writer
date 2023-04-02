@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\DocumentResource;
+use App\Models\Document;
 use App\Traits\DocumentTrait;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use function GuzzleHttp\Promise\all;
 
 class DocumentController extends Controller
 {
@@ -30,7 +33,7 @@ class DocumentController extends Controller
 
         $data = (object)[
             'values' => $values,
-           // 'templates' => $templates,
+            // 'templates' => $templates,
             'categories' => $categories,
             'creativity_levels' => config('completions.creativity_levels'),
             'variations' => config('completions.variations'),
@@ -60,19 +63,19 @@ class DocumentController extends Controller
 
         $input = null;
         $prompt = "Write an answer in {$language}. What is love ";
-/*
-        if ($templates[$request->input('type')]['single_input']) {
-            $input = $request->input($request->input('type') . '_input');
-            $prompt .= sprintf($templates[$request->input('type')]['prompt'], $input);
-        } else {
-            $inputs = [];
-            foreach ($templates[$request->input('type')]['inputs'] as $key => $value) {
-                $inputs[$key] = $request->input($key);
-            }
+        /*
+                if ($templates[$request->input('type')]['single_input']) {
+                    $input = $request->input($request->input('type') . '_input');
+                    $prompt .= sprintf($templates[$request->input('type')]['prompt'], $input);
+                } else {
+                    $inputs = [];
+                    foreach ($templates[$request->input('type')]['inputs'] as $key => $value) {
+                        $inputs[$key] = $request->input($key);
+                    }
 
-            $prompt .= vsprintf($templates[$request->input('type')]['prompt'], array_values($inputs));
-            $input = json_encode($inputs);
-        }*/
+                    $prompt .= vsprintf($templates[$request->input('type')]['prompt'], array_values($inputs));
+                    $input = json_encode($inputs);
+                }*/
 
         try {
             $created = $this->generateContent($request, $prompt);//$this->storeDocument($request, $prompt);
@@ -96,8 +99,62 @@ class DocumentController extends Controller
 
     }
 
-    public function createDocument(){
+    public function createDocument(Request $request)
+    {
+        //get the template key
+        $template = $request->input('template');
+        Log::info($template);
 
+        $doc = Document::create([
+            'user_id' => auth()->user()->id,
+            'name' => now() . " untitled",
+            'content' => 'Hurray!',
+            'template_key' => $template,
+            // 'template_id' => $template,
+            'status' => 1,
+        ]);
+
+        if ($doc) {
+            return to_route('document.edit', $doc->uuid);
+        }
+
+        return "error";
+    }
+
+    public function editDocument(Request $request, $uuid): \Inertia\Response
+    {
+
+        //$template = $request->input('template');
+
+        $document = Document::where('uuid', $uuid)
+            ->where('user_id', auth()->user()->id)
+            ->firstOrFail(); // or redirect the user to homepage
+
+        $categories = config('categories');
+
+        $values = [
+            'name' => $document->name,
+            'template' => $document->template_key,
+            'language' => $request->input('language'), // preserve?
+            'variants' => $request->input('variants', 1),
+            'creativity' => $request->input('creativity', 'original'), // preserve?
+        ];
+
+        $templates = json_decode(Storage::get('templates.json'));
+
+        $data = (object)[
+            'values' => $values,
+            // 'templates' => $templates,
+            'categories' => $categories,
+            'creativity_levels' => config('completions.creativity_levels'),
+            'variations' => config('completions.variations'),
+            'tones' => config('completions.tones'),
+            'languages' => config('completions.languages'),
+        ];
+
+        Log::info("", (array)$data);
+
+        return Inertia::render('Documents/Show', compact('data', 'templates'));
     }
 
     public function update()

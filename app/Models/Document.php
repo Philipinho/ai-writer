@@ -13,6 +13,8 @@ class Document extends Model
     use HasFactory;
     use HasUuid;
 
+    protected $guarded = [''];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name', 255)->nullable();
             $table->longText('content')->nullable();
             $table->bigInteger('word_count')->default(0);
+            $table->string('template_key')->nullable();
 
             // Relationships
             $table->foreignId('user_id')->nullable();

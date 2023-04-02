@@ -1,7 +1,9 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import Welcome from '@/Components/Welcome.vue';
+import { Link } from '@inertiajs/vue3';
 import Stats from '@/Components/Custom/Stats.vue';
+import ButtonIcon from '@/Components/ButtonIcon.vue';
+
 </script>
 
 <template>
@@ -13,7 +15,12 @@ import Stats from '@/Components/Custom/Stats.vue';
         </template>
 
         <div class="py-12">
+
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+                <Link :href="route('document.new')">
+                    <ButtonIcon>Create Document</ButtonIcon>
+                </Link>
 
                     <Stats />
             </div>

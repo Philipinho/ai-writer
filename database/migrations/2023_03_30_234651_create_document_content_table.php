@@ -23,6 +23,7 @@ return new class extends Migration
             // Prompts and metadata
             $table->text('prompt')->nullable();
             $table->text('metadata')->nullable();
+            $table->string('template_key')->nullable();
 
             // Relationships
             $table->foreignId('user_id')->nullable();
