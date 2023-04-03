@@ -69,12 +69,25 @@ export default {
         },
 
         createDocument() {
-            //this.form.processing = true;
+            this.form.processing = true;
             const form = this.$refs.documentCreateForm;
             const formData = this.getFormData(form);
-            console.log('Form data:', formData);
-            console.log('what?')
-            //axios.post(route('document.store')).then(response => {
+
+            console.log(this.data.values.uuid)
+
+
+            axios.post(route('document.generate', [this.data.values.uuid]), formData)
+                .then(response => {
+                    console.log(response.data)
+                    this.$emit('contentReceived', response.data.data.content)
+
+                    this.form.processing = false;
+                }).catch(error => {
+                    console.log("Error:")
+                    console.log(error.response.data)
+                this.form.processing = false;
+            });
+            //axios.post(route('document.update')).then(response => {
             //     console.log(response.data)
             // });
 

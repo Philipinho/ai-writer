@@ -12,6 +12,10 @@ class DocumentContent extends Model
     use HasFactory;
     use HasUuid;
 
+    protected $table = 'document_content';
+
+    protected $guarded = [''];
+
     public function document(): BelongsTo
     {
         return $this->belongsTo(Document::class);

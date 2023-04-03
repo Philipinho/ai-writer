@@ -124,7 +124,7 @@ trait DocumentTrait
         return 1;
     }
 
-    public function getContent(Request $request, $prompt)
+    public function getContent(Request $request, $prompt): array
     {
         $openAI = new OpenAi(config('openai.api_key'));
 
@@ -142,12 +142,12 @@ trait DocumentTrait
             ],
             'temperature' => $request->has('creativity') ? (float)$request->input('creativity') : 0.5,
             'n' => $request->has('variations') ? (float)$request->input('variations') : 1.0,
-            'max_tokens' => 2040,
+            'max_tokens' => 2048,
             'frequency_penalty' => 0,
             'presence_penalty' => 0,
             'user' => 'user' . $request->user()->id
         ]);
 
-        return json_decode($chat_completion);
+        return json_decode($chat_completion, true);
     }
 }

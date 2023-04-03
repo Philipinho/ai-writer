@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\DocumentResource;
 use App\Models\Document;
+use App\Models\DocumentContent;
 use App\Traits\DocumentTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -11,7 +12,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
-use function GuzzleHttp\Promise\all;
 
 class DocumentController extends Controller
 {
@@ -79,7 +79,7 @@ class DocumentController extends Controller
                 }*/
 
         try {
-            $created = $this->getContent($request, $prompt);//$this->storeDocument($request, $prompt);
+            $created = $this->storeDocument($request, $prompt);//$this->storeDocument($request, $prompt);
             if ($created) {
                 Log::info($created);
                 return json_encode($created);
@@ -109,7 +109,7 @@ class DocumentController extends Controller
         $doc = Document::create([
             'user_id' => auth()->user()->id,
             'name' => now() . " untitled",
-            'content' => 'Hurray!',
+            //'content' => '',
             'template_key' => $template,
             // 'template_id' => $template,
             'status' => 1,
@@ -134,6 +134,7 @@ class DocumentController extends Controller
         $categories = config('categories');
 
         $values = [
+            'uuid' => $uuid,
             'name' => $document->name,
             'content' => $document->content,
             'template' => $document->template_key,
@@ -175,8 +176,51 @@ class DocumentController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function generateContent(Request $request, $prompt)
+    public function generate(Request $request, $uuid)
     {
+        // draft idea - WIP
+        // validate request
+        $document = Document::where('uuid', $uuid)
+            ->where('user_id', auth()->user()->id)
+            ->firstOrFail();
+
+        Log::info($uuid);
+        Log::info("Request", $request->all());
+
+        $prompt = "In ten words tell a short story.";
+
+        $response = $this->getContent($request, $prompt);
+
+        $completion = $response['choices'][0]['message']['content'];
+
+        Log::info("message", $response);
+
+        // store the document content, attach it to the main document.
+        $document_content = DocumentContent::create([
+            'content' => $completion,
+            'word_count' => $this->wordCount($completion),
+            'prompt' => $prompt,
+            'metadata' => '',
+            'user_id' => auth()->user()->id,
+            'document_id' => $document->id,//Todo: store uuid
+            //'template_id' => '', //store uuid
+            'template_key' => $request->input('template'),
+        ]);
+
+        $document_content_uuid = $document_content->uuid;
+        $document_content_array = $document_content->toArray();
+        $document_content_array['uuid'] = $document_content_uuid->toString();
+
+        Log::info("prompt: ", $document_content_array);
+
+
+        return response()->json(['success' => true, 'data' => $document_content_array]);
+
+        // update the main document word count?
+        // only update its content from the frontend
+
+        // call  open api
+
         //call the openai for the template with prompt
         // store the content of the api response inside the document_content table with relationships with documents table
         // update word count of the document
@@ -185,7 +229,9 @@ class DocumentController extends Controller
         // append editor with the recent content
         // give user choice to decide whether to auto append new generation or
         // to give them the choice to add or discard response
-        // with the later option, the reponses will be added below the prompt form
+        // with the later option, the responses will be added below the prompt form
+
+        //return response()->json(['success' => true, 'content' => 'This was generated']);
 
     }
 

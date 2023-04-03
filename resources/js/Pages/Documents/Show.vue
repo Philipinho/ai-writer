@@ -16,18 +16,18 @@ export default {
         },
         templates: {
             type: Object,
-        },
-        modelValue: {
-            type: String,
-            default: '',
-        },
+        }
     },
     data() {
         return {
-            inputValue: '',
+            editorContent: '',
         };
     },
-    methods: {},
+    methods: {
+        updateEditorContent(content) {
+            this.editorContent = content;
+        }
+    },
 };
 </script>
 
@@ -46,12 +46,12 @@ export default {
                             <h2 class="font-semibold text-slate-800">Prompt</h2>
                         </header>
                         <div class="grow px-5">
-                            <DocumentsForm :data="data" :templates="templates"></DocumentsForm>
+                            <DocumentsForm @contentReceived="updateEditorContent" :data="data" :templates="templates"></DocumentsForm>
 
                         </div>
                     </div>
 
-                    <div class="flex flex-col col-span-full xl:col-span-7 bg-white shadow-lg rounded-sm border border-slate-200">
+                    <div class="flex flex-col col-span-full xl:col-span-7  ">
                         <header class="px-5 py-4 border-b border-slate-100">
                             <h2 class="font-semibold text-slate-800">Document Editor</h2>
                         </header>
@@ -62,7 +62,7 @@ export default {
                             <div class="grow px-5 pt-3 pb-1">
                                 <div class="overflow-x-auto">
 
-                                    <Tiptap :data="data" />
+                                    <Tiptap :content="editorContent" :data="data" />
 
                                 </div>
                             </div>

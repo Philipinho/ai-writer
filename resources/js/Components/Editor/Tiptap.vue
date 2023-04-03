@@ -13,7 +13,6 @@
             </div>
         </div>
 
-        <div v-html="liveHTML"></div>
         {{ liveHTML }}
 
     </div>
@@ -42,6 +41,18 @@ export default {
     props: {
         data: {
             type: Object,
+        },
+        content: {
+            type: String,
+        }
+    },
+    watch: {
+        content(newContent) {
+            if (newContent) {
+                console.log('new content received');
+                console.log(newContent);
+                this.editor.chain().focus('end').createParagraphNear().insertContent(newContent + "<br \>").run();
+            }
         }
 
     },
@@ -50,7 +61,6 @@ export default {
         return {
             editor: null,
             document_content: this.data.values.content,
-            liveHTML: '',
         }
     },
 
@@ -82,14 +92,16 @@ export default {
                 }),
             ],
             content: this.document_content,
-            onUpdate: ({ editor }) => {
+            onUpdate: ({editor}) => {
                 this.liveHTML = editor.getHTML()
+                // update the document
+                //axios.put()
             },
 
             editorProps: {
                 attributes: {
                     class: 'relative prose prose-sm sm:prose lg:prose-lg px-2 overflow-y-auto max-h-[50vh] !w-full !max-w-none focus-within:outline-none'
-                   // class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none',
+                    // class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none',
                 },
             },
         })
@@ -106,13 +118,13 @@ export default {
 <style lang="scss">
 .editor {
     background-color: #FFF;
-    border: 3px solid #0D0D0D;
+    border: 3px solid #fff;
     border-radius: 0.75rem;
     color: #0D0D0D;
     display: flex;
     flex-direction: column;
-    min-height: 20rem;
-    max-height: 35rem;
+    min-height: 30rem;
+    max-height: 40rem;
 
     &__header {
         align-items: center;
