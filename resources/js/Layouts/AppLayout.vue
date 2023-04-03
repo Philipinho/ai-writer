@@ -4,7 +4,7 @@ import { Head, Link, router } from '@inertiajs/vue3';
 import {Dialog, DialogPanel, Menu, MenuButton, MenuItem, MenuItems, TransitionChild,
     TransitionRoot,} from '@headlessui/vue'
 import {Bars3Icon, BellIcon, CalendarIcon, ChartPieIcon, Cog6ToothIcon, DocumentDuplicateIcon, FolderIcon, HomeIcon,
-    UsersIcon, XMarkIcon,} from '@heroicons/vue/24/outline'
+    UsersIcon, XMarkIcon, Square3Stack3DIcon, DocumentTextIcon} from '@heroicons/vue/24/outline'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 import ApplicationMark from '@/Components/ApplicationMark.vue';
 import DarkMode from "@/Layouts/Partials/DarkMode.vue";
@@ -26,8 +26,8 @@ const switchToTeam = (team) => {
 
 const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: HomeIcon},
-    { name: 'Templates', href: '#', icon: ChartPieIcon},
-    { name: 'Documents', href: '/document', icon: DocumentDuplicateIcon},
+    { name: 'Documents', href: '/document', icon: DocumentTextIcon},
+    { name: 'Templates', href: '/templates', icon: Square3Stack3DIcon},
     { name: 'Projects', href: '#', icon: FolderIcon},
 ]
 const teams = [
@@ -161,11 +161,8 @@ const sidebarOpen = ref(false)
                     <div class="h-6 w-px bg-gray-200 lg:hidden" aria-hidden="true" />
 
                     <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-                        <form class="relative flex flex-1" action="#" method="GET">
-                            <label for="search-field" class="sr-only">Search</label>
-                            <MagnifyingGlassIcon class="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400" aria-hidden="true" />
-                            <input id="search-field" class="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm" placeholder="Search..." type="search" name="search" />
-                        </form>
+                        <div class="relative flex flex-1">
+                        </div>
 
                         <div class="flex items-center gap-x-4 lg:gap-x-6">
                             <DarkMode/>
@@ -207,6 +204,13 @@ const sidebarOpen = ref(false)
                 </div>
                 </div>
             </div>
+
+            <!-- Page Heading -->
+            <header v-if="$slots.header" class="">
+                <div class="mx-auto py-4 px-4 sm:px-6 lg:px-8">
+                    <slot name="header" />
+                </div>
+            </header>
 
             <main class="py-10">
                 <div class="mx-auto px-4 sm:px-6 lg:px-8">

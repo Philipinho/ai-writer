@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\TemplateController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -43,5 +44,8 @@ Route::middleware([
 
     Route::post('/document/store', [DocumentController::class, 'store'])->name('document.store');
     Route::post('/document/{uuid}/generate', [DocumentController::class, 'generate'])->name('document.generate');
+
+    // Templates
+    Route::get('/templates', [TemplateController::class, 'index'])->name('templates');
 
 });
