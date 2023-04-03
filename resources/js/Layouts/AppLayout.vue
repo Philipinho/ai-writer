@@ -26,7 +26,7 @@ const switchToTeam = (team) => {
 
 const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: HomeIcon},
-    { name: 'Documents', href: '/document', icon: DocumentTextIcon},
+    { name: 'Documents', href: '/documents', icon: DocumentTextIcon},
     { name: 'Templates', href: '/templates', icon: Square3Stack3DIcon},
     { name: 'Projects', href: '#', icon: FolderIcon},
 ]

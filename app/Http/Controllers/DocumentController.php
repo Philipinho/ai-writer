@@ -17,6 +17,15 @@ class DocumentController extends Controller
 {
     use DocumentTrait;
 
+    public function index()
+    {
+        $documents = Document::where('user_id', auth()->user()->id)
+            ->select('uuid', 'name', 'template_key', 'favorite','created_at','updated_at')
+            ->get();
+
+        return Inertia::render('Documents/Index', ['documents' => $documents]);
+    }
+
     public function show(Request $request): \Inertia\Response
     {
 
