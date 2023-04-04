@@ -58,59 +58,6 @@ class DocumentController extends Controller
         return Inertia::render('Documents/Show', compact('data', 'templates'));
     }
 
-    public function store(Request $request)
-    {
-
-        $request->validate([
-            'name' => 'required|string',
-            'type' => 'required|string',
-        ]);
-
-        $templates = json_decode(Storage::get('templates.json'));
-        $categories = config('categories');
-
-        $language = $request->input('language');
-
-        // TODO: validate max words
-
-        $input = null;
-        $prompt = "Write an answer in {$language}. What is love ";
-        /*
-                if ($templates[$request->input('type')]['single_input']) {
-                    $input = $request->input($request->input('type') . '_input');
-                    $prompt .= sprintf($templates[$request->input('type')]['prompt'], $input);
-                } else {
-                    $inputs = [];
-                    foreach ($templates[$request->input('type')]['inputs'] as $key => $value) {
-                        $inputs[$key] = $request->input($key);
-                    }
-
-                    $prompt .= vsprintf($templates[$request->input('type')]['prompt'], array_values($inputs));
-                    $input = json_encode($inputs);
-                }*/
-
-        try {
-            $created = $this->storeDocument($request, $prompt);//$this->storeDocument($request, $prompt);
-            if ($created) {
-                Log::info($created);
-                return json_encode($created);
-                //return DocumentResource::make($created);
-            }
-        } catch (\Exception $e) {
-            Log::error("Documents store error:  {$e}");
-            return response()->json([
-                'message' => __('An unexpected error has occurred, please try again.'),
-                'status' => 500
-            ], 500);
-        }
-
-        return response()->json([
-            'message' => __('Resource not found.'),
-            'status' => 404
-        ], 404);
-
-    }
-
     public function createDocument(Request $request)
     {
         //get the template key
@@ -210,51 +157,37 @@ class DocumentController extends Controller
 
     public function generate(Request $request, $uuid)
     {
-        // draft idea - WIP
-        // validate request
         $document = Document::where('uuid', $uuid)
             ->where('user_id', auth()->user()->id)
             ->firstOrFail();
 
-        Log::info("Request", $request->all());
-
         $template_key = $request->input('template');
 
         $template_data = Template::where('key', $template_key)->first();
-        Log::info($template_data);
 
+        Log::info("Prompt: ". $template_data->prompt);
 
-        $template_prompt = $template_data->prompt;
-        Log::info($template_prompt);
+        $inputLabelsData = $request->input('inputLabels');
+        $inputArrays = [];
 
+        foreach ($inputLabelsData as $key => $value) {
+            $inputArrays[$key] = $value;
+        }
 
+        $full_prompt = __($template_data->prompt, $inputArrays);
 
-        $prompt = "In ten words tell a short story.";
+        Log::info($full_prompt);
 
-
-        /*
-         * Instead of using %s and sprintf, use :placeholder.
-         * The placeholder will match with what we have in the form.
-         *
-         *
-         *
-         */
-
-
-
-
-
-        $response = $this->getContent($request, $prompt);
+        $response = $this->getContent($request, $full_prompt);
 
         $completion = $response['choices'][0]['message']['content'];
-
-        Log::info("message", $response);
+        // Log::info("message", $response);
 
         // store the document content, attach it to the main document.
         $document_content = DocumentContent::create([
             'content' => $completion,
             'word_count' => $this->wordCount($completion),
-            'prompt' => $prompt,
+            'prompt' => $full_prompt,
             'metadata' => '',
             'user_id' => auth()->user()->id,
             'document_id' => $document->id,//Todo: store uuid
@@ -266,27 +199,15 @@ class DocumentController extends Controller
         $document_content_array = $document_content->toArray();
         $document_content_array['uuid'] = $document_content_uuid->toString();
 
-        Log::info("prompt: ", $document_content_array);
-
-
         return response()->json(['success' => true, 'data' => $document_content_array]);
 
-        // update the main document word count?
-        // only update its content from the frontend
-
-        // call  open api
-
-        //call the openai for the template with prompt
         // store the content of the api response inside the document_content table with relationships with documents table
         // update word count of the document
         // return json response of the open api single response and multi response array
 
-        // append editor with the recent content
         // give user choice to decide whether to auto append new generation or
         // to give them the choice to add or discard response
         // with the later option, the responses will be added below the prompt form
-
-        //return response()->json(['success' => true, 'content' => 'This was generated']);
 
     }
 
