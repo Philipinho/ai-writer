@@ -290,9 +290,15 @@ class DocumentController extends Controller
 
     }
 
-    public function delete()
+    public function delete($uuid)
     {
+        $document = Document::where('uuid', $uuid)
+            ->where('user_id', auth()->user()->id)
+            ->firstOrFail();
 
+        $document->delete();
+
+        return response()->json(['success' => true, 'message' => 'deleted']);
     }
 
 }

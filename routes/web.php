@@ -45,6 +45,8 @@ Route::middleware([
     Route::post('/document/store', [DocumentController::class, 'store'])->name('document.store');
     Route::post('/document/{uuid}/generate', [DocumentController::class, 'generate'])->name('document.generate');
 
+    Route::delete('/document/{uuid}/delete', [DocumentController::class, 'delete'])->name('document.delete');
+
     // Templates
     Route::get('/templates', [TemplateController::class, 'index'])->name('templates');
 

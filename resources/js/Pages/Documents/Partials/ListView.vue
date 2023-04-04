@@ -79,7 +79,7 @@
 
                                                     <div class="border-t border-gray-200 dark:border-gray-600"/>
 
-                                                    <DropdownLink href="">
+                                                    <DropdownLink @click="deleteDocument(document.uuid)">
                                                         Delete
                                                     </DropdownLink>
                                                 </div>
@@ -116,7 +116,19 @@ export default {
     methods: {
         rowClicked(document) {
             router.visit(route('document.edit', document.uuid))
+        },
+
+        deleteDocument(uuid){
+            if (confirm('Are you sure you want to delete this document?')) {
+                axios.delete(route('document.delete', [uuid]))
+                    .then(response => {
+                        //
+                    }).catch(error => {
+                    // capture error
+                });
+            }
         }
+
     }
 }
 </script>
