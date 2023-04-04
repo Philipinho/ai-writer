@@ -26,9 +26,10 @@ import Highlight from '@tiptap/extension-highlight'
 import TaskItem from '@tiptap/extension-task-item'
 import TaskList from '@tiptap/extension-task-list'
 import Placeholder from '@tiptap/extension-placeholder'
+import debounce from 'debounce'
 
 
-import MenuBar from './MenuBar.vue'
+import MenuBar from '@/Components/Editor/MenuBar.vue'
 
 export default {
     components: {
@@ -49,9 +50,8 @@ export default {
     watch: {
         content(newContent) {
             if (newContent) {
-                console.log('new content received');
-                console.log(newContent);
                 this.editor.chain().focus('end').createParagraphNear().insertContent(newContent + "<br \>").run();
+                this.editor.chain().focus().scrollIntoView().run();
             }
         }
 
@@ -61,7 +61,20 @@ export default {
         return {
             editor: null,
             document_content: this.data.values.content,
+            debouncedUpdateContent: debounce(this.updateContent, 1000),
         }
+    },
+
+    methods: {
+        updateContent(content){
+
+            axios.post(route('document.update', [this.data.values.uuid]), { content: content, action: 'update_content' })
+                .then(response => {
+                    console.log(response.data)
+                }).catch(error => {
+                console.log(error.response.data)
+            });
+        },
     },
 
     computed: {
@@ -93,9 +106,9 @@ export default {
             ],
             content: this.document_content,
             onUpdate: ({editor}) => {
-                this.liveHTML = editor.getHTML()
+                this.liveHTML = editor.getText();
                 // update the document
-                //axios.put()
+                this.debouncedUpdateContent(editor.getHTML());
             },
 
             editorProps: {
@@ -106,8 +119,6 @@ export default {
             },
         })
     },
-
-    methods: {},
 
     beforeUnmount() {
         this.editor.destroy()

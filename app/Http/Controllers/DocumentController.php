@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class DocumentController extends Controller
@@ -169,18 +170,39 @@ class DocumentController extends Controller
         return Inertia::render('Documents/Show', compact('data', 'templates'));
     }
 
-    public function updateDocument($uuid)
+    public function updateDocument($uuid, Request $request)
     {
         $document = Document::where('uuid', $uuid)
             ->where('user_id', auth()->user()->id)
             ->firstOrFail();
 
-        $document->update([
-            'name' => '',
-            'content' => '',
-            'word_count' => '',
-            'template_key' => ''
+        $action = $request->input('action');
+
+        // Validate the request based on the action
+        $request->validate([
+            'action' => [
+                'required',
+                Rule::in(['update_content', 'update_name']),
+            ],
+            'content' => [
+                'required_if:action,update_content',
+                'string',
+            ],
+            'name' => [
+                'required_if:action,update_name',
+                'string',
+            ],
         ]);
+
+        if ($action === 'update_content') {
+            $content = $request->input('content');
+            $document->update(['content' => $content]);
+        }
+
+        if ($action === 'update_name') {
+            $name = $request->input('name');
+            $document->update(['name' => $name]);
+        }
 
         return response()->json(['success' => true]);
     }

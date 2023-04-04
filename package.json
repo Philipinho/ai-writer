@@ -32,6 +32,7 @@
         "@tiptap/pm": "^2.0.1",
         "@tiptap/starter-kit": "^2.0.1",
         "@tiptap/vue-3": "^2.0.1",
+        "debounce": "^1.2.1",
         "remixicon": "^3.0.0"
     }
 }
