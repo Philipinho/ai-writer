@@ -59,10 +59,21 @@ export default {
         },
 
         getFormData(form) {
-            const formData = {};
-            for (const input of form.elements) {
-                if (input.tagName === 'BUTTON') continue; // Skip buttons
-                formData[input.name] = input.value;
+            const formData = {
+                inputLabels: {},
+            };
+            // Create a Set containing the names of fields in selectedFields
+            const selectedFieldNames = new Set(this.selectedFields.map(field => field.name));
+
+            // Loop through all input elements in the form
+            for (const inputElement of form.elements) {
+                if (inputElement.tagName === 'BUTTON') continue; // Skip buttons
+                // If the input element's name is in selectedFieldNames, add it to the 'inputLabels' node
+                if (selectedFieldNames.has(inputElement.name)) {
+                    formData.inputLabels[inputElement.name] = inputElement.value;
+                } else {
+                    formData[inputElement.name] = inputElement.value;
+                }
             }
             return formData;
         },
@@ -72,24 +83,15 @@ export default {
             const form = this.$refs.documentCreateForm;
             const formData = this.getFormData(form);
 
-            console.log(this.data.values.uuid)
-
-
             axios.post(route('document.generate', [this.data.values.uuid]), formData)
                 .then(response => {
-                    console.log(response.data)
                     this.$emit('contentReceived', response.data.data.content)
-
                     this.form.processing = false;
                 }).catch(error => {
                     console.log("Error:")
                     console.log(error.response.data)
                 this.form.processing = false;
             });
-            //axios.post(route('document.update')).then(response => {
-            //     console.log(response.data)
-            // });
-
         }
     }
 };
@@ -97,7 +99,7 @@ export default {
 
 
 <template>
-    <form v-if="selectedKey" ref="documentCreateForm" id="document_create" @submit.prevent="createDocument()">
+    <form v-if="selectedKey" ref="documentCreateForm" @submit.prevent="createDocument()">
         <div class="space-y-12">
             <div class="border-b border-gray-900/10 pb-5">
                 <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
