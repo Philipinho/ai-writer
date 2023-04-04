@@ -40,7 +40,7 @@ Route::middleware([
     // create new doc with template id passed?
     Route::get('/document/new', [DocumentController::class, 'createDocument'])->name('document.new');
     Route::get('/document/{uuid}', [DocumentController::class, 'editDocument'])->name('document.edit');
-    Route::post('/document/{uuid}/update', [DocumentController::class, 'updateDocument'])->name('document.update');
+    Route::put('/document/{uuid}/update', [DocumentController::class, 'updateDocument'])->name('document.update');
 
     Route::post('/document/store', [DocumentController::class, 'store'])->name('document.store');
     Route::post('/document/{uuid}/generate', [DocumentController::class, 'generate'])->name('document.generate');

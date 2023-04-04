@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\DocumentResource;
 use App\Models\Document;
 use App\Models\DocumentContent;
+use App\Models\Template;
 use App\Traits\DocumentTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -215,10 +216,33 @@ class DocumentController extends Controller
             ->where('user_id', auth()->user()->id)
             ->firstOrFail();
 
-        Log::info($uuid);
         Log::info("Request", $request->all());
 
+        $template_key = $request->input('template');
+
+        $template_data = Template::where('key', $template_key)->first();
+        Log::info($template_data);
+
+
+        $template_prompt = $template_data->prompt;
+        Log::info($template_prompt);
+
+
+
         $prompt = "In ten words tell a short story.";
+
+
+        /*
+         * Instead of using %s and sprintf, use :placeholder.
+         * The placeholder will match with what we have in the form.
+         *
+         *
+         *
+         */
+
+
+
+
 
         $response = $this->getContent($request, $prompt);
 

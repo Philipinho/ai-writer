@@ -1,9 +1,8 @@
 <script>
 import {reactive, ref} from 'vue';
-import {Link, router, useForm} from '@inertiajs/vue3';
+import {useForm} from '@inertiajs/vue3';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 
 export default {
@@ -102,20 +101,6 @@ export default {
         <div class="space-y-12">
             <div class="border-b border-gray-900/10 pb-5">
                 <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-
-                    <div class="sm:col-span-4">
-                        <InputLabel for="document_title" value="Name"/>
-
-                        <TextInput
-                            id="document_title"
-                            name="document_title"
-                            v-model="form.name"
-                            type="text"
-                            class="mt-1 block w-full"
-                            placeholder="e.g ad copy"
-                        />
-
-                    </div>
 
                     <div class="sm:col-span-4">
                         <label for="type" class="block text-sm font-medium leading-6 text-gray-900">Type</label>

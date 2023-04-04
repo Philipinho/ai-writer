@@ -12,9 +12,6 @@
                 {{ editor.storage.characterCount.words() }} words
             </div>
         </div>
-
-        {{ liveHTML }}
-
     </div>
 </template>
 
@@ -68,7 +65,7 @@ export default {
     methods: {
         updateContent(content){
 
-            axios.post(route('document.update', [this.data.values.uuid]), { content: content, action: 'update_content' })
+            axios.put(route('document.update', [this.data.values.uuid]), { content: content, action: 'update_content' })
                 .then(response => {
                     console.log(response.data)
                 }).catch(error => {
@@ -78,13 +75,6 @@ export default {
     },
 
     computed: {
-        liveHTML() {
-            if (this.editor) {
-                return this.editor.getHTML()
-            }
-            return ''
-        },
-
     },
 
     mounted() {
@@ -106,7 +96,6 @@ export default {
             ],
             content: this.document_content,
             onUpdate: ({editor}) => {
-                this.liveHTML = editor.getText();
                 // update the document
                 this.debouncedUpdateContent(editor.getHTML());
             },
@@ -126,7 +115,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .editor {
     background-color: #FFF;
     border: 3px solid #fff;

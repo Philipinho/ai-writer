@@ -2,12 +2,18 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Tiptap from "@/Components/Editor/Tiptap.vue";
 import DocumentsForm from "@/Pages/Documents/Partials/DocumentsForm.vue";
+import InputLabel from '@/Components/InputLabel.vue';
+import TextInput from '@/Components/TextInput.vue';
+import debounce from 'debounce'
+
 
 export default {
     components: {
         AppLayout,
         Tiptap,
-        DocumentsForm
+        DocumentsForm,
+        InputLabel,
+        TextInput,
     },
     props: {
         data: {
@@ -21,9 +27,22 @@ export default {
     data() {
         return {
             editorContent: '',
+            documentName: this.data.values.name,
+            debouncedUpdateDocumentName: debounce(this.updateDocumentName, 500),
         };
     },
+    watch: {
+        documentName(newName){
+            console.log(`Input value changed to ${newName}`);
+            this.debouncedUpdateDocumentName(newName);
+        }
+
+    },
     methods: {
+        updateDocumentName(newName) {
+            axios.put(route('document.update', [this.data.values.uuid]), { name: newName, action: 'update_name' });
+        },
+
         updateEditorContent(content) {
             this.editorContent = content;
         }
@@ -52,6 +71,19 @@ export default {
                     </div>
 
                     <div class="flex flex-col col-span-full xl:col-span-7  ">
+
+                        <div class="sm:col-span-4">
+                            <InputLabel for="document_title" value="Name"/>
+
+                            <TextInput
+                                name="document_title"
+                                v-model="documentName"
+                                type="text"
+                                class="mt-1 block w-full"
+                                placeholder="e.g ad copy"
+                            />
+
+                        </div>
                         <header class="px-5 py-4 border-b border-slate-100">
                             <h2 class="font-semibold text-slate-800">Document Editor</h2>
                         </header>
