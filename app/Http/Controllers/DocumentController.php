@@ -6,7 +6,6 @@ use App\Http\Resources\DocumentResource;
 use App\Models\Document;
 use App\Models\DocumentContent;
 use App\Models\Template;
-use App\Traits\DocumentTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,10 +13,10 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
+use Orhanerday\OpenAi\OpenAi;
 
 class DocumentController extends Controller
 {
-    use DocumentTrait;
 
     public function index()
     {
@@ -157,11 +156,15 @@ class DocumentController extends Controller
 
     public function generate(Request $request, $uuid)
     {
+        //Todo: validate fields
+
         $document = Document::where('uuid', $uuid)
             ->where('user_id', auth()->user()->id)
             ->firstOrFail();
 
         $template_key = $request->input('template');
+        $tone = $request->input('tone');
+        $language = $request->input('language');
 
         $template_data = Template::where('key', $template_key)->first();
 
@@ -175,18 +178,22 @@ class DocumentController extends Controller
         }
 
         $full_prompt = __($template_data->prompt, $inputArrays);
+        // Todo: add language option
+        // append tone.
 
         Log::info($full_prompt);
 
-        $response = $this->getContent($request, $full_prompt);
+        $response = $this->getCompletions($request, $full_prompt);
 
         $completion = $response['choices'][0]['message']['content'];
         // Log::info("message", $response);
 
+        //$document->template_id = optional(Template::where('key', $template_key)->first())->id;
+
         // store the document content, attach it to the main document.
         $document_content = DocumentContent::create([
             'content' => $completion,
-            'word_count' => $this->wordCount($completion),
+            'word_count' => $this->getWordCount($completion),
             'prompt' => $full_prompt,
             'metadata' => '',
             'user_id' => auth()->user()->id,
@@ -194,6 +201,8 @@ class DocumentController extends Controller
             //'template_id' => '', //store uuid
             'template_key' => $request->input('template'),
         ]);
+
+
 
         $document_content_uuid = $document_content->uuid;
         $document_content_array = $document_content->toArray();
@@ -220,6 +229,53 @@ class DocumentController extends Controller
         $document->delete();
 
         return response()->json(['success' => true, 'message' => 'deleted']);
+    }
+
+    public function getCompletions(Request $request, $prompt): array
+    {
+        $openAI = new OpenAi(config('openai.api_key'));
+
+        $chat_completion = $openAI->chat([
+            'model' => config('openai.model'),
+            'messages' => [
+                [
+                    "role" => "system",
+                    "content" => "You are a helpful assistant."
+                ],
+                [
+                    'role' => 'user',
+                    'content' => $prompt
+                ]
+            ],
+            'temperature' => $request->has('creativity') ? (float)$request->input('creativity') : 0.5,
+            'n' => $request->has('variations') ? (float)$request->input('variations') : 1.0,
+            'max_tokens' => 2048,
+            'frequency_penalty' => 0,
+            'presence_penalty' => 0,
+            'user' => 'user' . $request->user()->id
+        ]);
+
+        return json_decode($chat_completion, true);
+    }
+
+
+    public function getWordCount($content){
+        $words = array_filter(explode(' ', preg_replace('/[^\w]/ui', ' ', mb_strtolower(trim($content)))));
+        $wordsCount = 0;
+        foreach ($words as $word) {
+            $wordsCount += $this->wordCount($word);
+        }
+        return round($wordsCount);
+    }
+
+    private function wordCount($word)
+    {
+        foreach (config('completions.ratios') as $ratio) {
+            if (preg_match('/\p{' . implode('}|\p{', $ratio['scripts']) . '}/u', $word)) {
+                return mb_strlen($word) * $ratio['value'];
+            }
+        }
+        return 1;
     }
 
 }

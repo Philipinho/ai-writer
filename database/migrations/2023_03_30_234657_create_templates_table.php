@@ -14,7 +14,6 @@ return new class extends Migration {
         Schema::create('templates', function (Blueprint $table) {
             $table->increments('id');
             $table->uuid();
-            $table->foreignId('user_id')->nullable();
             $table->foreignId('category_id')->nullable();
             $table->string('name', 128);
             $table->string('key', 128);
@@ -23,6 +22,7 @@ return new class extends Migration {
             $table->text('prompt')->nullable();
             $table->text('icon')->nullable();
             $table->string('color')->nullable();
+            //$table->smallInteger('priority')->default(1);
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
