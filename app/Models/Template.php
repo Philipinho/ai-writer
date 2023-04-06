@@ -13,6 +13,10 @@ class Template extends Model
     use HasFactory;
     use HasUuid;
 
+    protected $guarded = ['prompt'];
+
+    protected $hidden = ['id','user_id', 'prompt', 'created_at', 'updated_at'];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -27,4 +31,10 @@ class Template extends Model
     {
         return $this->hasMany(Document::class);
     }
+
+    public function fields(): HasMany
+    {
+        return $this->hasMany(Field::class);
+    }
+
 }

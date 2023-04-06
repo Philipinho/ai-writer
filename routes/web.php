@@ -50,4 +50,20 @@ Route::middleware([
     // Templates
     Route::get('/templates', [TemplateController::class, 'index'])->name('templates');
 
+    Route::get('/templates/list', [TemplateController::class, 'list'])->name('templates.list');
+
+    Route::get('/templates/create', [TemplateController::class, 'create'])->name('templates.create');
+    Route::post('/templates/store', [TemplateController::class, 'store'])->name('templates.store');
+
+
+    Route::put('/templates/{id}/update', [TemplateController::class, 'update'])->name('templates.update');
+
+    Route::get('/templates/{id}/edit', [TemplateController::class, 'edit'])->name('templates.edit');
+
+    Route::get('/templates/mass-edit', [TemplateController::class, 'massEdit'])->name('templates.mass-edit');
+    Route::put('/templates/mass-update', [TemplateController::class, 'massUpdate'])->name('templates.mass-update');
+
+
+
+
 });

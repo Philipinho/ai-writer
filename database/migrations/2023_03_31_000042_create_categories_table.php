@@ -16,11 +16,10 @@ return new class extends Migration {
             $table->string('name');
             $table->string('key')->nullable();
             $table->string('slug')->nullable();
-            $table->string('description', 500)->nullable();
+            $table->text('description')->nullable();
             $table->text('icon')->nullable();
             $table->string('color')->nullable();
-            $table->string('background_color')->nullable();
-            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
 

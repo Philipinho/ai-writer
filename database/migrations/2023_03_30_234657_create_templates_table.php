@@ -16,13 +16,13 @@ return new class extends Migration {
             $table->uuid();
             $table->foreignId('category_id')->nullable();
             $table->string('name', 128);
-            $table->string('key', 128);
+            $table->string('key', 128)->unique();
             $table->string('slug', 64)->unique()->nullable();
             $table->text('description')->nullable();
             $table->text('prompt')->nullable();
             $table->text('icon')->nullable();
             $table->string('color')->nullable();
-            //$table->smallInteger('priority')->default(1);
+            $table->tinyInteger('order');
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
