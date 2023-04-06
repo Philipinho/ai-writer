@@ -82,8 +82,6 @@ class DocumentController extends Controller
     public function editDocument(Request $request, $uuid): \Inertia\Response
     {
 
-        //$template = $request->input('template');
-
         $document = Document::where('uuid', $uuid)
             ->where('user_id', auth()->user()->id)
             ->firstOrFail(); // or redirect the user to homepage
@@ -104,7 +102,6 @@ class DocumentController extends Controller
 
         $data = (object)[
             'values' => $values,
-            // 'templates' => $templates,
             'categories' => $categories,
             'creativity_levels' => config('completions.creativity_levels'),
             'variations' => config('completions.variations'),
@@ -201,8 +198,6 @@ class DocumentController extends Controller
             //'template_id' => '', //store uuid
             'template_key' => $request->input('template'),
         ]);
-
-
 
         $document_content_uuid = $document_content->uuid;
         $document_content_array = $document_content->toArray();

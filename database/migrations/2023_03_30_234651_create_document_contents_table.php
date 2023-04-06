@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('document_content', function (Blueprint $table) {
+        Schema::create('document_contents', function (Blueprint $table) {
             $table->id();
             $table->uuid();
 
             // Basic information
-            $table->string('name', 255)->nullable();
+            $table->string('name')->nullable();
             $table->longText('content')->nullable();
             $table->integer('word_count')->default(0);
 
@@ -30,11 +30,10 @@ return new class extends Migration
             $table->foreignId('document_id')->nullable();
             $table->foreignId('template_id')->nullable();
 
-
             // Status and flags
             $table->tinyInteger('is_saved')->default(0);
             $table->tinyInteger('favorite')->default(false);
-            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('status')->default(1);
 
             // Timestamps and soft deletes
             $table->softDeletes();
@@ -48,6 +47,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('document_content');
+        Schema::dropIfExists('document_contents');
     }
 };

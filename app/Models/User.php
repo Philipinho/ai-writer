@@ -66,4 +66,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Document::class);
     }
+
+    public function favoriteTemplates()
+    {
+        return $this->belongsToMany(Template::class, 'user_favorite_template');
+    }
 }

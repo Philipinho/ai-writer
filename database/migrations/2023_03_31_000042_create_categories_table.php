@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->text('description')->nullable();
             $table->text('icon')->nullable();
             $table->string('color')->nullable();
-            $table->tinyInteger('status')->default(1);
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
 

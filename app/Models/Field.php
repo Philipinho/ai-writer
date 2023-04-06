@@ -10,7 +10,7 @@ class Field extends Model
     use HasFactory;
 
     protected $fillable = [
-        'template_id', 'label', 'optional', 'name', 'placeholder', 'type','order', 'maxLength'
+        'template_id', 'label', 'optional', 'name', 'placeholder', 'type', 'tooltip','order', 'minLength', 'maxLength'
     ];
 
     public function templates()

@@ -11,23 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-
-        Schema::create('fields', function (Blueprint $table) {
+        Schema::create('folders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('template_id')->onDelete('cascade');
-            $table->string('label');
+            $table->uuid();
+            $table->foreignId('user_id')->onDelete('cascade');
             $table->string('name');
-            $table->boolean('required')->default(true);
-            $table->text('placeholder')->nullable();
-            $table->string('type');
-            $table->text('tooltip')->nullable();
+            $table->text('icon')->nullable();
+            $table->string('color')->nullable();
             $table->smallInteger('order')->nullable();
-            $table->integer('minLength')->nullable();
-            $table->integer('maxLength')->nullable();
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->timestamps();
-
         });
-
     }
 
     /**
@@ -35,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fields');
+        Schema::dropIfExists('folders');
     }
 };

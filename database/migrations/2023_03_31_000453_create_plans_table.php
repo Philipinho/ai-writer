@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 255);
             $table->text('description')->nullable();
+            $table->text('features')->nullable();
             $table->integer('trial_days')->nullable();
             $table->string('currency', 12);
             $table->text('coupons')->nullable();
@@ -22,8 +23,7 @@ return new class extends Migration
             $table->string('amount_month', 32)->nullable()->default('0');
             $table->string('amount_year', 32)->nullable()->default('0');
             $table->tinyInteger('visibility')->nullable();
-            $table->unsignedInteger('position')->nullable()->default(0);
-            $table->text('features')->nullable();
+            $table->unsignedInteger('order')->nullable()->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

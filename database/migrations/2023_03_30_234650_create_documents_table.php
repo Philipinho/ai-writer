@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->uuid()->nullable();
+            $table->uuid();
 
             // Basic information
-            $table->string('name', 255)->nullable();
+            $table->string('name')->nullable();
             $table->longText('content')->nullable();
             $table->bigInteger('word_count')->default(0);
             $table->string('template_key')->nullable();
@@ -28,8 +28,9 @@ return new class extends Migration
             $table->foreignId('tag_id')->nullable();
 
             // Status and flags
+            $table->smallInteger('order')->nullable();
             $table->tinyInteger('favorite')->default(0);
-            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('status')->default(1);
 
             // Timestamps and soft deletes
             $table->softDeletes();

@@ -22,9 +22,9 @@ class Template extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function category(): BelongsTo
+    public function categories()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsToMany(Category::class);
     }
 
     public function documents(): HasMany
@@ -35,6 +35,11 @@ class Template extends Model
     public function fields(): HasMany
     {
         return $this->hasMany(Field::class);
+    }
+
+    public function usersWhoFavorited()
+    {
+        return $this->belongsToMany(User::class, 'user_favorite_template');
     }
 
 }
