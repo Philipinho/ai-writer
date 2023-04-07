@@ -13,9 +13,9 @@ return new class extends Migration {
 
         Schema::create('templates', function (Blueprint $table) {
             $table->id();
-            $table->uuid();
+            $table->uuid()->index();
             $table->foreignId('category_id')->nullable();
-            $table->string('key')->unique();
+            $table->string('key')->index()->unique();
             $table->string('name');
             $table->string('slug')->unique()->nullable();
             $table->text('description')->nullable();

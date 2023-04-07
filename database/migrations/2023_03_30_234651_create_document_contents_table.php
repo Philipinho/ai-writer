@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('document_contents', function (Blueprint $table) {
             $table->id();
-            $table->uuid();
+            $table->uuid()->index();
 
             // Basic information
             $table->text('content')->nullable();
