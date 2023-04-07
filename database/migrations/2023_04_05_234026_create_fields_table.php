@@ -14,16 +14,17 @@ return new class extends Migration
 
         Schema::create('fields', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('template_id')->onDelete('cascade');
+            $table->foreignId('template_id')->constrained()->cascadeOnDelete();
             $table->string('label');
             $table->string('name');
+            $table->string('type');
             $table->boolean('required')->default(true);
             $table->text('placeholder')->nullable();
-            $table->string('type');
             $table->text('tooltip')->nullable();
             $table->smallInteger('order')->nullable();
             $table->integer('minLength')->nullable();
             $table->integer('maxLength')->nullable();
+            $table->boolean('show')->default(true)->nullable();
             $table->timestamps();
 
         });

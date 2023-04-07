@@ -12,19 +12,23 @@ return new class extends Migration {
     {
 
         Schema::create('templates', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->uuid();
             $table->foreignId('category_id')->nullable();
-            $table->string('name');
             $table->string('key')->unique();
+            $table->string('name');
             $table->string('slug')->unique()->nullable();
             $table->text('description')->nullable();
             $table->text('prompt')->nullable();
             $table->text('tooltip')->nullable();
             $table->text('icon')->nullable();
             $table->string('color')->nullable();
+            $table->boolean('beta')->default(false);
+            $table->boolean('premium_only')->default(true);
+            $table->boolean('recommended')->default(false);
+            $table->boolean('custom')->default(false);
             $table->smallInteger('order');
-            $table->tinyInteger('status')->default(0);
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
 

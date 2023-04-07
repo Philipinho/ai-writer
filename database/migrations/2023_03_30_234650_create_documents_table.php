@@ -22,17 +22,17 @@ return new class extends Migration
             $table->string('template_key')->nullable();
 
             // Relationships
-            $table->foreignId('user_id')->nullable();
+            //$table->foreignId('user_id')->nullable();
+            $table->foreignId('team_id')->constrained()->cascadeOnDelete();
             $table->foreignId('template_id')->nullable();
             $table->foreignId('folder_id')->nullable();
             $table->foreignId('tag_id')->nullable();
 
             // Status and flags
             $table->smallInteger('order')->nullable();
-            $table->tinyInteger('favorite')->default(0);
+            $table->boolean('favorite')->default(false);
             $table->tinyInteger('status')->default(1);
 
-            // Timestamps and soft deletes
             $table->softDeletes();
             $table->timestamps();
         });

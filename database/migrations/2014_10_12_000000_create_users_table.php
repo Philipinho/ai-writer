@@ -29,6 +29,7 @@ return new class extends Migration
             $table->bigInteger('documents_total_count')->default(0);
             $table->integer('words_month_count')->default(0);
             $table->bigInteger('words_total_count')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

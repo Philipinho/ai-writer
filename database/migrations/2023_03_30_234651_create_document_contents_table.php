@@ -16,23 +16,22 @@ return new class extends Migration
             $table->uuid();
 
             // Basic information
-            $table->string('name')->nullable();
-            $table->longText('content')->nullable();
+            $table->text('content')->nullable();
             $table->integer('word_count')->default(0);
 
             // Prompts and metadata
             $table->text('prompt')->nullable();
             $table->text('metadata')->nullable();
-            $table->string('template_key')->nullable();
-
             // Relationships
-            $table->foreignId('user_id')->nullable();
             $table->foreignId('document_id')->nullable();
             $table->foreignId('template_id')->nullable();
+            $table->string('template_key')->nullable();
+            //$table->foreignId('user_id')->nullable();
+            $table->foreignId('team_id')->constrained()->cascadeOnDelete();
 
             // Status and flags
-            $table->tinyInteger('is_saved')->default(0);
-            $table->tinyInteger('favorite')->default(false);
+            $table->boolean('saved')->default(0);
+            $table->boolean('favorite')->default(false);
             $table->tinyInteger('status')->default(1);
 
             // Timestamps and soft deletes

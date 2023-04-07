@@ -14,12 +14,14 @@ return new class extends Migration
         Schema::create('folders', function (Blueprint $table) {
             $table->id();
             $table->uuid();
-            $table->foreignId('user_id')->onDelete('cascade');
+            $table->unsignedBigInteger('parent_id')->nullable();
+            //$table->foreignId('user_id');
+            $table->foreignId('team_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->text('icon')->nullable();
             $table->string('color')->nullable();
             $table->smallInteger('order')->nullable();
-            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
