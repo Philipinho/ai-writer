@@ -18,7 +18,7 @@ use Orhanerday\OpenAi\OpenAi;
 class DocumentController extends Controller
 {
 
-    public function index()
+    public function index(): \Inertia\Response
     {
         $documents = Document::where('user_id', auth()->user()->id)
             ->select('uuid', 'name', 'template_key', 'favorite','created_at','updated_at')
@@ -57,11 +57,10 @@ class DocumentController extends Controller
         return Inertia::render('Documents/Show', compact('data', 'templates'));
     }
 
-    public function createDocument(Request $request)
+    public function createDocument(Request $request): string|\Illuminate\Http\RedirectResponse
     {
         //get the template key
         $template = $request->input('template');
-        Log::info($template);
 
         $doc = Document::create([
             'user_id' => auth()->user()->id,
@@ -114,7 +113,7 @@ class DocumentController extends Controller
         return Inertia::render('Documents/Show', compact('data', 'templates'));
     }
 
-    public function updateDocument($uuid, Request $request)
+    public function updateDocument($uuid, Request $request): \Illuminate\Http\JsonResponse
     {
         $document = Document::where('uuid', $uuid)
             ->where('user_id', auth()->user()->id)
@@ -151,7 +150,7 @@ class DocumentController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function generate(Request $request, $uuid)
+    public function generate(Request $request, $uuid): \Illuminate\Http\JsonResponse
     {
         //Todo: validate fields
 
@@ -215,7 +214,7 @@ class DocumentController extends Controller
 
     }
 
-    public function delete($uuid)
+    public function delete($uuid): \Illuminate\Http\JsonResponse
     {
         $document = Document::where('uuid', $uuid)
             ->where('user_id', auth()->user()->id)
@@ -254,7 +253,8 @@ class DocumentController extends Controller
     }
 
 
-    public function getWordCount($content){
+    public function getWordCount($content): float|int
+    {
         $words = array_filter(explode(' ', preg_replace('/[^\w]/ui', ' ', mb_strtolower(trim($content)))));
         $wordsCount = 0;
         foreach ($words as $word) {
@@ -263,7 +263,7 @@ class DocumentController extends Controller
         return round($wordsCount);
     }
 
-    private function wordCount($word)
+    private function wordCount($word): float|int
     {
         foreach (config('completions.ratios') as $ratio) {
             if (preg_match('/\p{' . implode('}|\p{', $ratio['scripts']) . '}/u', $word)) {

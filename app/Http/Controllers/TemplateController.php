@@ -15,7 +15,7 @@ use League\Csv\Statement;
 class TemplateController extends Controller
 {
 
-    public function index()
+    public function index(): \Inertia\Response
     {
         $templates = Template::where('status', 1)
             ->select('uuid', 'name', 'key', 'description', 'icon', 'category_id')
@@ -37,18 +37,18 @@ class TemplateController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(): \Inertia\Response
     {
         return Inertia::render('Templates/Create');
     }
 
-    public function edit($id)
+    public function edit($id): \Inertia\Response
     {
         $template = Template::with('fields')->findOrFail($id);
         return Inertia::render('Templates/Edit', ['template' => $template]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): \Illuminate\Http\JsonResponse
     {
         $template = Template::findOrFail($id);
 
@@ -84,13 +84,13 @@ class TemplateController extends Controller
     }
 
 
-    public function massEdit()
+    public function massEdit(): \Inertia\Response
     {
         $templates = Template::with('fields')->get();
         return Inertia::render('Templates/MassEdit', ['templates' => $templates]);
     }
 
-    public function massUpdate(Request $request)
+    public function massUpdate(Request $request): \Illuminate\Http\JsonResponse
     {
         Log::info($request->input('templates'));
         $request->validate([
@@ -129,7 +129,7 @@ class TemplateController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $request->validate([
             'name' => 'required|string',
