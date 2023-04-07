@@ -48,7 +48,7 @@ Route::middleware([
     Route::delete('/document/{uuid}/delete', [DocumentController::class, 'delete'])->name('document.delete');
 
     // Templates
-    Route::get('/templates', [TemplateController::class, 'index'])->name('templates');
+    Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
 
     Route::get('/templates/list', [TemplateController::class, 'list'])->name('templates.list');
 
@@ -63,7 +63,7 @@ Route::middleware([
     Route::get('/templates/mass-edit', [TemplateController::class, 'massEdit'])->name('templates.mass-edit');
     Route::put('/templates/mass-update', [TemplateController::class, 'massUpdate'])->name('templates.mass-update');
 
-
-
+    Route::post('/templates/upload', [TemplateController::class, 'importFile'])->name('templates.import.upload');
+    Route::get('/templates/import', [TemplateController::class, 'import'])->name('templates.import');
 
 });

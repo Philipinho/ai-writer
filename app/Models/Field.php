@@ -13,6 +13,8 @@ class Field extends Model
         'template_id', 'label', 'optional', 'name', 'placeholder', 'type', 'tooltip','order', 'minLength', 'maxLength'
     ];
 
+    protected $hidden = ['id', 'template_id','created_at', 'updated_at'];
+
     public function templates()
     {
         return $this->belongsTo(Template::class);

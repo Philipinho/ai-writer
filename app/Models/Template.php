@@ -13,9 +13,9 @@ class Template extends Model
     use HasFactory;
     use HasUuid;
 
-    protected $guarded = ['prompt'];
+    protected $guarded = [''];
 
-    protected $hidden = ['id','user_id', 'prompt', 'created_at', 'updated_at'];
+    protected $hidden = ['id','uuid', 'user_id', 'prompt', 'created_at', 'updated_at'];
 
     public function user(): BelongsTo
     {
