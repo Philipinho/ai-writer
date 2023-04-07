@@ -26,7 +26,7 @@ class TemplateController extends Controller
 
     public function delete()
     {
-
+        
     }
 
     public function list()

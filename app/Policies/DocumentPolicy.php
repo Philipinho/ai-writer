@@ -4,8 +4,6 @@ namespace App\Policies;
 
 use App\Models\Document;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
-use Illuminate\Support\Facades\Log;
 
 class DocumentPolicy
 {
@@ -38,9 +36,11 @@ class DocumentPolicy
      */
     public function update(User $user, Document $document): bool
     {
-        $isInSameTeam = $user->currentTeam->id === $document->team_id;
-        $canUpdate = $user->ownsTeam($user->currentTeam) || $user->hasTeamRole($user->currentTeam, 'editor');
-        return $isInSameTeam && $canUpdate;
+        $teamHasActiveSubscription = $user->currentTeam->subscribed('default');
+
+        $userIsAuthorized = $user->ownsTeam($user->currentTeam) || $user->hasTeamRole($user->currentTeam, 'editor');
+
+        return $teamHasActiveSubscription && $userIsAuthorized;
     }
 
     /**
