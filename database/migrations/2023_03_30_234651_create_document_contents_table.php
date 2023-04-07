@@ -26,7 +26,7 @@ return new class extends Migration
             $table->foreignId('document_id')->nullable();
             $table->foreignId('template_id')->nullable();
             $table->string('template_key')->nullable();
-            //$table->foreignId('user_id')->nullable();
+            $table->foreignId('user_id')->nullable();
             $table->foreignId('team_id')->constrained()->cascadeOnDelete();
 
             // Status and flags

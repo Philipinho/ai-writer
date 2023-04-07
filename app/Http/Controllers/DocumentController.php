@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\DocumentResource;
 use App\Models\Document;
 use App\Models\DocumentContent;
 use App\Models\Template;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -20,9 +19,12 @@ class DocumentController extends Controller
 
     public function index(): \Inertia\Response
     {
-        $documents = Document::where('user_id', auth()->user()->id)
-            ->select('uuid', 'name', 'template_key', 'favorite','created_at','updated_at')
-            ->get();
+        $documents = auth()->user()->currentTeam->documents()
+            ->select('team_id','uuid', 'name', 'template_key', 'favorite', 'created_at', 'updated_at')
+            ->get()
+            ->filter(function ($document) {
+                return auth()->user()->can('view', $document);
+            });
 
         return Inertia::render('Documents/Index', ['documents' => $documents]);
     }
@@ -52,38 +54,40 @@ class DocumentController extends Controller
             'languages' => config('completions.languages'),
         ];
 
-        Log::info("", (array)$data);
-
         return Inertia::render('Documents/Show', compact('data', 'templates'));
     }
 
-    public function createDocument(Request $request): string|\Illuminate\Http\RedirectResponse
+    public function createDocument(Request $request)
     {
-        //get the template key
+        // Check if the user is authorized to create a document
+        if (!Gate::allows('create', Document::class)) {
+            return response("Unauthorized", 403);
+        }
+
+        // Get the template key
         $template = $request->input('template');
 
+        // Create the document
         $doc = Document::create([
             'user_id' => auth()->user()->id,
+            'team_id' => auth()->user()->currentTeam->id,
             'name' => now() . " untitled",
-            //'content' => '',
             'template_key' => $template,
-            // 'template_id' => $template,
             'status' => 1,
         ]);
 
         if ($doc) {
-            return to_route('document.edit', $doc->uuid);
+            return redirect()->route('document.edit', $doc->uuid);
         }
 
-        return "error";
+        return response("error", 500);
     }
 
-    public function editDocument(Request $request, $uuid): \Inertia\Response
+    public function editDocument(Request $request, $uuid):  \Illuminate\Http\RedirectResponse|\Inertia\Response
     {
-
         $document = Document::where('uuid', $uuid)
-            ->where('user_id', auth()->user()->id)
-            ->firstOrFail(); // or redirect the user to homepage
+            ->where('team_id', auth()->user()->currentTeam->id)
+            ->firstOrFail();
 
         $categories = config('categories');
 
@@ -108,15 +112,14 @@ class DocumentController extends Controller
             'languages' => config('completions.languages'),
         ];
 
-        Log::info("", (array)$data);
-
         return Inertia::render('Documents/Show', compact('data', 'templates'));
     }
 
     public function updateDocument($uuid, Request $request): \Illuminate\Http\JsonResponse
     {
+
         $document = Document::where('uuid', $uuid)
-            ->where('user_id', auth()->user()->id)
+            ->where('team_id', auth()->user()->currentTeam->id)
             ->firstOrFail();
 
         $action = $request->input('action');
@@ -153,9 +156,8 @@ class DocumentController extends Controller
     public function generate(Request $request, $uuid): \Illuminate\Http\JsonResponse
     {
         //Todo: validate fields
-
         $document = Document::where('uuid', $uuid)
-            ->where('user_id', auth()->user()->id)
+            ->where('team_id', auth()->user()->currentTeam->id)
             ->firstOrFail();
 
         $template_key = $request->input('template');
@@ -182,19 +184,17 @@ class DocumentController extends Controller
         $response = $this->getCompletions($request, $full_prompt);
 
         $completion = $response['choices'][0]['message']['content'];
-        // Log::info("message", $response);
-
-        //$document->template_id = optional(Template::where('key', $template_key)->first())->id;
 
         // store the document content, attach it to the main document.
         $document_content = DocumentContent::create([
             'content' => $completion,
             'word_count' => $this->getWordCount($completion),
             'prompt' => $full_prompt,
-            'metadata' => '',
+            'metadata' => json_encode($request->all()),
             'user_id' => auth()->user()->id,
-            'document_id' => $document->id,//Todo: store uuid
-            //'template_id' => '', //store uuid
+            'team_id' => auth()->user()->currentTeam->id,
+            'document_id' => $document->id,
+            'template_id' => optional(Template::where('key', $template_key)->first())->id,
             'template_key' => $request->input('template'),
         ]);
 
@@ -204,8 +204,6 @@ class DocumentController extends Controller
 
         return response()->json(['success' => true, 'data' => $document_content_array]);
 
-        // store the content of the api response inside the document_content table with relationships with documents table
-        // update word count of the document
         // return json response of the open api single response and multi response array
 
         // give user choice to decide whether to auto append new generation or
@@ -217,12 +215,20 @@ class DocumentController extends Controller
     public function delete($uuid): \Illuminate\Http\JsonResponse
     {
         $document = Document::where('uuid', $uuid)
-            ->where('user_id', auth()->user()->id)
+            ->where('team_id', auth()->user()->currentTeam->id)
             ->firstOrFail();
 
         $document->delete();
 
         return response()->json(['success' => true, 'message' => 'deleted']);
+    }
+
+    protected function permissionsCheck(Document $document): ?\Illuminate\Http\JsonResponse
+    {
+        if (!$document || !auth()->user()->can('update', $document)) {
+            return response()->json(['success' => false]);
+        }
+        return null;
     }
 
     public function getCompletions(Request $request, $prompt): array
@@ -251,7 +257,6 @@ class DocumentController extends Controller
 
         return json_decode($chat_completion, true);
     }
-
 
     public function getWordCount($content): float|int
     {

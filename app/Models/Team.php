@@ -43,4 +43,19 @@ class Team extends JetstreamTeam
         'updated' => TeamUpdated::class,
         'deleted' => TeamDeleted::class,
     ];
+
+    public function documents()
+    {
+        return $this->hasMany(Document::class);
+    }
+
+    public function documentContents()
+    {
+        return $this->hasMany(DocumentContent::class);
+    }
+
+    public function favoriteTemplates()
+    {
+        return $this->belongsToMany(Template::class, 'favorite_template');
+    }
 }

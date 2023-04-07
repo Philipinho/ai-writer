@@ -27,7 +27,7 @@ return new class extends Migration {
             $table->boolean('premium_only')->default(true);
             $table->boolean('recommended')->default(false);
             $table->boolean('custom')->default(false);
-            $table->smallInteger('order');
+            $table->smallInteger('order')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
         });
