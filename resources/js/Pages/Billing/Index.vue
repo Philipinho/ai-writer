@@ -1,6 +1,6 @@
 <script>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import Plans from '@/Pages/Subscription/Partials/Plans.vue';
+import Plans from '@/Pages/Billing/Partials/Plans.vue';
 
 export default {
     components: {

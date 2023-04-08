@@ -92,15 +92,15 @@ export default {
     data() {
         return {
             frequencies: [
-                { key:'monthly_id', value: 'monthly', label: 'Monthly', priceSuffix: '/month' },
-                { key:'yearly_id', value: 'annually', label: 'Annually', priceSuffix: '/year' }
+                {value: 'monthly', label: 'Monthly', priceSuffix: '/month' },
+                {value: 'yearly', label: 'Yearly', priceSuffix: '/year' }
             ],
             frequency: null
         };
     },
     methods: {
         subscribe(plan, frequency){
-            const price_id = plan[frequency.key]
+            const price_id = plan[frequency.value + '_id']
 
             axios.post(route('checkout'), {plan: plan.name, price_id: price_id})
                 .then(response => {

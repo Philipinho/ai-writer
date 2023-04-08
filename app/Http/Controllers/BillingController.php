@@ -20,8 +20,11 @@ class BillingController extends Controller
     public function checkout(Request $request): JsonResponse
     {
 
+        Log::info($request);
+
         $checkout = $request->user()->currentTeam
             ->newSubscription($request->input('plan'), $request->input('price_id'))
+            ->allowPromotionCodes()
             ->checkout([
                 'success_url' => route('dashboard'),
                 'cancel_url' => route('billing')

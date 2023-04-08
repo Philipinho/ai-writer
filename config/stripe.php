@@ -9,8 +9,8 @@ return [
         [
             'name' => 'Basic',
             'description' => 'Basic is right.',
-            'monthly_id' => env('basic_monthly_id', 'price_1MuHWOARjxFKY8qXD2mRcv5n'),
-            'yearly_id' => env('basic_yearly_id', 'price_1MuHWOARjxFKY8qXsDGsrMzI'),
+            'monthly_id' => env('BASIC_MONTHLY_ID', 'price_1MuHWOARjxFKY8qXD2mRcv5n'),
+            'yearly_id' => env('BASIC_YEARLY_ID', 'price_1MuHWOARjxFKY8qXsDGsrMzI'),
             'seats' => '2',
             'word_limit' => '50000',
             'credits' => '50000',
@@ -32,8 +32,8 @@ return [
         [
             'name' => 'Standard',
             'description' => 'Standard is right.',
-            'monthly_id' => env('standard_monthly_id','price_1MuMMzARjxFKY8qXcZijigqm'),
-            'yearly_id' => env('standard_yearly_id','price_1MuMMzARjxFKY8qXeU0D0x77'),
+            'monthly_id' => env('STANDARD_MONTHLY_ID','price_1MuMMzARjxFKY8qXcZijigqm'),
+            'yearly_id' => env('STANDARD_YEARLY_ID','price_1MuMMzARjxFKY8qXeU0D0x77'),
             'seats' => '5',
             'word_limit' => '100000',
             'credits' => '100000',
