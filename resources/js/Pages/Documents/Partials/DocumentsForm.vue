@@ -49,7 +49,7 @@ export default {
     },
     methods: {
         getDefaultSelectedKey() {
-            const defaultKey = "Summarize";
+            const defaultKey = "summarize";
 
             // Check if the provided template key exists in the templates array
             const templateExists = this.templates.data.some((item) => item.key === this.data.values.template);
@@ -83,7 +83,7 @@ export default {
             const form = this.$refs.documentCreateForm;
             const formData = this.getFormData(form);
 
-            axios.post(route('document.generate', [this.data.values.uuid]), formData)
+            axios.post(route('documents.generate', [this.data.values.uuid]), formData)
                 .then(response => {
                     this.$emit('contentReceived', response.data.data.content)
                     this.form.processing = false;

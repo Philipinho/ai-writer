@@ -20,7 +20,7 @@ import ButtonIcon from '@/Components/ButtonIcon.vue';
 
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-                <Link :href="route('document.new')">
+                <Link :href="route('documents.create')">
                     <ButtonIcon>Create Document</ButtonIcon>
                 </Link>
 

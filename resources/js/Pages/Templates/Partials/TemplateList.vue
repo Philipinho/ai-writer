@@ -52,7 +52,7 @@ export default {
             <li v-for="template in filteredTemplates"
                 class="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow">
 
-                <a :href="route('document.new', {'template': template.key})"
+                <a :href="route('documents.create', {'template': template.key})"
                    class="flex w-full items-center justify-between space-x-6 p-6">
                     <div class="flex-1 truncate">
                         <div class="flex items-center space-x-3">

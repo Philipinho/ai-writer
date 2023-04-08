@@ -23,7 +23,7 @@
                                 </th>
                             </tr>
                             </thead>
-                            <!--<a :href="route('document.edit', document.uuid)"></a>-->
+                            <!--<a :href="route('documents.edit', document.uuid)"></a>-->
                             <tbody class="divide-y divide-gray-200 bg-white">
 
                             <tr v-for="document in filteredDocuments"
@@ -115,12 +115,12 @@ export default {
     },
     methods: {
         rowClicked(document) {
-            router.visit(route('document.edit', document.uuid))
+            router.visit(route('documents.edit', document.uuid))
         },
 
         deleteDocument(uuid){
             if (confirm('Are you sure you want to delete this document?')) {
-                axios.delete(route('document.delete', [uuid]))
+                axios.delete(route('documents.delete', [uuid]))
                     .then(response => {
                         //
                     }).catch(error => {

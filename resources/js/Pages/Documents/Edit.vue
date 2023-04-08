@@ -40,7 +40,7 @@ export default {
     },
     methods: {
         updateDocumentName(newName) {
-            axios.put(route('document.update', [this.data.values.uuid]), { name: newName, action: 'update_name' });
+            axios.put(route('documents.update', [this.data.values.uuid]), { name: newName, action: 'update_name' });
         },
 
         updateEditorContent(content) {

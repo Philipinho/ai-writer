@@ -41,7 +41,7 @@ export default {
         <div class="sm:flex sm:items-center">
 
             <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                <Link :href="route('document.new')">
+                <Link :href="route('documents.create')">
                     <ButtonIcon>Create Document</ButtonIcon>
                 </Link>
             </div>

@@ -3,7 +3,7 @@
         <li v-for="document in filteredDocuments"
             class="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow">
 
-            <a :href="route('document.edit', document.uuid)"
+            <a :href="route('documents.edit', document.uuid)"
                class="flex w-full items-center justify-between space-x-6 p-6">
                 <div class="flex-1 truncate">
                     <div class="flex items-center space-x-3">

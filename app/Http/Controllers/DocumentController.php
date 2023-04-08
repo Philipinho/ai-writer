@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Orhanerday\OpenAi\OpenAi;
@@ -54,7 +55,7 @@ class DocumentController extends Controller
             'languages' => config('completions.languages'),
         ];
 
-        return Inertia::render('Documents/Show', compact('data', 'templates'));
+        return Inertia::render('Documents/Edit', compact('data', 'templates'));
     }
 
     public function createDocument(Request $request)
@@ -77,7 +78,7 @@ class DocumentController extends Controller
         ]);
 
         if ($doc) {
-            return redirect()->route('document.edit', $doc->uuid);
+            return redirect()->route('documents.edit', $doc->uuid);
         }
 
         return response("error", 500);
@@ -112,7 +113,7 @@ class DocumentController extends Controller
             'languages' => config('completions.languages'),
         ];
 
-        return Inertia::render('Documents/Show', compact('data', 'templates'));
+        return Inertia::render('Documents/Edit', compact('data', 'templates'));
     }
 
     public function updateDocument($uuid, Request $request): \Illuminate\Http\JsonResponse
@@ -187,7 +188,7 @@ class DocumentController extends Controller
 
         // store the document content, attach it to the main document.
         $document_content = DocumentContent::create([
-            'content' => $completion,
+            'content' => nl2br($completion), // TODO: fix editor line breaks
             'word_count' => $this->getWordCount($completion),
             'prompt' => $full_prompt,
             'metadata' => json_encode($request->all()),

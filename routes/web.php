@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\BillingController;
 use App\Http\Controllers\TemplateController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -35,17 +36,17 @@ Route::middleware([
 
     Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
-    Route::get('documents', [DocumentController::class, 'index'])->name('document.list');
+    Route::get('documents', [DocumentController::class, 'index'])->name('documents.list');
 
     // create new doc with template id passed?
-    Route::get('/document/new', [DocumentController::class, 'createDocument'])->name('document.new');
-    Route::get('/document/{uuid}', [DocumentController::class, 'editDocument'])->name('document.edit');
-    Route::put('/document/{uuid}/update', [DocumentController::class, 'updateDocument'])->name('document.update');
+    Route::get('/documents/new', [DocumentController::class, 'createDocument'])->name('documents.create');
+    Route::get('/documents/{uuid}', [DocumentController::class, 'editDocument'])->name('documents.edit');
+    Route::put('/documents/{uuid}/update', [DocumentController::class, 'updateDocument'])->name('documents.update');
 
-    Route::post('/document/store', [DocumentController::class, 'store'])->name('document.store');
-    Route::post('/document/{uuid}/generate', [DocumentController::class, 'generate'])->name('document.generate');
+    Route::post('/documents/store', [DocumentController::class, 'store'])->name('documents.store');
+    Route::post('/documents/{uuid}/generate', [DocumentController::class, 'generate'])->name('documents.generate');
 
-    Route::delete('/document/{uuid}/delete', [DocumentController::class, 'delete'])->name('document.delete');
+    Route::delete('/documents/{uuid}/delete', [DocumentController::class, 'delete'])->name('documents.delete');
 
     // Templates
     Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
@@ -65,5 +66,13 @@ Route::middleware([
 
     Route::post('/templates/upload', [TemplateController::class, 'importFile'])->name('templates.import.upload');
     Route::get('/templates/import', [TemplateController::class, 'import'])->name('templates.import');
+
+    Route::get('/settings/billing', [BillingController::class, 'index'])->name('billing');
+    Route::get('/subscription', [BillingController::class, 'subscription'])->name('subscription');
+
+    Route::post('/billing/checkout', [BillingController::class, 'checkout'])->name('checkout');
+
+    Route::get('/billing/portal', [BillingController::class, 'billingPortal'])->name('billing.portal');
+
 
 });

@@ -65,7 +65,7 @@ export default {
     methods: {
         updateContent(content){
 
-            axios.put(route('document.update', [this.data.values.uuid]), { content: content, action: 'update_content' })
+            axios.put(route('documents.update', [this.data.values.uuid]), { content: content, action: 'update_content' })
                 .then(response => {
                     console.log(response.data)
                 }).catch(error => {
