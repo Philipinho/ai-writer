@@ -33,7 +33,7 @@ class BillingController extends Controller
             ->newSubscription($request->input('plan'), $request->input('price_id'))
             ->allowPromotionCodes()
             ->checkout([
-                'success_url' => route('dashboard'),
+                'success_url' => route('billing'),
                 'cancel_url' => route('billing')
             ]);
 
@@ -42,7 +42,7 @@ class BillingController extends Controller
 
     public function billingPortal(Request $request)
     {
-        return $request->user()->currentTeam->redirectToBillingPortal(route('dashboard'));
+        return $request->user()->currentTeam->redirectToBillingPortal(route('billing'));
     }
 
 }

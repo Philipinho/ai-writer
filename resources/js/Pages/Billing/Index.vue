@@ -2,12 +2,14 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Plans from '@/Pages/Billing/Partials/Plans.vue';
 import Stats from '@/Pages/Billing/Partials/Stats.vue';
+import Manage from "@/Pages/Billing/Partials/Manage.vue";
 
 export default {
     components: {
+        Manage,
         AppLayout,
         Plans,
-        Stats
+        Stats,
     },
     props: {
         plans: Object,
@@ -27,6 +29,8 @@ export default {
         </template>
 
         <Stats :credits="credits" v-if="subscribed"/>
+
+        <Manage v-if="subscribed"/>
 
         <Plans :plans="plans" v-if="!subscribed"/>
 
