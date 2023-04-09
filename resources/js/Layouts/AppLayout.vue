@@ -1,6 +1,6 @@
 <script setup>
 import {ref} from 'vue'
-import {Head, Link, router} from '@inertiajs/vue3';
+import {Head, Link, router, usePage} from '@inertiajs/vue3';
 import {
     Dialog, DialogPanel, Menu, MenuButton, MenuItem, MenuItems, TransitionChild,
     TransitionRoot,
@@ -12,6 +12,10 @@ import {
 import {ChevronDownIcon, ChevronUpDownIcon, MagnifyingGlassIcon} from '@heroicons/vue/20/solid'
 import ApplicationMark from '@/Components/ApplicationMark.vue';
 import DarkMode from "@/Layouts/Partials/DarkMode.vue";
+
+
+
+
 
 defineProps({
     title: String,
@@ -27,6 +31,9 @@ const switchToTeam = (team) => {
         preserveState: false,
     });
 };
+const { props } = usePage()
+
+console.log(props.auth.user.current_team)
 
 const navigation = [
     {name: 'Dashboard', href: '/dashboard', icon: HomeIcon},
@@ -36,7 +43,7 @@ const navigation = [
 ]
 const teams = [
     {id: 1, name: 'Billing', href: '/settings/billing', initial: 'B'},
-    {id: 2, name: 'Neuron Labs', href: '#', initial: 'T'},
+    {id: 2, name: 'Manage Team', href: '/teams/' + props.auth.user.current_team.id, initial : 'T'},
 ]
 
 const userNavigation = [
@@ -98,7 +105,7 @@ const sidebarOpen = ref(false)
                                         </li>
 
                                         <li>
-                                            <div class="text-xs font-semibold leading-6 text-gray-400">Your teams</div>
+                                            <div class="text-xs font-semibold leading-6 text-gray-400">Workspace</div>
                                             <ul role="list" class="-mx-2 mt-2 space-y-1">
                                                 <li v-for="team in teams" :key="team.name">
                                                     <Link :href="team.href"
@@ -157,7 +164,7 @@ const sidebarOpen = ref(false)
                         </li>
 
                         <li>
-                            <div class="text-xs font-semibold leading-6 text-gray-400">Your teams</div>
+                            <div class="text-xs font-semibold leading-6 text-gray-400">Workspace</div>
                             <ul role="list" class="-mx-2 mt-2 space-y-1">
                                 <li v-for="team in teams" :key="team.name">
                                     <Link :href="team.href"
@@ -172,7 +179,7 @@ const sidebarOpen = ref(false)
                         </li>
 
 
-                        <li v-if="$page.props.jetstream.hasTeamFeatures" >
+                        <li v-if="$page.props.jetstream.hasTeamFeatures && $page.props.jetstream.canCreateTeams" >
                             <!-- User account dropdown -->
                             <Menu as="div" class="relative inline-block px-3 text-left">
                                 <div>
