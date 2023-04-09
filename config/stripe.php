@@ -9,8 +9,8 @@ return [
         [
             'name' => 'Basic',
             'description' => 'Basic is right.',
-            'monthly_id' => env('BASIC_MONTHLY_ID', 'price_1MuHWOARjxFKY8qXD2mRcv5n'),
-            'yearly_id' => env('BASIC_YEARLY_ID', 'price_1MuHWOARjxFKY8qXsDGsrMzI'),
+            'monthly_id' => env('BASIC_MONTHLY_ID', 'price_1MuHWOARjxFKY8qXsDGsrMzI'),
+            'yearly_id' => env('BASIC_YEARLY_ID', 'price_1MuHWOARjxFKY8qXD2mRcv5n'),
             'seats' => '2',
             'word_limit' => '50000',
             'credits' => '50000',
