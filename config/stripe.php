@@ -21,7 +21,7 @@ return [
             'price' =>
                 [
                     'monthly' => '$10',
-                    'annually' => '$100'
+                    'yearly' => '$100'
                 ],
             'features' => [
                 '50,000 Credits',
@@ -44,7 +44,7 @@ return [
             'price' =>
                 [
                     'monthly' => '$29',
-                    'annually' => '$299'
+                    'yearly' => '$299'
                 ],
             'features' => [
                 '100,000 Credits',

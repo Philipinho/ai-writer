@@ -21,7 +21,7 @@ return new class extends Migration
 
             // Prompts and metadata
             $table->text('prompt')->nullable();
-            $table->text('metadata')->nullable();
+            $table->json('metadata')->nullable();
             // Relationships
             $table->foreignId('document_id')->nullable();
             $table->foreignId('template_id')->nullable();

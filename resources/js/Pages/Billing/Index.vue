@@ -1,14 +1,18 @@
 <script>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Plans from '@/Pages/Billing/Partials/Plans.vue';
+import Stats from '@/Pages/Billing/Partials/Stats.vue';
 
 export default {
     components: {
         AppLayout,
-        Plans
+        Plans,
+        Stats
     },
     props: {
         plans: Object,
+        credits: Object,
+        subscribed: Boolean
     },
 }
 
@@ -22,10 +26,9 @@ export default {
             </h2>
         </template>
 
-        <div>
+        <Stats :credits="credits" v-if="subscribed"/>
 
-            <Plans :plans="plans"/>
+        <Plans :plans="plans" v-if="!subscribed"/>
 
-        </div>
     </AppLayout>
 </template>

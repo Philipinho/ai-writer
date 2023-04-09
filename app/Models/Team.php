@@ -60,4 +60,10 @@ class Team extends JetstreamTeam
     {
         return $this->belongsToMany(Template::class, 'favorite_template');
     }
+
+    public function teamCredits()
+    {
+        return $this->hasOne(TeamCredit::class);
+    }
+
 }

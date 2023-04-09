@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->text('description')->nullable();
             $table->text('prompt')->nullable();
             $table->text('tooltip')->nullable();
-            $table->text('icon')->nullable();
+            $table->string('icon', 2048)->nullable();
             $table->string('color')->nullable();
             $table->boolean('beta')->default(false);
             $table->boolean('premium_only')->default(true);

@@ -18,7 +18,7 @@ return new class extends Migration
             //$table->foreignId('user_id');
             $table->foreignId('team_id')->constrained()->cascadeOnDelete();
             $table->string('name');
-            $table->text('icon')->nullable();
+            $table->string('icon', 2048)->nullable();
             $table->string('color')->nullable();
             $table->smallInteger('order')->nullable();
             $table->softDeletes();
