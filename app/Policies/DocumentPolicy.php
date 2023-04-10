@@ -28,7 +28,19 @@ class DocumentPolicy
      */
     public function create(User $user): bool
     {
+        // check if user has credit and its not expired
         return $user->ownsTeam($user->currentTeam) || $user->hasTeamRole($user->currentTeam, 'editor');
+    }
+
+    /**
+     * Determine whether the user has valid credits and can generate new content.
+     */
+    public function generate(User $user)
+    {
+        $team = $user->currentTeam;
+        $teamCredits = $team->teamCredits;
+        // Check if the user's team has valid credits
+        return $teamCredits && $teamCredits->credits > 0 && $teamCredits->expiration_date->isFuture();
     }
 
     /**
@@ -36,11 +48,9 @@ class DocumentPolicy
      */
     public function update(User $user, Document $document): bool
     {
-        $teamHasActiveSubscription = $user->currentTeam->subscribed('default');
+       // $teamHasActiveSubscription = $user->currentTeam->subscribed('default');
 
-        $userIsAuthorized = $user->ownsTeam($user->currentTeam) || $user->hasTeamRole($user->currentTeam, 'editor');
-
-        return $teamHasActiveSubscription && $userIsAuthorized;
+        return $user->ownsTeam($user->currentTeam) || $user->hasTeamRole($user->currentTeam, 'editor');
     }
 
     /**
@@ -66,4 +76,5 @@ class DocumentPolicy
     {
         //
     }
+
 }

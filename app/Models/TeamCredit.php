@@ -16,4 +16,29 @@ class TeamCredit extends Model
     {
         return $this->belongsTo(Team::class);
     }
+
+    public function getCreditStats()
+    {
+        $totalCredits = $this->original_plan_credits;// + $this->free_credits;
+        $creditsLeft = $this->credits;
+        $creditsUsed = $totalCredits - $creditsLeft;
+
+        // Calculate the percentage values
+        if ($totalCredits > 0) {
+            $percentUsed = ($creditsUsed / $totalCredits) * 100;
+            $percentLeft = ($creditsLeft / $totalCredits) * 100;
+        } else {
+            // When there are no total credits, set percentages to zero
+            $percentUsed = 0;
+            $percentLeft = 0;
+        }
+
+        return (object) [
+            'credits_left' => $creditsLeft,
+            'credits_used' => $creditsUsed,
+            'percent_used' => $percentUsed,
+            'percent_left' => $percentLeft,
+        ];
+    }
+
 }

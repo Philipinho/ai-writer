@@ -33,7 +33,7 @@ class PaymentsListener
         }
     }
 
-    public function handleSubscriptionCreated($data)
+    public function handleSubscriptionCreated($data): \Illuminate\Http\JsonResponse
     {
         try {
             $stripeCustomerId = $data['data']['object']['customer'];
@@ -52,14 +52,16 @@ class PaymentsListener
                 if ($billingInterval === 'year') {
                     $newPlanCredits *= 12;
                 }
+                // TODO: link with subscription_id
 
                 $team->teamCredits()->firstOrCreate(
                     ['team_id' => $team->id],
                     [
-                        'subscription_plan' => $plan_name,
+                        'plan' => $plan_name,
                         'credits' => $newPlanCredits,
                         'original_plan_credits' => $newPlanCredits,
                         'interval' => $billingInterval,
+                        'start_date' => Carbon::now(),
                         'expiration_date' => Carbon::createFromTimestamp($currentPeriodEnd),
                     ]
                 );
