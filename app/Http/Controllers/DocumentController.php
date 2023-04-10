@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Document;
 use App\Models\DocumentContent;
 use App\Models\Template;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -21,7 +22,7 @@ class DocumentController extends Controller
     public function index(): \Inertia\Response
     {
         $documents = auth()->user()->currentTeam->documents()
-            ->select('team_id','uuid', 'name', 'template_key', 'favorite', 'created_at', 'updated_at')
+            ->select('team_id', 'uuid', 'name', 'template_key', 'favorite', 'created_at', 'updated_at')
             ->get()
             ->filter(function ($document) {
                 return auth()->user()->can('view', $document);
@@ -84,7 +85,7 @@ class DocumentController extends Controller
         return response("error", 500);
     }
 
-    public function editDocument(Request $request, $uuid):  \Illuminate\Http\RedirectResponse|\Inertia\Response
+    public function editDocument(Request $request, $uuid): \Illuminate\Http\RedirectResponse|\Inertia\Response
     {
         $document = Document::where('uuid', $uuid)
             ->where('team_id', auth()->user()->currentTeam->id)
@@ -154,9 +155,14 @@ class DocumentController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function generate(Request $request, $uuid): \Illuminate\Http\JsonResponse
+    public function generate(Request $request, $uuid)
     {
         $team = auth()->user()->currentTeam;
+
+        if (!auth()->user()->can('creditCheck', $team)) {
+            return response()->json(['success' => false, 'message' => 'Credit limits reached.'], 429);
+        }
+
         //Todo: validate fields
         $document = Document::where('uuid', $uuid)
             ->where('team_id', $team->id)
@@ -168,7 +174,7 @@ class DocumentController extends Controller
 
         $template_data = Template::where('key', $template_key)->first();
 
-        Log::info("Prompt: ". $template_data->prompt);
+        Log::info("Prompt: " . $template_data->prompt);
 
         $inputLabelsData = $request->input('inputLabels');
         $inputArrays = [];
@@ -186,7 +192,7 @@ class DocumentController extends Controller
         $response = $this->getCompletions($request, $full_prompt);
 
         $completion = $response['choices'][0]['message']['content'];
-        $wordCount =  $this->getWordCount($completion);
+        $wordCount = $this->getWordCount($completion);
 
         // store the document content, attach it to the main document.
         $document_content = DocumentContent::create([

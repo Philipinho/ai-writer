@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Log;
 
 class TeamPolicy
 {
@@ -72,5 +73,11 @@ class TeamPolicy
     public function delete(User $user, Team $team): bool
     {
         return $user->ownsTeam($team);
+    }
+
+    public function creditCheck(User $user, Team $team): bool
+    {
+        $teamCredits = $team->teamCredits;
+        return $teamCredits && $teamCredits->credits > 0 && $teamCredits->expiration_date > now();
     }
 }
