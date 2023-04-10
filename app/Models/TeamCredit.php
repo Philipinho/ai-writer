@@ -34,8 +34,9 @@ class TeamCredit extends Model
         }
 
         return [
-            'credits_left' => $creditsLeft,
-            'credits_used' => $creditsUsed,
+            'plan_credits' => number_format($totalCredits),
+            'credits_left' => number_format($creditsLeft),
+            'credits_used' => number_format($creditsUsed),
             'percent_used' => $percentUsed,
             'percent_left' => $percentLeft,
         ];

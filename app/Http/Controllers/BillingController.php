@@ -24,6 +24,7 @@ class BillingController extends Controller
         return Inertia::render('Billing/Index', ['plans' => $plans,
             'credits' => $team->teamCredits,
             'subscribed' => $hasActiveSubscription,
+            'usage_stats' => $team->teamCredits->getCreditStats(),
             ]);
     }
 

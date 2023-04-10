@@ -14,6 +14,7 @@ export default {
     props: {
         plans: Object,
         credits: Object,
+        usage_stats: Object,
         subscribed: Boolean
     },
 }
@@ -28,7 +29,7 @@ export default {
             </h2>
         </template>
 
-        <Stats :credits="credits" v-if="subscribed"/>
+        <Stats :credits="credits" :stats="usage_stats" v-if="subscribed"/>
 
         <Manage v-if="subscribed"/>
 
