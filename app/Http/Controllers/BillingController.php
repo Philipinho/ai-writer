@@ -18,7 +18,7 @@ class BillingController extends Controller
 
         $hasActiveSubscription = false;
         if ($team->teamCredits) {
-            $hasActiveSubscription = $team->subscribed($team->teamCredits->subscription_plan);
+            $hasActiveSubscription = $team->subscribed($team->teamCredits->plan);
         }
 
         return Inertia::render('Billing/Index', ['plans' => $plans,

@@ -33,12 +33,34 @@ class TeamCredit extends Model
             $percentLeft = 0;
         }
 
-        return (object) [
+        return [
             'credits_left' => $creditsLeft,
             'credits_used' => $creditsUsed,
             'percent_used' => $percentUsed,
             'percent_left' => $percentLeft,
         ];
+    }
+
+    /**
+     * Deducts the specified amount of credits from the team's credits.
+     *
+     * @param int $creditsToDeduct
+     * @return bool
+     */
+    public function deductCredits(int $creditsToDeduct): bool
+    {
+        if ($creditsToDeduct < 0) {
+            return false;
+        }
+
+        if ($this->credits >= $creditsToDeduct) {
+            $this->credits -= $creditsToDeduct;
+            $this->save();
+
+            return true;
+        }
+
+        return false;
     }
 
 }

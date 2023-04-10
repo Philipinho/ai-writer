@@ -156,9 +156,10 @@ class DocumentController extends Controller
 
     public function generate(Request $request, $uuid): \Illuminate\Http\JsonResponse
     {
+        $team = auth()->user()->currentTeam;
         //Todo: validate fields
         $document = Document::where('uuid', $uuid)
-            ->where('team_id', auth()->user()->currentTeam->id)
+            ->where('team_id', $team->id)
             ->firstOrFail();
 
         $template_key = $request->input('template');
@@ -185,19 +186,22 @@ class DocumentController extends Controller
         $response = $this->getCompletions($request, $full_prompt);
 
         $completion = $response['choices'][0]['message']['content'];
+        $wordCount =  $this->getWordCount($completion);
 
         // store the document content, attach it to the main document.
         $document_content = DocumentContent::create([
             'content' => nl2br($completion), // TODO: fix editor line breaks
-            'word_count' => $this->getWordCount($completion),
+            'word_count' => $wordCount,
             'prompt' => $full_prompt,
             'metadata' => json_encode($request->all()),
             'user_id' => auth()->user()->id,
             'team_id' => auth()->user()->currentTeam->id,
             'document_id' => $document->id,
             'template_id' => optional(Template::where('key', $template_key)->first())->id,
-            'template_key' => $request->input('template'),
+            'template_key' => $template_key,
         ]);
+
+        $team->teamCredits->deductCredits($wordCount);
 
         $document_content_uuid = $document_content->uuid;
         $document_content_array = $document_content->toArray();
