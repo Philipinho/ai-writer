@@ -1,11 +1,11 @@
 <script>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import TemplateList from '@/Pages/Templates/Partials/TemplateList.vue'
+import TemplateView from '@/Pages/Templates/Partials/TemplateView.vue'
 
 export default {
     components: {
         AppLayout,
-        TemplateList,
+        TemplateView,
     },
     props: {
         templates: Object,
@@ -24,7 +24,7 @@ export default {
 
         <div class="relative mx-auto max-w-5xl md:px-8 xl:px-0 2xl:max-w-6xl">
 
-            <TemplateList :templates="templates" />
+            <TemplateView :templates="templates" />
 
         </div>
     </AppLayout>

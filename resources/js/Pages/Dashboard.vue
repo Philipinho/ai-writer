@@ -1,8 +1,23 @@
-<script setup>
+<script>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import { Link } from '@inertiajs/vue3';
+import {Link} from '@inertiajs/vue3';
 import Stats from '@/Components/Custom/Stats.vue';
+import TemplatesGrid from '@/Pages/Templates/Partials/TemplatesGrid.vue';
 import ButtonIcon from '@/Components/ButtonIcon.vue';
+
+
+export default {
+    components: {
+        AppLayout,
+        Link,
+        Stats,
+        TemplatesGrid,
+        ButtonIcon
+    },
+    props: {
+        templates: Object,
+    }
+}
 
 </script>
 
@@ -16,16 +31,28 @@ import ButtonIcon from '@/Components/ButtonIcon.vue';
         </template>
         -->
 
-        <div class="py-6">
+        <div class="max-w-5xl 2xl:max-w-6xl mx-auto sm:px-6 lg:px-8">
 
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <Link :href="route('documents.create')">
+                <ButtonIcon>Create Document</ButtonIcon>
+            </Link>
 
-                <Link :href="route('documents.create')">
-                    <ButtonIcon>Create Document</ButtonIcon>
-                </Link>
+            <Stats/>
 
-                    <Stats />
+            <div class="mt-5">
+                <div class="flex justify-between">
+                    <h2 class="text-lg font-bold">Popular Templates</h2>
+                    <Link :href="route('templates.index')"
+                          class="p-1 rounded-lg border border-gray-200 font-bold bg-white text-indigo-600">
+                        View All
+                    </Link>
+                </div>
+
+                <TemplatesGrid :templates="templates"/>
+
             </div>
+
+
         </div>
     </AppLayout>
 </template>
