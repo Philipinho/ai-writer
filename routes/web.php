@@ -51,21 +51,23 @@ Route::middleware([
     // Templates
     Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
 
-    Route::get('/templates/list', [TemplateController::class, 'list'])->name('templates.list');
+    Route::group(['middleware' => ['is_admin']], function() {
+        Route::get('/templates/list', [TemplateController::class, 'list'])->name('templates.list');
 
-    Route::get('/templates/create', [TemplateController::class, 'create'])->name('templates.create');
-    Route::post('/templates/store', [TemplateController::class, 'store'])->name('templates.store');
+        Route::get('/templates/create', [TemplateController::class, 'create'])->name('templates.create');
+        Route::post('/templates/store', [TemplateController::class, 'store'])->name('templates.store');
 
 
-    Route::put('/templates/{id}/update', [TemplateController::class, 'update'])->name('templates.update');
+        Route::put('/templates/{id}/update', [TemplateController::class, 'update'])->name('templates.update');
 
-    Route::get('/templates/{id}/edit', [TemplateController::class, 'edit'])->name('templates.edit');
+        Route::get('/templates/{id}/edit', [TemplateController::class, 'edit'])->name('templates.edit');
 
-    Route::get('/templates/mass-edit', [TemplateController::class, 'massEdit'])->name('templates.mass-edit');
-    Route::put('/templates/mass-update', [TemplateController::class, 'massUpdate'])->name('templates.mass-update');
+        Route::get('/templates/mass-edit', [TemplateController::class, 'massEdit'])->name('templates.mass-edit');
+        Route::put('/templates/mass-update', [TemplateController::class, 'massUpdate'])->name('templates.mass-update');
 
-    Route::post('/templates/upload', [TemplateController::class, 'importFile'])->name('templates.import.upload');
-    Route::get('/templates/import', [TemplateController::class, 'import'])->name('templates.import');
+        Route::post('/templates/upload', [TemplateController::class, 'importFile'])->name('templates.import.upload');
+        Route::get('/templates/import', [TemplateController::class, 'import'])->name('templates.import');
+    });
 
     Route::get('/settings/billing', [BillingController::class, 'index'])->name('billing');
     Route::get('/subscription', [BillingController::class, 'subscription'])->name('subscription');
