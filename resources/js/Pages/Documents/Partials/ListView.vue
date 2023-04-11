@@ -35,7 +35,7 @@
                                     <i class="ri-article-line"></i> {{ document.name }}
                                 </td>
                                 <td class="hidden md:table-cell  whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                    {{ document.template_key }}
+                                    <span v-if="document.template">{{ document.template.name }}</span>
                                 </td>
                                 <td class="hidden md:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                     {{ document.updated_at }}

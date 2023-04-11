@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Template;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
@@ -17,13 +18,18 @@ class DashboardController extends Controller
             ->get();
 
         $documents = auth()->user()->currentTeam->documents()
-            ->select('team_id', 'uuid', 'name', 'template_key', 'favorite', 'created_at', 'updated_at')
+            ->with(['template' => function ($query) {
+                $query->select('id', 'name');
+            }])
+            ->select('team_id', 'uuid', 'name', 'template_key','template_id', 'favorite', 'created_at', 'updated_at')
             ->limit(10)
             ->orderBy('id', 'DESC')
             ->get()
             ->filter(function ($document) {
                 return auth()->user()->can('view', $document);
             });
+
+        Log::info($documents);
 
         return Inertia::render('Dashboard',
             [

@@ -22,7 +22,11 @@ class DocumentController extends Controller
     public function index(): \Inertia\Response
     {
         $documents = auth()->user()->currentTeam->documents()
-            ->select('team_id', 'uuid', 'name', 'template_key', 'favorite', 'created_at', 'updated_at')
+            ->with(['template' => function ($query) {
+                $query->select('id', 'name');
+            }])
+            ->select('team_id', 'uuid', 'name', 'template_key','template_id', 'favorite', 'created_at', 'updated_at')
+            ->orderBy('id', 'DESC')
             ->get()
             ->filter(function ($document) {
                 return auth()->user()->can('view', $document);
@@ -69,11 +73,14 @@ class DocumentController extends Controller
         // Get the template key
         $template = $request->input('template');
 
+        $template_id = optional(Template::where('key', $template)->first())->id;
+
         // Create the document
         $doc = Document::create([
             'user_id' => auth()->user()->id,
             'team_id' => auth()->user()->currentTeam->id,
             'name' => now() . " untitled",
+            'template_id' => $template_id,
             'template_key' => $template,
             'status' => 1,
         ]);
@@ -119,7 +126,6 @@ class DocumentController extends Controller
 
     public function updateDocument($uuid, Request $request): \Illuminate\Http\JsonResponse
     {
-
         $document = Document::where('uuid', $uuid)
             ->where('team_id', auth()->user()->currentTeam->id)
             ->firstOrFail();
@@ -144,13 +150,15 @@ class DocumentController extends Controller
 
         if ($action === 'update_content') {
             $content = $request->input('content');
-            $document->update(['content' => $content]);
+            $document->content = $content;
         }
 
         if ($action === 'update_name') {
             $name = $request->input('name');
-            $document->update(['name' => $name]);
+            $document->name = $name;
         }
+
+        $document->save();
 
         return response()->json(['success' => true]);
     }
@@ -169,12 +177,12 @@ class DocumentController extends Controller
             ->firstOrFail();
 
         $template_key = $request->input('template');
+        $template_id = optional(Template::where('key', $template_key)->first())->id;
+
         $tone = $request->input('tone');
         $language = $request->input('language');
 
         $template_data = Template::where('key', $template_key)->first();
-
-        Log::info("Prompt: " . $template_data->prompt);
 
         $inputLabelsData = $request->input('inputLabels');
         $inputArrays = [];
@@ -184,8 +192,11 @@ class DocumentController extends Controller
         }
 
         $full_prompt = __($template_data->prompt, $inputArrays);
-        // Todo: add language option
-        // append tone.
+
+        if (!empty($tone)){
+            $full_prompt .= "\nYour response should be in a " . $tone . " style";
+        }
+        $full_prompt .= "\nIt should be in " . $language . " language";
 
         Log::info($full_prompt);
 
@@ -203,9 +214,13 @@ class DocumentController extends Controller
             'user_id' => auth()->user()->id,
             'team_id' => auth()->user()->currentTeam->id,
             'document_id' => $document->id,
-            'template_id' => optional(Template::where('key', $template_key)->first())->id,
+            'template_id' => $template_id,
             'template_key' => $template_key,
         ]);
+
+        $document->template_id = $template_id;
+        $document->template_key = $template_key;
+        $document->save();
 
         $team->teamCredits->deductCredits($wordCount);
 
@@ -220,7 +235,6 @@ class DocumentController extends Controller
         // give user choice to decide whether to auto append new generation or
         // to give them the choice to add or discard response
         // with the later option, the responses will be added below the prompt form
-
     }
 
     public function delete($uuid): \Illuminate\Http\JsonResponse

@@ -59,6 +59,7 @@ export default {
                     All
                 </a>
             </li>
+            <!--
             <li class="mr-2 mb-2">
                 <a class="block cursor-pointer px-2.5 py-1 rounded border border-gray-200 bg-white font-bold">
                     Content
@@ -69,6 +70,7 @@ export default {
                     Social Media
                 </a>
             </li>
+            -->
         </ul>
     </div>
 

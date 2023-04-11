@@ -26,13 +26,12 @@ export default {
 
 <template>
     <AppLayout title="Dashboard">
-        <!--
+
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 Dashboard
             </h2>
         </template>
-        -->
 
         <div class="max-w-5xl 2xl:max-w-6xl mx-auto sm:px-6 lg:px-8">
 
@@ -40,7 +39,7 @@ export default {
                 <ButtonIcon>Create Document</ButtonIcon>
             </Link>
 
-            <Stats/>
+           <!-- <Stats/> -->
 
             <div class="mt-5">
                 <div class="flex justify-between">
