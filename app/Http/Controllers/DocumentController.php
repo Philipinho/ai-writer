@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Document;
 use App\Models\DocumentContent;
 use App\Models\Template;
@@ -98,7 +99,7 @@ class DocumentController extends Controller
             ->where('team_id', auth()->user()->currentTeam->id)
             ->firstOrFail();
 
-        $categories = config('categories');
+        //$categories = Category::select('name')->get();
 
         $values = [
             'uuid' => $uuid,
@@ -110,11 +111,13 @@ class DocumentController extends Controller
             'creativity' => $request->input('creativity', 'original'), // preserve?
         ];
 
-        $templates = json_decode(Storage::get('templates.json'));
+        $templates = Template::with('fields')->with(['categories' => function ($query) {
+            $query->select('name');
+        }])->get();
 
         $data = (object)[
             'values' => $values,
-            'categories' => $categories,
+            //'categories' => $categories,
             'creativity_levels' => config('completions.creativity_levels'),
             'variations' => config('completions.variations'),
             'tones' => config('completions.tones'),
@@ -194,9 +197,9 @@ class DocumentController extends Controller
         $full_prompt = __($template_data->prompt, $inputArrays);
 
         if (!empty($tone)){
-            $full_prompt .= "\nYour response should be in a " . $tone . " style";
+            $full_prompt .= "\nYour response should be in a " . $tone . " tone.";
         }
-        $full_prompt .= "\nIt should be in " . $language . " language";
+        $full_prompt .= "\nIt should be in " . $language . " language.";
 
         Log::info($full_prompt);
 

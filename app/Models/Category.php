@@ -13,9 +13,11 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $hidden = ['pivot'];
+
     public function templates(): BelongsToMany
     {
-        return $this->belongsToMany(Template::class);
+        return $this->belongsToMany(Template::class, 'template_category');
     }
 
 }

@@ -35,14 +35,14 @@ export default {
     },
     computed: {
         selectedFields() {
-            return this.templates.data.find(item => item.key === this.selectedKey)?.fields || [];
+            return this.templates.find(item => item.key === this.selectedKey)?.fields || [];
         },
         selectedTemplateIndex() {
-            return this.templates.data.findIndex(item => item.key === this.selectedKey);
+            return this.templates.findIndex(item => item.key === this.selectedKey);
         },
         selectedTemplate() {
-            if (this.templates.data && this.selectedTemplateIndex >= 0) {
-                return this.templates.data[this.selectedTemplateIndex];
+            if (this.templates && this.selectedTemplateIndex >= 0) {
+                return this.templates[this.selectedTemplateIndex];
             }
             return null;
         }
@@ -52,7 +52,7 @@ export default {
             const defaultKey = "summarize";
 
             // Check if the provided template key exists in the templates array
-            const templateExists = this.templates.data.some((item) => item.key === this.data.values.template);
+            const templateExists = this.templates.some((item) => item.key === this.data.values.template);
 
             // If the provided template key exists, use it; otherwise, use the default key
             return templateExists ? this.data.values.template : defaultKey;
@@ -108,7 +108,7 @@ export default {
                         <label for="type" class="block text-sm font-medium leading-6 text-gray-900">Type</label>
                         <select name="template" v-model="selectedKey"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                            <option v-for="item in templates.data" :value="item.key">{{ item.name }}</option>
+                            <option v-for="item in templates" :value="item.key">{{ item.name }}</option>
                         </select>
 
                     </div>

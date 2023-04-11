@@ -1,11 +1,9 @@
 <script>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import TemplateList from '@/Pages/Templates/Partials/TemplateList.vue'
 
 export default {
     components: {
         AppLayout,
-        TemplateList,
     },
     props: {
         templates: Object,

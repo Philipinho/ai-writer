@@ -6,16 +6,12 @@ import {
     TransitionRoot,
 } from '@headlessui/vue'
 import {
-    Bars3Icon, BellIcon, CalendarIcon, ChartPieIcon, Cog6ToothIcon, DocumentDuplicateIcon, FolderIcon, HomeIcon,
+    Bars3Icon, BellIcon, Cog6ToothIcon, FolderIcon, HomeIcon,
     UsersIcon, XMarkIcon, Square3Stack3DIcon, DocumentTextIcon
 } from '@heroicons/vue/24/outline'
 import {ChevronDownIcon, ChevronUpDownIcon, MagnifyingGlassIcon} from '@heroicons/vue/20/solid'
 import ApplicationMark from '@/Components/ApplicationMark.vue';
 import DarkMode from "@/Layouts/Partials/DarkMode.vue";
-
-
-
-
 
 defineProps({
     title: String,
@@ -32,8 +28,6 @@ const switchToTeam = (team) => {
     });
 };
 const { props } = usePage()
-
-console.log(props.auth.user.current_team)
 
 const navigation = [
     {name: 'Dashboard', href: '/dashboard', icon: HomeIcon},

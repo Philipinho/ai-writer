@@ -29,8 +29,6 @@ class DashboardController extends Controller
                 return auth()->user()->can('view', $document);
             });
 
-        Log::info($documents);
-
         return Inertia::render('Dashboard',
             [
                 'templates' => $top_templates,

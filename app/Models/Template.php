@@ -24,7 +24,7 @@ class Template extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class, 'template_category');
     }
 
     public function documents(): HasMany
@@ -37,9 +37,9 @@ class Template extends Model
         return $this->hasMany(Field::class);
     }
 
-    public function usersWhoFavorited()
+    public function teamsFavorited()
     {
-        return $this->belongsToMany(User::class, 'user_favorite_template');
+        return $this->belongsToMany(Team::class, 'favorite_template');
     }
 
 }

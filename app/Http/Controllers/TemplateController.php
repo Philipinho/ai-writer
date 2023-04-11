@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Field;
 use App\Models\Template;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -24,14 +23,13 @@ class TemplateController extends Controller
         return Inertia::render('Templates/Index', ['templates' => $templates]);
     }
 
-    public function delete()
-    {
-        
-    }
-
     public function list()
     {
-        $templates = Template::with('fields')->get();
+        $templates = Template::with('fields')
+            ->with(['categories' => function ($query) {
+                $query->select('name');
+            }])
+            ->get();
         return Inertia::render('Templates/List', [
             'templates' => $templates,
         ]);
@@ -92,7 +90,6 @@ class TemplateController extends Controller
 
     public function massUpdate(Request $request): \Illuminate\Http\JsonResponse
     {
-        Log::info($request->input('templates'));
         $request->validate([
             'templates' => 'required|array',
         ]);
@@ -133,6 +130,9 @@ class TemplateController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
+            'description' => 'string',
+            'prompt' => 'required|string',
+            'icon' => 'string',
             'fields' => 'required|array',
             'fields.*.label' => 'required|string',
             'fields.*.optional' => 'required|boolean',
@@ -142,7 +142,14 @@ class TemplateController extends Controller
             'fields.*.maxLength' => 'nullable|integer',
         ]);
 
-        $template = Template::create(['name' => $request->input('name'), 'key' => 'key_here', 'order' => 1]);
+        $template = Template::create([
+            'name' => $request->input('name'),
+            'key' => Str::slug($request->input('name'), '_'),
+            'description' => $request->input('description'),
+            'prompt' => $request->input('prompt'),
+            'icon' => $request->input('icon'),
+            //'order' => 1
+        ]);
 
         $fields = collect($request->input('fields'))->map(function ($field) use ($template) {
             return new Field([
@@ -208,16 +215,23 @@ class TemplateController extends Controller
         foreach ($records as $record) {
             $template_key = Str::slug($record['template_key'], '_') ?? Str::slug($record['template_name'], '_');
 
+            // maybe use category_key and then find the category id from the key
+            $categoryIds = array_map('intval', explode(',', $record['category_ids']));
+
             $templateData = [
                 'key' => $template_key,
                 'name' => $record['template_name'],
                 'description' => $record['description'],
+                'prompt' => $record['prompt'],
                 'tones' => filter_var($record['tones'], FILTER_VALIDATE_BOOLEAN),
+                'icon' => $record['icon'],
+                'color' => $record['color'],
                 'order' => $record['order'],
-                //'category' => [$record['group_name']],
+                'status' => $record['status'],
             ];
 
             $template = Template::updateOrCreate(['key' => $template_key], $templateData);
+            $template->categories()->syncWithoutDetaching($categoryIds);
 
             $fieldIndex = 1;
             while (isset($record["field{$fieldIndex}_label"])) {

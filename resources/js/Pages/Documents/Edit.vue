@@ -33,7 +33,6 @@ export default {
     },
     watch: {
         documentName(newName){
-            console.log(`Input value changed to ${newName}`);
             this.debouncedUpdateDocumentName(newName);
         }
 
