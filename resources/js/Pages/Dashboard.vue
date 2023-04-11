@@ -3,6 +3,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import {Link} from '@inertiajs/vue3';
 import Stats from '@/Components/Custom/Stats.vue';
 import TemplatesGrid from '@/Pages/Templates/Partials/TemplatesGrid.vue';
+import DocumentListView from '@/Pages/Documents/Partials/ListView.vue';
 import ButtonIcon from '@/Components/ButtonIcon.vue';
 
 
@@ -12,10 +13,12 @@ export default {
         Link,
         Stats,
         TemplatesGrid,
-        ButtonIcon
+        ButtonIcon,
+        DocumentListView
     },
     props: {
         templates: Object,
+        documents: Object
     }
 }
 
@@ -44,11 +47,24 @@ export default {
                     <h2 class="text-lg font-bold">Popular Templates</h2>
                     <Link :href="route('templates.index')"
                           class="p-1 rounded-lg border border-gray-200 font-bold bg-white text-indigo-600">
-                        View All
+                        See all templates
                     </Link>
                 </div>
 
                 <TemplatesGrid :templates="templates"/>
+
+            </div>
+
+            <div class="mt-5">
+                <div class="flex justify-between">
+                    <h2 class="text-lg font-bold">Documents Activity</h2>
+                    <Link :href="route('documents.index')"
+                          class="p-1 rounded-lg border border-gray-200 font-bold bg-white text-indigo-600">
+                        See all documents
+                    </Link>
+                </div>
+
+                <DocumentListView :filteredDocuments="documents"/>
 
             </div>
 

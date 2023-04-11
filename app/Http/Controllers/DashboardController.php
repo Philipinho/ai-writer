@@ -16,6 +16,19 @@ class DashboardController extends Controller
             ->limit(4)
             ->get();
 
-        return Inertia::render('Dashboard', ['templates' => $top_templates]);
+        $documents = auth()->user()->currentTeam->documents()
+            ->select('team_id', 'uuid', 'name', 'template_key', 'favorite', 'created_at', 'updated_at')
+            ->limit(10)
+            ->orderBy('id', 'DESC')
+            ->get()
+            ->filter(function ($document) {
+                return auth()->user()->can('view', $document);
+            });
+
+        return Inertia::render('Dashboard',
+            [
+                'templates' => $top_templates,
+                'documents' => $documents
+            ]);
     }
 }

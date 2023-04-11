@@ -22,7 +22,7 @@ export default {
             </h2>
         </template>
 
-        <div>
+        <div class="max-w-5xl 2xl:max-w-6xl mx-auto sm:px-6 lg:px-8">
 
             <DocumentList :documents="documents" />
 

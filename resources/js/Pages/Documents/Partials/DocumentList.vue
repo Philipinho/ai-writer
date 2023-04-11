@@ -36,36 +36,29 @@ export default {
 </script>
 
 <template>
-    <div>
 
-        <div class="sm:flex sm:items-center">
+    <Link :href="route('documents.create')">
+        <ButtonIcon>Create Document</ButtonIcon>
+    </Link>
 
-            <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                <Link :href="route('documents.create')">
-                    <ButtonIcon>Create Document</ButtonIcon>
-                </Link>
+    <div class="pb-2 mt-4">
+        <div class="relative flex items-center">
+            <div
+                class="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400 pl-3 flex items-center justify-center"
+                style="font-size: 24px" aria-hidden="true">
+                <i class="ri-search-line"></i>
             </div>
 
-            <div class="pl-10">
-                <div class="relative flex items-center">
-                    <div
-                        class="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400 pl-3 flex items-center justify-center"
-                        style="font-size: 24px" aria-hidden="true">
-                        <i class="ri-search-line"></i>
-                    </div>
-                    <TextInput
-                        v-model="search"
-                        name="search"
-                        type="search"
-                        class="mt-1 block w-full pl-8"
-                        placeholder="Search.."
-                    />
-                </div>
-            </div>
-
+            <TextInput
+                v-model="search"
+                name="search"
+                type="search"
+                class="mt-1 block w-full pl-8"
+                placeholder="Search.."
+            />
         </div>
-
-        <ListView :filteredDocuments="filteredDocuments"/>
-
     </div>
+
+    <ListView :filteredDocuments="filteredDocuments"/>
+
 </template>

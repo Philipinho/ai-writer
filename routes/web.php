@@ -36,7 +36,7 @@ Route::middleware([
 
     Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
-    Route::get('documents', [DocumentController::class, 'index'])->name('documents.list');
+    Route::get('documents', [DocumentController::class, 'index'])->name('documents.index');
 
     // create new doc with template id passed?
     Route::get('/documents/new', [DocumentController::class, 'createDocument'])->name('documents.create');

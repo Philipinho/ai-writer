@@ -32,6 +32,7 @@ export default {
 
 
 <template>
+
     <div class="pb-6">
         <div class="relative flex items-center">
             <div
