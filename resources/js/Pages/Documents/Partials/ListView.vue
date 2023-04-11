@@ -10,10 +10,10 @@
                                 <th scope="col"
                                     class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Name
                                 </th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                <th scope="col" class="hidden md:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900 sm:">
                                     Template
                                 </th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Date
+                                <th scope="col" class="hidden md:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Date
                                 </th>
                                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                                     <span class="sr-only">Favorites</span>
@@ -34,10 +34,10 @@
                                     @click="rowClicked(document)">
                                     <i class="ri-article-line"></i> {{ document.name }}
                                 </td>
-                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                <td class="hidden md:table-cell  whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                     {{ document.template_key }}
                                 </td>
-                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                <td class="hidden md:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                     {{ document.updated_at }}
                                 </td>
 
