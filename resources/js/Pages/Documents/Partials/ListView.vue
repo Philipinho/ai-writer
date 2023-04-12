@@ -1,19 +1,22 @@
 <template>
-    <div class="px-0 sm:px-0 lg:px-0">
+    <div class="px-0 sm:px-0 lg:px-0 mb-20">
         <div class="mt-8 flow-root">
-            <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                    <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                    <div class="shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
                         <table class="min-w-full divide-y divide-gray-300">
                             <thead class="bg-gray-50">
                             <tr>
                                 <th scope="col"
                                     class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Name
                                 </th>
-                                <th scope="col" class="hidden md:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900 sm:">
+                                <th scope="col"
+                                    class="hidden md:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900 sm:">
                                     Template
                                 </th>
-                                <th scope="col" class="hidden md:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Date
+                                <th scope="col"
+                                    class="hidden md:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                    Updated
                                 </th>
                                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                                     <span class="sr-only">Favorites</span>
@@ -23,7 +26,7 @@
                                 </th>
                             </tr>
                             </thead>
-                            <!--<a :href="route('documents.edit', document.uuid)"></a>-->
+
                             <tbody class="divide-y divide-gray-200 bg-white">
 
                             <tr v-for="document in filteredDocuments"
@@ -38,7 +41,7 @@
                                     <span v-if="document.template">{{ document.template.name }}</span>
                                 </td>
                                 <td class="hidden md:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                    {{ document.updated_at }}
+                                    {{ formatDate(document.updated_at) }}
                                 </td>
 
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
@@ -60,10 +63,11 @@
                                             </template>
 
                                             <template #content>
-                                                <div class="">
+                                                <div class="text-left">
                                                     <div class="block px-4 py-2 text-xs text-gray-400">
                                                         Manage Document
                                                     </div>
+                                                    <!--
 
                                                     <DropdownLink href="">
                                                         Rename
@@ -75,11 +79,12 @@
 
                                                     <DropdownLink href="">
                                                         PDF Download
-                                                    </DropdownLink>
+                                                    </DropdownLink> -->
 
                                                     <div class="border-t border-gray-200 dark:border-gray-600"/>
 
                                                     <DropdownLink @click="deleteDocument(document.uuid)">
+                                                        <i class="ri-delete-bin-line"></i>
                                                         Delete
                                                     </DropdownLink>
                                                 </div>
@@ -118,7 +123,7 @@ export default {
             router.visit(route('documents.edit', document.uuid))
         },
 
-        deleteDocument(uuid){
+        deleteDocument(uuid) {
             if (confirm('Are you sure you want to delete this document?')) {
                 axios.delete(route('documents.delete', [uuid]))
                     .then(response => {
@@ -127,6 +132,14 @@ export default {
                     // capture error
                 });
             }
+        },
+
+        formatDate(timestamp) {
+            return new Intl.DateTimeFormat('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: '2-digit'
+            }).format(new Date(timestamp));
         }
 
     }
