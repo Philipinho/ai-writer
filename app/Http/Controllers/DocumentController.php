@@ -22,15 +22,17 @@ class DocumentController extends Controller
 
     public function index(): \Inertia\Response
     {
+
         $documents = auth()->user()->currentTeam->documents()
             ->with(['template' => function ($query) {
                 $query->select('id', 'name');
             }])
-            ->select('team_id', 'uuid', 'name', 'template_key','template_id', 'favorite', 'created_at', 'updated_at')
+            ->select('team_id', 'uuid', 'name', 'template_key', 'template_id', 'favorite', 'created_at', 'updated_at')
             ->orderBy('id', 'DESC')
-            ->get()
-            ->filter(function ($document) {
-                return auth()->user()->can('view', $document);
+            ->paginate(3)
+            ->withQueryString()
+            ->through(function ($document) {
+                return auth()->user()->can('view', $document) ? $document : null;
             });
 
         return Inertia::render('Documents/Index', ['documents' => $documents]);
