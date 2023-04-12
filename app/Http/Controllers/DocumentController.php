@@ -29,7 +29,7 @@ class DocumentController extends Controller
             }])
             ->select('team_id', 'uuid', 'name', 'template_key', 'template_id', 'favorite', 'created_at', 'updated_at')
             ->orderBy('id', 'DESC')
-            ->paginate(3)
+            ->paginate(15)
             ->withQueryString()
             ->through(function ($document) {
                 return auth()->user()->can('view', $document) ? $document : null;
