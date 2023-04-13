@@ -33,17 +33,6 @@ class DocumentPolicy
     }
 
     /**
-     * Determine whether the user has valid credits and can generate new content.
-     */
-    public function generate(User $user)
-    {
-        $team = $user->currentTeam;
-        $teamCredits = $team->teamCredits;
-        // Check if the user's team has valid credits
-        return $teamCredits && $teamCredits->credits > 0 && $teamCredits->expiration_date->isFuture();
-    }
-
-    /**
      * Determine whether the user can update the model.
      */
     public function update(User $user, Document $document): bool

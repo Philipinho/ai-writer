@@ -31,6 +31,14 @@
     @apply border-l-4 border-gray-400 py-1 pl-4;
 }
 
+.ProseMirror p.is-editor-empty:first-child::before {
+    color: #adb5bd;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+}
+
 ul[data-type=taskList] {
     list-style: none;
     padding: 0

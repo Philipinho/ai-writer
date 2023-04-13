@@ -106,9 +106,7 @@ export default {
             },
 
             editorProps: {
-                attributes: {
-                    // class: 'relative prose prose-sm sm:prose lg:prose-lg px-2 overflow-y-auto max-h-[50vh] !w-full !max-w-none focus-within:outline-none'
-                },
+                attributes: { },
             },
         })
     },
@@ -209,61 +207,4 @@ export default {
         }
     }
 }
-
-
-/* Basic editor styles */
-.ProseMirror {
-    .bubble-menu {
-        display: flex;
-        background-color: #0D0D0D;
-        padding: 0.2rem;
-        border-radius: 0.5rem;
-
-        button {
-            border: none;
-            background: none;
-            color: #FFF;
-            font-size: 0.85rem;
-            font-weight: 500;
-            padding: 0 0.2rem;
-            opacity: 0.6;
-
-            &:hover,
-            &.is-active {
-                opacity: 1;
-            }
-        }
-    }
-
-    .floating-menu {
-        display: flex;
-        background-color: #0D0D0D10;
-        padding: 0.2rem;
-        border-radius: 0.5rem;
-
-        button {
-            border: none;
-            background: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            padding: 0 0.2rem;
-            opacity: 0.6;
-
-            &:hover,
-            &.is-active {
-                opacity: 1;
-            }
-        }
-    }
-
-    p.is-editor-empty:first-child::before {
-        color: #adb5bd;
-        content: attr(data-placeholder);
-        float: left;
-        height: 0;
-        pointer-events: none;
-    }
-
-}
-
 </style>
