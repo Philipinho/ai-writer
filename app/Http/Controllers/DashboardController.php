@@ -23,7 +23,7 @@ class DashboardController extends Controller
             }])
             ->select('team_id', 'uuid', 'name', 'template_key','template_id', 'favorite', 'created_at', 'updated_at')
             ->limit(10)
-            ->orderBy('id', 'DESC')
+            ->orderBy('updated_at', 'DESC')
             ->get()
             ->filter(function ($document) {
                 return auth()->user()->can('view', $document);

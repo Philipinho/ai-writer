@@ -28,7 +28,7 @@ class DocumentController extends Controller
                 $query->select('id', 'name');
             }])
             ->select('team_id', 'uuid', 'name', 'template_key', 'template_id', 'favorite', 'created_at', 'updated_at')
-            ->orderBy('id', 'DESC')
+            ->orderBy('updated_at', 'DESC')
             ->paginate(15)
             ->withQueryString()
             ->through(function ($document) {
