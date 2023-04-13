@@ -1,0 +1,57 @@
+
+.ProseMirror {
+    @apply prose prose-lg space-y-2 text-slate-800 relative prose prose-sm sm:prose lg:prose-lg px-2 overflow-y-auto min-h-[60vh] max-h-[70vh] !w-full !max-w-none focus-within:outline-none;
+}
+
+.ProseMirror p a {
+    @apply text-gray-400 underline underline-offset-0;
+}
+
+.ProseMirror ul {
+    @apply list-outside list-disc space-y-2 pl-6;
+}
+
+.ProseMirror ol {
+    @apply list-outside list-decimal space-y-2 pl-6;
+}
+
+.ProseMirror h1 {
+    @apply pt-4 pb-2 text-3xl font-bold;
+}
+
+.ProseMirror h2 {
+    @apply pt-3 pb-1 text-2xl font-semibold;
+}
+
+.ProseMirror h3 {
+    @apply pt-2 pb-1 text-xl font-semibold;
+}
+
+.ProseMirror blockquote {
+    @apply border-l-4 border-gray-400 py-1 pl-4;
+}
+
+ul[data-type=taskList] {
+    list-style: none;
+    padding: 0
+}
+
+ul[data-type=taskList] p {
+    margin: 0
+}
+
+ul[data-type=taskList] li {
+    display: flex
+}
+
+ul[data-type=taskList] li > label {
+    flex: 0 0 auto;
+    margin-right: .5rem;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none
+}
+
+ul[data-type=taskList] li > div {
+    flex: 1 1 auto
+}

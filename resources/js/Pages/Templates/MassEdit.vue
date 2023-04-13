@@ -1,6 +1,5 @@
 <script>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import TemplateList from '@/Pages/Templates/Partials/TemplateList.vue'
 import { VueDraggableNext } from 'vue-draggable-next';
 import Fields from "@/Pages/Templates/Partials/Fields.vue";
 import FormSection from '@/Components/FormSection.vue';
@@ -9,7 +8,6 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 export default {
     components: {
         AppLayout,
-        TemplateList,
         VueDraggableNext,
         Fields,
         FormSection,

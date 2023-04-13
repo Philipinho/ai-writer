@@ -1,6 +1,4 @@
 <template>
-        <div class="mx-auto max-w-2xl px-6 lg:px-8 pt-10">
-
             <div class="mx-auto max-w-4xl">
                 <h2 class="text-2xl font-semibold leading-7 text-indigo-600">Plans</h2>
                 <!--<p class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
@@ -66,7 +64,6 @@
                     </ul>
                 </div>
             </div>
-        </div>
 </template>
 
 

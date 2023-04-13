@@ -6,10 +6,10 @@ import {
     TransitionRoot,
 } from '@headlessui/vue'
 import {
-    Bars3Icon, BellIcon, Cog6ToothIcon, FolderIcon, HomeIcon,
+    Bars3Icon, Cog6ToothIcon, FolderIcon, HomeIcon,
     UsersIcon, XMarkIcon, Square3Stack3DIcon, DocumentTextIcon
 } from '@heroicons/vue/24/outline'
-import {ChevronDownIcon, ChevronUpDownIcon, MagnifyingGlassIcon} from '@heroicons/vue/20/solid'
+import {ArrowLeftOnRectangleIcon, ChevronUpDownIcon} from '@heroicons/vue/20/solid'
 import ApplicationMark from '@/Components/ApplicationMark.vue';
 import DarkMode from "@/Layouts/Partials/DarkMode.vue";
 
@@ -27,17 +27,17 @@ const switchToTeam = (team) => {
         preserveState: false,
     });
 };
-const { props } = usePage()
+const {props} = usePage()
 
 const navigation = [
     {name: 'Dashboard', href: '/dashboard', icon: HomeIcon},
     {name: 'Documents', href: '/documents', icon: DocumentTextIcon},
     {name: 'Templates', href: '/templates', icon: Square3Stack3DIcon},
-    {name: 'Projects', href: '#', icon: FolderIcon},
+    /*{name: 'Projects', href: '#', icon: FolderIcon},*/
 ]
 const teams = [
     {id: 1, name: 'Billing', href: '/settings/billing', initial: 'B'},
-    {id: 2, name: 'Manage Team', href: '/teams/' + props.auth.user.current_team.id, initial : 'T'},
+    {id: 2, name: 'Manage Team', href: '/teams/' + props.auth.user.current_team.id, initial: 'T'},
 ]
 
 const userNavigation = [
@@ -113,14 +113,27 @@ const sidebarOpen = ref(false)
                                             </ul>
                                         </li>
 
+                                        <li>
+                                            <DarkMode/>
+                                        </li>
+
                                         <li class="mt-auto">
-                                            <a href="#"
-                                               class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
+                                            <Link :href="route('profile.show')"
+                                                  class="mb-5 group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
                                                 <Cog6ToothIcon
                                                     class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600"
                                                     aria-hidden="true"/>
                                                 Settings
-                                            </a>
+                                            </Link>
+
+                                            <form method="POST" @submit.prevent="logout">
+                                                <button
+                                                    class="w-full group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
+                                                    <ArrowLeftOnRectangleIcon
+                                                        class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600" aria-hidden="true"/>
+                                                    Logout
+                                                </button>
+                                            </form>
                                         </li>
                                     </ul>
                                 </nav>
@@ -173,7 +186,7 @@ const sidebarOpen = ref(false)
                         </li>
 
 
-                        <li v-if="$page.props.jetstream.hasTeamFeatures && $page.props.jetstream.canCreateTeams" >
+                        <li v-if="$page.props.jetstream.hasTeamFeatures && $page.props.jetstream.canCreateTeams">
                             <!-- User account dropdown -->
                             <Menu as="div" class="relative inline-block px-3 text-left">
                                 <div>2
@@ -183,15 +196,19 @@ const sidebarOpen = ref(false)
                                         <span class="flex w-full items-center justify-between">
                                             <span class="flex min-w-0 items-center justify-between space-x-3">
                                                 <img class="h-10 w-10 flex-shrink-0 rounded-full bg-gray-300"
-                                                src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80"
-                                                alt=""/>
+                                                     src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80"
+                                                     alt=""/>
 
                                                 <span class="flex min-w-2 flex-1 flex-col">
-                                                    <span class="truncate text-sm font-medium text-gray-900">{{ $page.props.auth.user.current_team.name }}</span>
+                                                    <span class="truncate text-sm font-medium text-gray-900">{{
+                                                            $page.props.auth.user.current_team.name
+                                                        }}</span>
                                                     <span class="truncate text-sm text-gray-500">Teams</span>
                                                 </span>
                                             </span>
-                                            <ChevronUpDownIcon class="h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500" aria-hidden="true"/>
+                                            <ChevronUpDownIcon
+                                                class="h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                                                aria-hidden="true"/>
                                         </span>
                                     </MenuButton>
                                 </div>
@@ -207,12 +224,17 @@ const sidebarOpen = ref(false)
                                         <div class="py-1">
                                             <MenuItem v-slot="{ active }">
                                                 <Link :href="route('teams.show', $page.props.auth.user.current_team)"
-                                                      :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Team Settings</Link>
+                                                      :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
+                                                    Team Settings
+                                                </Link>
                                             </MenuItem>
 
                                             <MenuItem v-slot="{ active }">
-                                                <Link v-if="$page.props.jetstream.canCreateTeams" :href="route('teams.create')"
-                                                      :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']"> Create New Team</Link>
+                                                <Link v-if="$page.props.jetstream.canCreateTeams"
+                                                      :href="route('teams.create')"
+                                                      :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
+                                                    Create New Team
+                                                </Link>
                                             </MenuItem>
                                         </div>
 
@@ -231,7 +253,8 @@ const sidebarOpen = ref(false)
                                                         <div class="flex">
 
                                                             <div class="text-gray-700 block px-4 py-2 text-sm">
-                                                                <i v-if="team.id == $page.props.auth.user.current_team_id" class="ri-checkbox-circle-line text-green-700"
+                                                                <i v-if="team.id == $page.props.auth.user.current_team_id"
+                                                                   class="ri-checkbox-circle-line text-green-700"
                                                                    style="font-size: 18px;"></i>
                                                                 {{ team.name }}
                                                             </div>
@@ -259,13 +282,25 @@ const sidebarOpen = ref(false)
                             <DarkMode/>
                         </li>
 
+
                         <li class="mt-auto">
-                            <a href="#"
-                               class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
+                            <Link :href="route('profile.show')"
+                                  class="mb-5 group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
                                 <Cog6ToothIcon class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600"
                                                aria-hidden="true"/>
                                 Settings
-                            </a>
+                            </Link>
+
+                            <form method="POST" @submit.prevent="logout">
+                                <button
+                                    class="w-full group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
+                                    <ArrowLeftOnRectangleIcon
+                                        class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600"
+                                        aria-hidden="true"/>
+                                    Logout
+                                </button>
+                            </form>
+
                         </li>
                     </ul>
                 </nav>
@@ -350,7 +385,7 @@ const sidebarOpen = ref(false)
 
             <!-- Page Heading -->
             <header v-if="$slots.header" class="py-10">
-                <div class="max-w-5xl 2xl:max-w-6xl mx-auto sm:px-6 lg:px-8">
+                <div class="max-w-5xl 2xl:max-w-6xl mx-auto px-6 lg:px-8">
                     <slot name="header"/>
                 </div>
             </header>

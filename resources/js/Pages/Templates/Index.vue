@@ -22,7 +22,7 @@ export default {
             </h2>
         </template>
 
-        <div class="relative mx-auto max-w-5xl md:px-8 xl:px-0 2xl:max-w-6xl">
+        <div class="max-w-5xl 2xl:max-w-6xl mx-auto sm:px-6 lg:px-8">
 
             <TemplateView :templates="templates" />
 

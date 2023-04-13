@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('plan')->nullable();
             $table->bigInteger('credits');
             $table->bigInteger('original_plan_credits')->default(0);
+            $table->bigInteger('payg_credits')->nullable()->default(0);
             $table->bigInteger('free_credits')->nullable()->default(0);
             $table->string('interval')->nullable();
             $table->timestamp('start_date')->nullable();

@@ -18,7 +18,6 @@ export default {
 </script>
 
 <template>
-    <div class="mx-auto max-w-2xl px-6 lg:px-8 pt-10">
 
         <TextRightButton>
             <template #title>Manage Subscription</template>
@@ -28,8 +27,5 @@ export default {
 
             <div @click="stripePortal">Manage</div>
         </TextRightButton>
-
-    </div>
-
 
 </template>

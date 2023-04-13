@@ -1,5 +1,4 @@
 <script>
-import TemplateList from '@/Pages/Templates/Partials/TemplateList.vue'
 import {VueDraggableNext} from 'vue-draggable-next';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
@@ -9,7 +8,6 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 
 export default {
     components: {
-        TemplateList,
         VueDraggableNext,
         InputLabel,
         TextInput,

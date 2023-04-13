@@ -32,14 +32,14 @@ export default {
         };
     },
     watch: {
-        documentName(newName){
+        documentName(newName) {
             this.debouncedUpdateDocumentName(newName);
         }
 
     },
     methods: {
         updateDocumentName(newName) {
-            axios.put(route('documents.update', [this.data.values.uuid]), { name: newName, action: 'update_name' });
+            axios.put(route('documents.update', [this.data.values.uuid]), {name: newName, action: 'update_name'});
         },
 
         updateEditorContent(content) {
@@ -51,56 +51,56 @@ export default {
 
 <template>
     <AppLayout title="Document">
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                Document
-            </h2>
-        </template>
 
-                <div class="grid grid-cols-12 gap-6">
+        <div class="flex mt-5 md:hidden">
+            <div class="w-80 mb-5">
+                <!--<InputLabel for="document_title" value="Name"/>-->
 
-                    <div class="flex flex-col col-span-full xl:col-span-5 bg-white shadow-lg rounded-sm border border-slate-200">
-                        <header class="px-5 py-4 border-b border-slate-100 flex items-center">
-                            <h2 class="font-semibold text-slate-800">Prompt</h2>
-                        </header>
-                        <div class="grow px-5">
-                            <DocumentsForm @contentReceived="updateEditorContent" :data="data" :templates="templates"></DocumentsForm>
+                <TextInput
+                    name="document_title"
+                    v-model="documentName"
+                    type="text"
+                    class="mt-1 block w-full"
+                    placeholder="e.g ad copy"
+                />
 
+            </div>
+        </div>
+
+        <div class="container mx-auto">
+
+            <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+
+                <div class="lg:w-1/3 md:mt-24" style="max-height: 100vh;">
+
+                    <div class="overflow-y-auto bg-white p-4">
+                        <div class="h-full">
+                            <DocumentsForm @contentReceived="updateEditorContent"
+                                           :data="data" :templates="templates">
+                            </DocumentsForm>
                         </div>
                     </div>
 
-                    <div class="flex flex-col col-span-full xl:col-span-7  ">
-
-                        <div class="sm:col-span-4">
-                            <InputLabel for="document_title" value="Name"/>
-
-                            <TextInput
-                                name="document_title"
-                                v-model="documentName"
-                                type="text"
-                                class="mt-1 block w-full"
-                                placeholder="e.g ad copy"
-                            />
-
-                        </div>
-                        <header class="px-5 py-4 border-b border-slate-100">
-                            <h2 class="font-semibold text-slate-800">Document Editor</h2>
-                        </header>
-                        <!-- Card content -->
-                        <div class="flex flex-col h-full">
-
-                            <!-- Table -->
-                            <div class="grow px-5 pt-3 pb-1">
-                                <div class="overflow-x-auto">
-
-                                    <Tiptap :content="editorContent" :data="data" />
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
+                <div class="p-4 md:w-1/2 grow h-full md:fixed md:right-0 md:bottom-0 md:top-16">
+                    <div class="w-80 mb-5 hidden md:block">
+                        <!--<InputLabel for="document_title" value="Name"/>-->
+
+                        <TextInput
+                            name="document_title"
+                            v-model="documentName"
+                            type="text"
+                            class="mt-1 block w-full"
+                            placeholder="e.g ad copy"
+                        />
+
+                    </div>
+                    <Tiptap :content="editorContent" :data="data"/>
+                </div>
+            </div>
+
+        </div>
 
     </AppLayout>
 </template>

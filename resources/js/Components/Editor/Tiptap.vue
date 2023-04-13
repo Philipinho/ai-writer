@@ -1,17 +1,18 @@
 <template>
     <div class="editor" v-if="editor">
-        <menu-bar class="editor__header" :editor="editor"/>
-        <editor-content class="editor__content" :editor="editor"/>
-
         <div class="editor__footer">
-            <div :class="`editor__status editor__status--`">
+           <!-- <div :class="`editor__status editor__status--`">
                 {{ "Something" }}
-            </div>
+            </div>-->
             <div class="editor__name">
                 {{ editor.storage.characterCount.characters() }} chars |
                 {{ editor.storage.characterCount.words() }} words
             </div>
         </div>
+
+        <menu-bar class="editor__header" :editor="editor"/>
+        <editor-content class="editor__content" :editor="editor"/>
+
     </div>
 </template>
 
@@ -63,9 +64,9 @@ export default {
     },
 
     methods: {
-        updateContent(content){
+        updateContent(content) {
 
-            axios.put(route('documents.update', [this.data.values.uuid]), { content: content, action: 'update_content' })
+            axios.put(route('documents.update', [this.data.values.uuid]), {content: content, action: 'update_content'})
                 .then(response => {
                     console.log(response.data)
                 }).catch(error => {
@@ -74,8 +75,7 @@ export default {
         },
     },
 
-    computed: {
-    },
+    computed: {},
 
     mounted() {
 
@@ -88,7 +88,7 @@ export default {
                 TaskList,
                 TaskItem,
                 CharacterCount.configure({
-                    limit: 10000,
+                    limit: 30000,
                 }),
                 Placeholder.configure({
                     emptyEditorClass: 'is-editor-empty',
@@ -102,8 +102,7 @@ export default {
 
             editorProps: {
                 attributes: {
-                    class: 'relative prose prose-sm sm:prose lg:prose-lg px-2 overflow-y-auto max-h-[50vh] !w-full !max-w-none focus-within:outline-none'
-                    // class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none',
+                    // class: 'relative prose prose-sm sm:prose lg:prose-lg px-2 overflow-y-auto max-h-[50vh] !w-full !max-w-none focus-within:outline-none'
                 },
             },
         })
@@ -123,8 +122,8 @@ export default {
     color: #0D0D0D;
     display: flex;
     flex-direction: column;
-    min-height: 30rem;
-    max-height: 40rem;
+    min-height: 100%;
+    max-height: 100%;
 
     &__header {
         align-items: center;
@@ -208,88 +207,6 @@ export default {
 
 /* Basic editor styles */
 .ProseMirror {
-    > * + * {
-        margin-top: 0.75em;
-    }
-
-    ul,
-    ol {
-        padding: 0 1rem;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        line-height: 1.1;
-    }
-
-    code {
-        background-color: rgba(#616161, 0.1);
-        color: #616161;
-    }
-
-    pre {
-        background: #0D0D0D;
-        border-radius: 0.5rem;
-        color: #FFF;
-        font-family: 'JetBrainsMono', monospace;
-        padding: 0.75rem 1rem;
-
-        code {
-            background: none;
-            color: inherit;
-            font-size: 0.8rem;
-            padding: 0;
-        }
-    }
-
-    mark {
-        background-color: #FAF594;
-    }
-
-    img {
-        height: auto;
-        max-width: 100%;
-    }
-
-    hr {
-        margin: 1rem 0;
-    }
-
-    blockquote {
-        border-left: 2px solid rgba(#0D0D0D, 0.1);
-        padding-left: 1rem;
-    }
-
-    hr {
-        border: none;
-        border-top: 2px solid rgba(#0D0D0D, 0.1);
-        margin: 2rem 0;
-    }
-
-    ul[data-type="taskList"] {
-        list-style: none;
-        padding: 0;
-
-        li {
-            align-items: center;
-            display: flex;
-
-            > label {
-                flex: 0 0 auto;
-                margin-right: 0.5rem;
-                user-select: none;
-            }
-
-            > div {
-                flex: 1 1 auto;
-            }
-        }
-    }
-
     .bubble-menu {
         display: flex;
         background-color: #0D0D0D;
@@ -340,6 +257,7 @@ export default {
         height: 0;
         pointer-events: none;
     }
+
 }
 
 </style>

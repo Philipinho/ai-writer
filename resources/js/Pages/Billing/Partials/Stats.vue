@@ -1,7 +1,4 @@
 <template>
-
-    <div class="mx-auto max-w-2xl px-6 lg:px-8">
-
         <h3 class="text-2xl font-semibold leading-6 text-gray-900">Subscription</h3>
         <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
 
@@ -29,7 +26,7 @@
 
         </dl>
 
-        <div class="mt-4">
+        <div class="py-5">
 
             <div class="flex flex-row justify-between mb-2">
                 <div class="font-medium">
@@ -53,9 +50,6 @@
             <div class="mt-2">Credits will reset on <span class="font-bold">{{ credits.expiration_date }}</span></div>
 
         </div>
-
-
-    </div>
 </template>
 
 

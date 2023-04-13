@@ -29,11 +29,14 @@ export default {
             </h2>
         </template>
 
-        <Stats :credits="credits" :stats="usage_stats" v-if="subscribed"/>
+        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
 
-        <Manage v-if="subscribed"/>
+            <Stats :credits="credits" :stats="usage_stats" v-if="subscribed"/>
 
-        <Plans :plans="plans" v-if="!subscribed"/>
+            <Manage v-if="subscribed"/>
+
+            <Plans :plans="plans" v-if="!subscribed"/>
+        </div>
 
     </AppLayout>
 </template>
