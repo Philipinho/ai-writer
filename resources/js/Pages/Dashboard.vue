@@ -4,7 +4,7 @@ import {Link} from '@inertiajs/vue3';
 import Stats from '@/Components/Custom/Stats.vue';
 import TemplatesGrid from '@/Pages/Templates/Partials/TemplatesGrid.vue';
 import DocumentListView from '@/Pages/Documents/Partials/ListView.vue';
-import ButtonIcon from '@/Components/ButtonIcon.vue';
+import ButtonIcon from '@/Components/Jetstream/ButtonIcon.vue';
 
 
 export default {

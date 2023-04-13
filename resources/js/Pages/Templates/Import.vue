@@ -59,9 +59,9 @@
 
 <script>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import FormSection from '@/Components/FormSection.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
+import FormSection from '@/Components/Jetstream/FormSection.vue';
+import InputLabel from '@/Components/Jetstream/InputLabel.vue';
+import PrimaryButton from '@/Components/Jetstream/PrimaryButton.vue';
 import {useForm} from '@inertiajs/vue3';
 
 export default {

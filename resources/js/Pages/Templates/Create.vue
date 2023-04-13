@@ -3,7 +3,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import {VueDraggableNext} from 'vue-draggable-next';
 import Fields from "@/Pages/Templates/Partials/Fields.vue";
 
-import FormSection from '@/Components/FormSection.vue';
+import FormSection from '@/Components/Jetstream/FormSection.vue';
 
 
 export default {

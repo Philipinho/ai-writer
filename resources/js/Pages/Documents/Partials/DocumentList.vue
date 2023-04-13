@@ -1,8 +1,8 @@
 <script>
-import TextInput from '@/Components/TextInput.vue';
+import TextInput from '@/Components/Jetstream/TextInput.vue';
 import GridView from '@/Pages/Documents/Partials/GridView.vue';
 import ListView from '@/Pages/Documents/Partials/ListView.vue';
-import ButtonIcon from '@/Components/ButtonIcon.vue'
+import ButtonIcon from '@/Components/Jetstream/ButtonIcon.vue'
 import {Link} from '@inertiajs/vue3';
 
 export default {

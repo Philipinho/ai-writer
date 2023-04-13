@@ -1,9 +1,9 @@
 <script>
 import {reactive, ref} from 'vue';
 import {useForm} from '@inertiajs/vue3';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+import InputLabel from '@/Components/Jetstream/InputLabel.vue';
+import PrimaryButton from '@/Components/Jetstream/PrimaryButton.vue';
+import TextInput from '@/Components/Jetstream/TextInput.vue';
 
 export default {
     components: {

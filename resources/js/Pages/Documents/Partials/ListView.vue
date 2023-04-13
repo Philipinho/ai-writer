@@ -107,8 +107,8 @@
 
 <script>
 import {router} from "@inertiajs/vue3";
-import Dropdown from '@/Components/Dropdown.vue';
-import DropdownLink from '@/Components/DropdownLink.vue';
+import Dropdown from '@/Components/Jetstream/Dropdown.vue';
+import DropdownLink from '@/Components/Jetstream/DropdownLink.vue';
 
 export default {
     components: {

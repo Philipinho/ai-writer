@@ -2,8 +2,8 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Tiptap from "@/Components/Editor/Tiptap.vue";
 import DocumentsForm from "@/Pages/Documents/Partials/DocumentsForm.vue";
-import InputLabel from '@/Components/InputLabel.vue';
-import TextInput from '@/Components/TextInput.vue';
+import InputLabel from '@/Components/Jetstream/InputLabel.vue';
+import TextInput from '@/Components/Jetstream/TextInput.vue';
 import debounce from 'debounce'
 
 

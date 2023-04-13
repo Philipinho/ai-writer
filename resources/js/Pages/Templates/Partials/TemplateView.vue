@@ -1,5 +1,5 @@
 <script>
-import TextInput from '@/Components/TextInput.vue';
+import TextInput from '@/Components/Jetstream/TextInput.vue';
 import TemplatesGrid from '@/Pages/Templates/Partials/TemplatesGrid.vue';
 
 export default {
