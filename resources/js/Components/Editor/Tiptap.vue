@@ -24,8 +24,8 @@ import Highlight from '@tiptap/extension-highlight'
 import TaskItem from '@tiptap/extension-task-item'
 import TaskList from '@tiptap/extension-task-list'
 import Placeholder from '@tiptap/extension-placeholder'
+import Link from '@tiptap/extension-link'
 import debounce from 'debounce'
-
 
 import MenuBar from '@/Components/Editor/MenuBar.vue'
 
@@ -87,6 +87,7 @@ export default {
                 Highlight,
                 TaskList,
                 TaskItem,
+                Link,
                 CharacterCount.configure({
                     limit: 30000,
                 }),
