@@ -11,13 +11,16 @@
         </div>
 
         <menu-bar class="editor__header" :editor="editor"/>
+        <!--<bubble-menu-bar :editor="editor"/>-->
+
         <editor-content class="editor__content" :editor="editor"/>
+
 
     </div>
 </template>
 
 <script>
-import {Editor, EditorContent, BubbleMenu, FloatingMenu} from '@tiptap/vue-3'
+import {Editor, EditorContent} from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import CharacterCount from '@tiptap/extension-character-count'
 import Highlight from '@tiptap/extension-highlight'
@@ -28,13 +31,14 @@ import Link from '@tiptap/extension-link'
 import debounce from 'debounce'
 
 import MenuBar from '@/Components/Editor/MenuBar.vue'
+import BubbleMenuBar from '@/Components/Editor/BubbleMenuBar.vue'
+
 
 export default {
     components: {
         EditorContent,
         MenuBar,
-        BubbleMenu,
-        FloatingMenu,
+        BubbleMenuBar
     },
 
     props: {
