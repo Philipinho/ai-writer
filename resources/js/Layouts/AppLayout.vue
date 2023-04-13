@@ -255,6 +255,9 @@ const sidebarOpen = ref(false)
                                 </transition>
                             </Menu>
                         </li>
+                        <li>
+                            <DarkMode/>
+                        </li>
 
                         <li class="mt-auto">
                             <a href="#"
@@ -272,16 +275,17 @@ const sidebarOpen = ref(false)
         </div>
 
         <div class="lg:pl-60">
-            <div class="sticky top-0 z-40 bg-white border-b border-gray-200">
+
+            <div class="">
                 <div class="lg:mx-auto lg:max-w-7xl lg:px-8">
-                    <div
-                        class="flex h-16 items-center gap-x-4 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-0 lg:shadow-none">
-                        <button type="button" class="-m-2.5 p-2.5 text-gray-700 lg:hidden" @click="sidebarOpen = true">
+                    <div class="flex">
+
+                        <button type="button" class=" p-3.5 text-gray-700 lg:hidden" @click="sidebarOpen = true">
                             <span class="sr-only">Open sidebar</span>
                             <Bars3Icon class="h-6 w-6" aria-hidden="true"/>
                         </button>
 
-                        <!-- Separator -->
+                        <!--
                         <div class="h-6 w-px bg-gray-200 lg:hidden" aria-hidden="true"/>
 
                         <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
@@ -296,10 +300,8 @@ const sidebarOpen = ref(false)
                                     <BellIcon class="h-6 w-6" aria-hidden="true"/>
                                 </button>
 
-                                <!-- Separator -->
                                 <div class="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-200" aria-hidden="true"/>
 
-                                <!-- Profile dropdown -->
                                 <Menu as="div" class="relative">
                                     <MenuButton class="-m-1.5 flex items-center p-1.5">
                                         <span class="sr-only">Open user menu</span>
@@ -340,18 +342,20 @@ const sidebarOpen = ref(false)
                                 </Menu>
                             </div>
                         </div>
+                        -->
                     </div>
                 </div>
             </div>
 
+
             <!-- Page Heading -->
-            <header v-if="$slots.header" class="">
-                <div class="mx-auto py-4 px-4 sm:px-6 lg:px-8">
+            <header v-if="$slots.header" class="py-10">
+                <div class="max-w-5xl 2xl:max-w-6xl mx-auto sm:px-6 lg:px-8">
                     <slot name="header"/>
                 </div>
             </header>
 
-            <main class="py-10">
+            <main class="py-2">
                 <div class="mx-auto px-4 sm:px-6 lg:px-8">
                     <slot/>
                 </div>
