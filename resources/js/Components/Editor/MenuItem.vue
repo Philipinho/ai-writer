@@ -39,7 +39,7 @@ export default {
     background: transparent;
     border: none;
     border-radius: 0.4rem;
-    color: #fff;
+    color: #000;
     cursor: pointer;
     height: 1.75rem;
     padding: 0.25rem;
@@ -55,6 +55,7 @@ export default {
     &.is-active,
     &:hover {
         background-color: #303030;
+        color:#fff;
     }
 }
 </style>

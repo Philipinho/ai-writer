@@ -127,8 +127,8 @@ export default {
 
     &__header {
         align-items: center;
-        background: #0d0d0d;
-        border-bottom: 3px solid #0d0d0d;
+        background: #fff;
+        border-bottom: 2px solid rgb(#0D0D0D, 0.4);
         border-top-left-radius: 0.25rem;
         border-top-right-radius: 0.25rem;
         display: flex;
@@ -147,7 +147,8 @@ export default {
 
     &__footer {
         align-items: center;
-        border-top: 3px solid #0D0D0D;
+        border-top: 2px solid rgb(#0D0D0D, 0.4);
+        border-bottom: 1px solid rgb(#0D0D0D, 0.2);
         color: #0D0D0D;
         display: flex;
         flex: 0 0 auto;
