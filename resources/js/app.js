@@ -13,7 +13,7 @@ import vSelect from 'vue-select';
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 const options = {
     //Toast options
-    maxToasts: 1,
+    maxToasts: 2,
     newestOnTop: true
 };
 

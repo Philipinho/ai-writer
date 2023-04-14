@@ -173,7 +173,7 @@ class DocumentController extends Controller
         $team = auth()->user()->currentTeam;
 
         if (!auth()->user()->can('creditCheck', $team)) {
-            return response()->json(['success' => false, 'message' => 'Credit limits reached.'], 429);
+            return response()->json(['success' => false, 'message' => 'Sorry, you have exhausted your credits. Please upgrade your plan.'], 429);
         }
 
         //Todo: validate fields

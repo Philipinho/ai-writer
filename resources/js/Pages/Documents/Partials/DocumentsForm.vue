@@ -5,6 +5,7 @@ import InputLabel from '@/Components/Jetstream/InputLabel.vue';
 import PrimaryButton from '@/Components/Jetstream/PrimaryButton.vue';
 import TextInput from '@/Components/Jetstream/TextInput.vue';
 import vSelect from 'vue-select';
+import { useToast } from "vue-toastification";
 
 export default {
     components: {
@@ -33,6 +34,7 @@ export default {
                 errors: [],
             },
             selectedKey: this.getDefaultSelectedKey(),
+            toast: useToast(),
         };
     },
     computed: {
@@ -69,7 +71,8 @@ export default {
 
             // Loop through all input elements in the form
             for (const inputElement of form.elements) {
-                if (inputElement.tagName === 'BUTTON') continue; // Skip buttons
+                if (inputElement.tagName === 'BUTTON') continue;
+                if (inputElement.name === '') continue;
                 // If the input element's name is in selectedFieldNames, add it to the 'inputLabels' node
                 if (selectedFieldNames.has(inputElement.name)) {
                     formData.inputLabels[inputElement.name] = inputElement.value;
@@ -77,10 +80,13 @@ export default {
                     formData[inputElement.name] = inputElement.value;
                 }
             }
+
+            formData['template'] = this.selectedKey;
+
             return formData;
         },
 
-        createDocument() {
+        generateContent() {
             this.form.processing = true;
             const form = this.$refs.documentCreateForm;
             const formData = this.getFormData(form);
@@ -90,8 +96,13 @@ export default {
                     this.$emit('contentReceived', response.data.data.content)
                     this.form.processing = false;
                 }).catch(error => {
-                console.log("Error:")
-                console.log(error.response.data)
+
+                if (error.response.status === 429){
+                    this.toast.error(error.response.data.message)
+                } else {
+                    this.toast.error('Oops. Something went wrong. Try again or contact support')
+                }
+
                 this.form.processing = false;
             });
         }
@@ -101,7 +112,7 @@ export default {
 
 
 <template>
-    <form v-if="selectedKey" ref="documentCreateForm" @submit.prevent="createDocument()">
+    <form v-if="selectedKey" ref="documentCreateForm" @submit.prevent="generateContent()">
         <div class="space-y-12">
             <div class="border-b border-gray-900/10 pb-5">
                 <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -109,8 +120,7 @@ export default {
                     <div class="sm:col-span-6">
                         <label for="type" class="block text-sm font-medium leading-6 text-gray-900">Template</label>
 
-                        <v-select id="mySelect"
-                                  name="template"
+                        <v-select name="template"
                                   v-model="selectedKey"
                                   :options="templates"
                                   :reduce="(item) => item.key"
@@ -233,8 +243,8 @@ export default {
 
 
         <div class="mt-4 mb-4 flex items-center gap-x-6">
-            <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                Generate
+            <PrimaryButton :class="{ 'opacity-15': form.processing }" :disabled="form.processing">
+                <i v-if="form.processing" style="font-size: 20px;" class="mr-1 animate-spin ri-loader-4-line"></i>  Generate
             </PrimaryButton>
         </div>
     </form>
