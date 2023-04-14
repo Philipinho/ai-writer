@@ -1,13 +1,19 @@
 import './bootstrap';
 import '../css/app.css';
 import 'remixicon/fonts/remixicon.css'
+import "vue-toastification/dist/index.css";
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
+import Toast from "vue-toastification";
+
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
+const options = {
+    //Toast options
+};
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
@@ -16,6 +22,7 @@ createInertiaApp({
         return createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue, Ziggy)
+            .use(Toast, options)
             .mount(el);
     },
     progress: {
