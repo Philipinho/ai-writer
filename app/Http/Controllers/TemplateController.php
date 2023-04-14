@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Field;
 use App\Models\Template;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -212,54 +215,69 @@ class TemplateController extends Controller
         $csv->setHeaderOffset(0);
         $records = (new Statement())->process($csv);
 
-        foreach ($records as $record) {
-            $template_key = Str::slug($record['template_key'], '_') ?? Str::slug($record['template_name'], '_');
+        DB::beginTransaction();
 
-            // maybe use category_key and then find the category id from the key
-            $categoryIds = array_map('intval', explode(',', $record['category_ids']));
+        try {
+            foreach ($records as $record) {
 
-            $templateData = [
-                'key' => $template_key,
-                'name' => $record['template_name'],
-                'description' => $record['description'],
-                'prompt' => $record['prompt'],
-                'tones' => filter_var($record['tones'], FILTER_VALIDATE_BOOLEAN),
-                'icon' => $record['icon'],
-                'color' => $record['color'],
-                'order' => $record['order'],
-                'status' => $record['status'],
-            ];
-
-            $template = Template::updateOrCreate(['key' => $template_key], $templateData);
-            $template->categories()->syncWithoutDetaching($categoryIds);
-
-            $fieldIndex = 1;
-            while (isset($record["field{$fieldIndex}_label"])) {
-                if (!empty($record["field{$fieldIndex}_label"])) {
-                    $fieldData = [
-                        'label' => $record["field{$fieldIndex}_label"],
-                        'required' => filter_var($record["field{$fieldIndex}_required"], FILTER_VALIDATE_BOOLEAN),
-                        'name' => $record["field{$fieldIndex}_name"],
-                        'placeholder' => $record["field{$fieldIndex}_placeholder"],
-                        'type' => $record["field{$fieldIndex}_type"],
-                        'order' => $record["field{$fieldIndex}_order"],
-                        //'minLength' => $record["field{$fieldIndex}_minLength"],
-                        'maxLength' => $record["field{$fieldIndex}_maxLength"],
-                    ];
-
-                    // Find the field by its name and the template_id.
-                    $existingField = Field::where('name', $record["field{$fieldIndex}_name"])->where('template_id', $template->id)->first();
-
-                    // If the field exists, update it. Otherwise, create a new field.
-                    if ($existingField) {
-                        $existingField->update($fieldData);
-                    } else {
-                        $template->fields()->create($fieldData);
-                    }
+                $template_key = Str::slug($record['template_key'], '_');
+                if (empty($record['template_key'])){
+                    $template_key = Str::slug($record['template_name'], '_');
                 }
 
-                $fieldIndex++;
+                $categoryKeys = array_map('trim', explode(',', $record['category_keys']));
+                $categories = Category::whereIn('key', $categoryKeys)->get();
+                $categoryIds = $categories->pluck('id')->toArray();
+
+                if (empty($record['template_name'])) continue;
+
+                $templateData = [
+                    'key' => $template_key,
+                    'name' => $record['template_name'],
+                    'description' => $record['description'],
+                    'prompt' => $record['prompt'],
+                    'tones' => filter_var($record['tones'], FILTER_VALIDATE_BOOLEAN),
+                    'icon' => $record['icon'],
+                    'color' => $record['color'],
+                    'order' => $record['order'],
+                    'status' => $record['status'],
+                ];
+
+                $template = Template::updateOrCreate(['key' => $template_key], $templateData);
+                $template->categories()->sync($categoryIds);
+
+                $fieldIndex = 1;
+                while (isset($record["field{$fieldIndex}_label"])) {
+                    if (!empty($record["field{$fieldIndex}_label"])) {
+                        $fieldData = [
+                            'label' => $record["field{$fieldIndex}_label"],
+                            'required' => filter_var($record["field{$fieldIndex}_required"], FILTER_VALIDATE_BOOLEAN),
+                            'name' => $record["field{$fieldIndex}_name"],
+                            'placeholder' => $record["field{$fieldIndex}_placeholder"],
+                            'type' => $record["field{$fieldIndex}_type"],
+                            'order' => $record["field{$fieldIndex}_order"],
+                            'maxLength' => $record["field{$fieldIndex}_maxLength"],
+                            'show' => filter_var($record["field{$fieldIndex}_show"], FILTER_VALIDATE_BOOLEAN),
+                        ];
+
+                        $existingField = Field::where('name', $record["field{$fieldIndex}_name"])->where('template_id', $template->id)->first();
+
+                        if ($existingField) {
+                            $existingField->update($fieldData);
+                        } else {
+                            $template->fields()->create($fieldData);
+                        }
+                    }
+
+                    $fieldIndex++;
+                }
             }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            Log::error($e);
+            DB::rollback();
+            throw $e;
         }
     }
 

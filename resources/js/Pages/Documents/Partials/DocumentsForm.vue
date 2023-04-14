@@ -121,7 +121,7 @@ export default {
 
                             <div v-if="field.type !== 'select'">
 
-                                <TextInput v-if="field.type === 'input'"
+                                <TextInput v-if="field.type === 'text'"
                                            :name="field.name"
                                            :placeholder="field.placeholder"
                                            type="text"

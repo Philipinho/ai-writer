@@ -14,7 +14,7 @@
             </template>
 
             <template #description>
-                Import templates from  a CSV file
+                Import templates from a CSV file
             </template>
 
             <template #form>
@@ -63,6 +63,7 @@ import FormSection from '@/Components/Jetstream/FormSection.vue';
 import InputLabel from '@/Components/Jetstream/InputLabel.vue';
 import PrimaryButton from '@/Components/Jetstream/PrimaryButton.vue';
 import {useForm} from '@inertiajs/vue3';
+import {useToast} from "vue-toastification";
 
 export default {
     components: {
@@ -78,7 +79,8 @@ export default {
             fileInput: null,
             form: {
                 name: ''
-            }
+            },
+            toast: useToast(),
         };
     },
     methods: {
@@ -87,18 +89,17 @@ export default {
             const formData = new FormData();
             formData.append('file', this.$refs.fileInput.files[0]);
 
-            try {
-                console.log(formData)
-                await axios.post(route('templates.import.upload'), formData);
-                this.$refs.fileInput.value = null;
+            axios.post(route('templates.import.upload'), formData)
+                .then((response) => {
+                    this.$refs.fileInput.value = null;
+                    this.form.processing = false;
+                    this.toast.success("Import was successfully")
+                })
+                .catch((error) => {
+                    this.form.processing = false;
+                    this.toast.error("There was an error importing the templates.")
+                });
 
-                console.log('success');
-                this.form.processing = false;
-                // Redirect or show success message
-            } catch (error) {
-                this.form.processing = false;
-                // Handle error
-            }
         },
     },
 };
