@@ -4,6 +4,7 @@ import {useForm} from '@inertiajs/vue3';
 import InputLabel from '@/Components/Jetstream/InputLabel.vue';
 import PrimaryButton from '@/Components/Jetstream/PrimaryButton.vue';
 import TextInput from '@/Components/Jetstream/TextInput.vue';
+import vSelect from 'vue-select';
 
 export default {
     components: {
@@ -12,7 +13,8 @@ export default {
         useForm,
         InputLabel,
         PrimaryButton,
-        TextInput
+        TextInput,
+        vSelect
     },
 
     props: {
@@ -88,8 +90,8 @@ export default {
                     this.$emit('contentReceived', response.data.data.content)
                     this.form.processing = false;
                 }).catch(error => {
-                    console.log("Error:")
-                    console.log(error.response.data)
+                console.log("Error:")
+                console.log(error.response.data)
                 this.form.processing = false;
             });
         }
@@ -104,12 +106,19 @@ export default {
             <div class="border-b border-gray-900/10 pb-5">
                 <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
-                    <div class="sm:col-span-4">
-                        <label for="type" class="block text-sm font-medium leading-6 text-gray-900">Type</label>
-                        <select name="template" v-model="selectedKey"
-                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                            <option v-for="item in templates" :value="item.key">{{ item.name }}</option>
-                        </select>
+                    <div class="sm:col-span-6">
+                        <label for="type" class="block text-sm font-medium leading-6 text-gray-900">Template</label>
+
+                        <v-select id="mySelect"
+                                  name="template"
+                                  v-model="selectedKey"
+                                  :options="templates"
+                                  :reduce="(item) => item.key"
+                                  :clearable="false"
+                                  label="name"
+                                  class="block w-full rounded-md  py-1.5 text-gray-900 shadow-sm sm:max-w-xs sm:text-sm sm:leading-6">
+                        </v-select>
+
 
                     </div>
 
@@ -230,3 +239,63 @@ export default {
         </div>
     </form>
 </template>
+
+
+<style>
+.vs--single .vs__selected {
+    background-color: transparent;
+    border-color: transparent;
+    font-size: 16px;
+}
+
+.vs__search, .vs__search:focus {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    line-height: var(--vs-line-height);
+    font-size: var(--vs-font-size);
+    border: 1px solid transparent;
+    border-left: none;
+    outline: none;
+    margin: 4px 0 0;
+    padding: 0 7px;
+    background: none;
+    box-shadow: none;
+    width: 0;
+    max-width: 100%;
+    flex-grow: 1;
+    z-index: 1;
+}
+
+.v-menu__content {
+    border-radius: 10px !important;
+    background: black;
+}
+
+.vs__dropdown-menu {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    font-size: 16px;
+}
+
+</style>
+
+<style scoped>
+>>> {
+    /*
+    --vs-controls-color: #664cc3;
+    --vs-border-color: #664cc3;
+
+    --vs-dropdown-bg: #282c34;
+    --vs-dropdown-color: #cc99cd;
+    --vs-dropdown-option-color: #cc99cd;
+
+    --vs-selected-bg: #664cc3;
+    --vs-selected-color: #eeeeee;
+
+    --vs-search-input-color: #eeeeee;
+*/
+    --vs-dropdown-option--active-bg: rgb(79 70 229);
+    --vs-dropdown-option--active-color: #fff;
+}
+</style>

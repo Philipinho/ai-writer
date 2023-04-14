@@ -1,13 +1,13 @@
 import './bootstrap';
 import '../css/app.css';
-import 'remixicon/fonts/remixicon.css'
-import "vue-toastification/dist/index.css";
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import Toast from "vue-toastification";
+import VueSelect from "vue-select";
+import vSelect from 'vue-select';
 
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
@@ -25,6 +25,7 @@ createInertiaApp({
             .use(plugin)
             .use(ZiggyVue, Ziggy)
             .use(Toast, options)
+            .component("v-select", VueSelect)
             .mount(el);
     },
     progress: {

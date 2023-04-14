@@ -6,53 +6,57 @@
             </h2>
         </template>
 
+        <div class="max-w-5xl 2xl:max-w-6xl mx-auto sm:px-6 lg:px-8">
 
-        <FormSection @submit.prevent="submitForm">
+            <FormSection @submit.prevent="submitForm">
 
-            <template #title>
-                Import Templates
-            </template>
+                <template #title>
+                    Import Templates
+                </template>
 
-            <template #description>
-                Import templates from a CSV file
-            </template>
+                <template #description>
+                    Import templates from a CSV file
+                </template>
 
-            <template #form>
+                <template #form>
 
-                <div class="col-span-full">
+                    <div class="col-span-full">
 
-                    <InputLabel for="file" value="Upload CSV or JSON"/>
+                        <InputLabel for="file" value="Upload CSV or JSON"/>
 
-                    <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                        <div class="text-center">
+                        <div
+                            class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                            <div class="text-center">
 
-                            <div class="mt-4 flex text-sm leading-6 text-gray-600">
-                                <label for="file"
-                                       class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
-                                    <input
-                                        type="file"
-                                        id="file"
-                                        name="file"
-                                        ref="fileInput"
-                                        required
-                                    >
+                                <div class="mt-4 flex text-sm leading-6 text-gray-600">
+                                    <label for="file"
+                                           class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+                                        <input
+                                            type="file"
+                                            id="file"
+                                            name="file"
+                                            ref="fileInput"
+                                            required
+                                        >
 
-                                </label>
+                                    </label>
+                                </div>
+                                <p class="text-xs leading-5 text-gray-600 hidden">CSV, JSON</p>
                             </div>
-                            <p class="text-xs leading-5 text-gray-600 hidden">CSV, JSON</p>
                         </div>
                     </div>
-                </div>
 
-            </template>
+                </template>
 
-            <template #actions>
-                <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Upload
-                </PrimaryButton>
-            </template>
+                <template #actions>
+                    <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                        Upload
+                    </PrimaryButton>
+                </template>
 
-        </FormSection>
+            </FormSection>
+
+        </div>
 
     </AppLayout>
 </template>
