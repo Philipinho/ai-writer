@@ -29,6 +29,7 @@ import TaskList from '@tiptap/extension-task-list'
 import Placeholder from '@tiptap/extension-placeholder'
 import Link from '@tiptap/extension-link'
 import debounce from 'debounce'
+import { useToast } from "vue-toastification";
 
 import MenuBar from '@/Components/Editor/MenuBar.vue'
 import BubbleMenuBar from '@/Components/Editor/BubbleMenuBar.vue'
@@ -63,7 +64,8 @@ export default {
         return {
             editor: null,
             document_content: this.data.values.content,
-            debouncedUpdateContent: debounce(this.updateContent, 1000),
+            debouncedUpdateContent: debounce(this.updateContent, 1500),
+            toast: useToast(),
         }
     },
 
@@ -72,8 +74,9 @@ export default {
 
             axios.put(route('documents.update', [this.data.values.uuid]), {content: content, action: 'update_content'})
                 .then(response => {
-                    console.log(response.data)
+                    // add a green tick to the editor header to signify success
                 }).catch(error => {
+                    this.toast.error('There was an error updating the document.')
                 console.log(error.response.data)
             });
         },

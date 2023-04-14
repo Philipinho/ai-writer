@@ -5,6 +5,7 @@ import DocumentsForm from "@/Pages/Documents/Partials/DocumentsForm.vue";
 import InputLabel from '@/Components/Jetstream/InputLabel.vue';
 import TextInput from '@/Components/Jetstream/TextInput.vue';
 import debounce from 'debounce'
+import { useToast } from "vue-toastification";
 
 
 export default {
@@ -28,7 +29,8 @@ export default {
         return {
             editorContent: '',
             documentName: this.data.values.name,
-            debouncedUpdateDocumentName: debounce(this.updateDocumentName, 500),
+            debouncedUpdateDocumentName: debounce(this.updateDocumentName, 1500),
+            toast: useToast(),
         };
     },
     watch: {
@@ -39,7 +41,14 @@ export default {
     },
     methods: {
         updateDocumentName(newName) {
-            axios.put(route('documents.update', [this.data.values.uuid]), {name: newName, action: 'update_name'});
+            axios.put(route('documents.update', [this.data.values.uuid]), {name: newName, action: 'update_name'})
+                .then((response) => {
+                    this.toast.success("Document title updated successfully")
+                })
+                .catch((error) => {
+
+                    this.toast.error("There was an error updating document title")
+                });
         },
 
         updateEditorContent(content) {

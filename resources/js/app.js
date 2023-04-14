@@ -13,6 +13,8 @@ import Toast from "vue-toastification";
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 const options = {
     //Toast options
+    maxToasts: 1,
+    newestOnTop: true
 };
 
 createInertiaApp({
