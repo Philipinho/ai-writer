@@ -31,6 +31,7 @@ export default {
             documentName: this.data.values.name,
             debouncedUpdateDocumentName: debounce(this.updateDocumentName, 1500),
             toast: useToast(),
+            currentTemplate: '',
         };
     },
     watch: {
@@ -53,13 +54,29 @@ export default {
 
         updateEditorContent(content) {
             this.editorContent = content;
-        }
+        },
+        onSelectedTemplate(template) {
+            this.currentTemplate = template;
+        },
     },
 };
 </script>
 
 <template>
-    <AppLayout title="Document">
+    <AppLayout title="Document" >
+
+
+        <div class="sm:-mt-14 md:mt-0 bg-white md:w-1/3">
+            <div class="px-4 py-5 sm:p-6">
+                <h2 class="text-xl font-semibold leading-6 text-gray-900">
+                    <i :class="[currentTemplate.icon, 'mr-1 text-indigo-700']"/> {{ currentTemplate.name}}</h2>
+                <div class="mt-2 max-w-xl text-sm text-gray-500">
+                    <p>{{ currentTemplate.description}}</p>
+                </div>
+
+            </div>
+            <div class="border-b border-gray-200"></div>
+        </div>
 
         <div class="flex mt-5 md:hidden">
             <div class="w-80 mb-5">
@@ -80,11 +97,12 @@ export default {
 
             <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
 
-                <div class="lg:w-1/3 md:mt-24" style="max-height: 100vh;">
+                <div class="lg:w-1/3 md:mt-8 border-r border-gray-200" style="max-height: 100%;">
 
                     <div class="overflow-y-auto bg-white p-4">
                         <div class="h-full">
                             <DocumentsForm @contentReceived="updateEditorContent"
+                                           @selectedTemplate="onSelectedTemplate"
                                            :data="data" :templates="templates">
                             </DocumentsForm>
                         </div>
@@ -92,7 +110,7 @@ export default {
 
                 </div>
 
-                <div class="p-4 md:w-1/2 grow h-full md:fixed md:right-0 md:bottom-0 md:top-16">
+                <div class="p-4 md:w-1/2 grow h-full md:fixed md:right-0 md:bottom-0 sm:top-12 md:top-4">
                     <div class="w-80 mb-5 hidden md:block">
                         <!--<InputLabel for="document_title" value="Name"/>-->
 
