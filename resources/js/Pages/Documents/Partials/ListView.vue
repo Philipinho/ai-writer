@@ -18,7 +18,7 @@
                                     class="hidden md:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                     Updated
                                 </th>
-                                <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                                <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6 hidden">
                                     <span class="sr-only">Favorites</span>
                                 </th>
                                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
@@ -44,7 +44,7 @@
                                     {{ formatDate(document.updated_at) }}
                                 </td>
 
-                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden">
                                     <i class="ri-heart-line"></i>
                                 </td>
 
