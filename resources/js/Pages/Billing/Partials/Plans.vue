@@ -1,13 +1,13 @@
 <template>
             <div class="mx-auto max-w-4xl">
-                <h2 class="text-2xl font-semibold leading-7 text-indigo-600">Plans</h2>
+                <h2 class="text-2xl font-semibold leading-7 text-indigo-600">Upgrade</h2>
                 <!--<p class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
                     Pricing plans for teams of all sizes
                 </p>-->
             </div>
 
             <p class="mx-auto mt-4 max-w-2xl text-center text-lg leading-8 text-gray-600">
-                Supercharge your writing today with our affordable plans
+                Supercharge your writing today with our affordable plans.
             </p>
 
             <div class="mt-5 flex justify-center">

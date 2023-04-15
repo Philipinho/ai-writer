@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
+use App\Listeners\AddCreditsToTeamAccount;
 use App\Listeners\Stripe\PaymentsListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 use Laravel\Cashier\Events\WebhookReceived;
+use Laravel\Jetstream\Events\TeamCreated;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         WebhookReceived::class => [
             PaymentsListener::class,
+        ],
+        TeamCreated::class => [
+            AddCreditsToTeamAccount::class,
         ],
     ];
 

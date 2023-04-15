@@ -42,7 +42,7 @@
                 <div
                     class="flex flex-col justify-center overflow-hidden bg-indigo-600 text-md font-bold text-white text-center"
                     role="progressbar" :style="{ width: stats.percent_used + '%' }" :aria-valuenow="stats.percent_used" aria-valuemin="0" aria-valuemax="100">
-                    {{ stats.percent_used }}
+                    {{ stats.percent_used }}%
 
                 </div>
             </div>

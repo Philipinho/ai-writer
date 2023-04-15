@@ -99,7 +99,7 @@ export default {
 
                 <div class="lg:w-1/3 md:mt-8 border-r border-gray-200" style="max-height: 100%;">
 
-                    <div class="overflow-y-auto bg-white p-4">
+                    <div class="bg-white p-4">
                         <div class="h-full">
                             <DocumentsForm @contentReceived="updateEditorContent"
                                            @selectedTemplate="onSelectedTemplate"

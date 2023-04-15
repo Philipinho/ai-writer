@@ -31,7 +31,7 @@ export default {
 
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
 
-            <Stats :credits="credits" :stats="usage_stats" v-if="subscribed"/>
+            <Stats :credits="credits" :stats="usage_stats"/>
 
             <Manage v-if="subscribed"/>
 

@@ -3,7 +3,7 @@
 return [
 
     'trial_days' => 7,
-    'model' => \App\Models\Team::class,
+    'free_plan_credits' => 2000,
 
     'plans' => [
         [

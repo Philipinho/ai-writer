@@ -25,8 +25,8 @@ class TeamCredit extends Model
 
         // Calculate the percentage values
         if ($totalCredits > 0) {
-            $percentUsed = ($creditsUsed / $totalCredits) * 100;
-            $percentLeft = ($creditsLeft / $totalCredits) * 100;
+            $percentUsed = round(($creditsUsed / $totalCredits) * 100);
+            $percentLeft = round(($creditsLeft / $totalCredits) * 100);
         } else {
             // When there are no total credits, set percentages to zero
             $percentUsed = 0;
