@@ -187,23 +187,6 @@ export default {
                         </div>
                     </div>
 
-
-                    <div class="sm:col-span-3">
-                        <label for="variations"
-                               class="block text-sm font-medium leading-6 text-gray-900">Variations</label>
-                        <div class="mt-2">
-                            <select id="variations" name="variations"
-                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                <option
-                                    v-for="key in data.variations"
-                                    :key="key"
-                                    :value="key">
-                                    {{ key }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-
                     <div class="sm:col-span-3">
                         <label for="creativity"
                                class="block text-sm font-medium leading-6 text-gray-900">Creativity</label>
@@ -244,7 +227,26 @@ export default {
         </div>
 
 
-        <div class="mt-4 mb-4 flex items-center gap-x-6">
+
+        <div class="flex mt-4 mb-4 items-center gap-x-6 flex justify-between">
+
+
+            <div class="sm:col-span-3 flex items-center">
+                <label for="variations"
+                       class="block text-sm font-medium leading-6 text-gray-900 flex-nowrap mr-2">Outputs</label>
+                <div>
+                    <select id="variations" name="variations"
+                            class="block w-full rounded-md border-0 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                        <option
+                            v-for="key in data.variations"
+                            :key="key"
+                            :value="key">
+                            {{ key }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
             <PrimaryButton :class="{ 'opacity-15': form.processing }" :disabled="form.processing">
                 <i v-if="form.processing" style="font-size: 20px;" class="mr-1 animate-spin ri-loader-4-line"></i>  Generate
             </PrimaryButton>
