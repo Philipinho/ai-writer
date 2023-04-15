@@ -52,6 +52,6 @@ class CreateNewUser implements CreatesNewUsers
 
         $user->ownedTeams()->save($team);
 
-        $team->createAsStripeCustomer(['email' => $user->email]);
+        ///$team->createAsStripeCustomer(['email' => $user->email]);
     }
 }
