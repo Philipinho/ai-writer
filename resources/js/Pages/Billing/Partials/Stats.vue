@@ -47,13 +47,15 @@
                 </div>
             </div>
 
-            <div class="mt-2">Credits will reset on <span class="font-bold">{{ credits.expiration_date }}</span></div>
+            <div class="mt-2">Credits will reset on <span class="font-bold">{{  this.moment(credits.expiration_date).format('MMM D, YYYY') }}</span></div>
 
         </div>
 </template>
 
 
 <script>
+import moment from 'moment';
+
 export default {
     components: {},
     props: {
@@ -62,9 +64,13 @@ export default {
     },
 
     data() {
-        return {};
+        return {
+            moment: moment
+        };
     },
-    methods: {},
+    methods: {
+
+    },
 
     created() {
 

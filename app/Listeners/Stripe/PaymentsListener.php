@@ -54,7 +54,7 @@ class PaymentsListener
                 }
                 // TODO: link with subscription_id
 
-                $team->teamCredits()->firstOrCreate(
+                $team->teamCredits()->updateOrCreate(
                     ['team_id' => $team->id],
                     [
                         'plan' => $plan_name,
@@ -65,6 +65,7 @@ class PaymentsListener
                         'expiration_date' => Carbon::createFromTimestamp($currentPeriodEnd),
                     ]
                 );
+
                 // Cancel the old subscription plan if the team has any existing plan
                 //$this->cancelOldPlanIfNeeded($team);
             }
