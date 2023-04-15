@@ -7,7 +7,7 @@ import {
 } from '@headlessui/vue'
 import {
     Bars3Icon, Cog6ToothIcon, FolderIcon, HomeIcon,
-    UsersIcon, XMarkIcon, Square3Stack3DIcon, DocumentTextIcon
+    UsersIcon, XMarkIcon, Square3Stack3DIcon, DocumentTextIcon, ClockIcon
 } from '@heroicons/vue/24/outline'
 import {ArrowLeftOnRectangleIcon, ChevronUpDownIcon} from '@heroicons/vue/20/solid'
 import ApplicationMark from '@/Components/ApplicationMark.vue';
@@ -33,7 +33,7 @@ const navigation = [
     {name: 'Dashboard', href: '/dashboard', icon: HomeIcon},
     {name: 'Documents', href: '/documents', icon: DocumentTextIcon},
     {name: 'Templates', href: '/templates', icon: Square3Stack3DIcon},
-    /*{name: 'Projects', href: '#', icon: FolderIcon},*/
+    {name: 'History', href: '/history', icon: ClockIcon},
 ]
 const teams = [
     {id: 1, name: 'Billing', href: '/settings/billing', initial: 'B'},

@@ -38,6 +38,29 @@ class DocumentController extends Controller
         return Inertia::render('Documents/Index', ['documents' => $documents]);
     }
 
+    public function contentHistory(): \Inertia\Response
+    {
+
+        $contents = auth()->user()->currentTeam->documentContents()
+            ->with(['template' => function ($query) {
+                $query->select('id', 'name');
+            }])
+            ->with(['document' => function ($query) {
+                $query->select('id', 'uuid', 'name');
+            }])
+            ->select('team_id', 'uuid', 'document_id', 'template_id', 'content', 'word_count', 'favorite', 'created_at', 'updated_at')
+            ->orderBy('updated_at', 'DESC')
+            ->paginate(10)
+            ->withQueryString()
+            ->through(function ($content) {
+                return $content;
+            });
+
+        Log::info($contents);
+
+        return Inertia::render('Documents/History', ['contents' => $contents]);
+    }
+
     public function show(Request $request): \Inertia\Response
     {
 

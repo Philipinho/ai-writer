@@ -22,7 +22,7 @@ export default {
 </script>
 
 <template>
-    <AppLayout title="Templates">
+    <AppLayout title="Billing">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 Billing

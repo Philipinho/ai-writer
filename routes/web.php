@@ -38,7 +38,8 @@ Route::middleware([
 
     Route::get('documents', [DocumentController::class, 'index'])->name('documents.index');
 
-    // create new doc with template id passed?
+    Route::get('/history', [DocumentController::class, 'contentHistory'])->name('history');
+
     Route::get('/documents/new', [DocumentController::class, 'createDocument'])->name('documents.create');
     Route::get('/documents/{uuid}', [DocumentController::class, 'editDocument'])->name('documents.edit');
     Route::put('/documents/{uuid}/update', [DocumentController::class, 'updateDocument'])->name('documents.update');
