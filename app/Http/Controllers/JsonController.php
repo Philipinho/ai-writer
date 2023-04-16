@@ -14,7 +14,7 @@ class JsonController extends Controller
     {
         $team = auth()->user()->currentTeam;
         return response()->json([
-            'usage' => $team->teamCredits?->getCreditStats()
+            'usage' => $team->teamCredits?->getStats()
         ]);
     }
 

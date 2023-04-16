@@ -1,5 +1,10 @@
 <script>
+import {Link} from "@inertiajs/vue3";
+
 export default {
+    components:{
+        Link
+    },
     props: {
         templates: Object,
     }
@@ -27,10 +32,10 @@ export default {
             </div>
             <div class="mt-8">
                 <h3 class="text-base font-semibold leading-6 text-gray-900">
-                    <a :href="route('documents.create', {'template': template.key})" class="focus:outline-none">
+                    <Link :href="route('documents.create', {'template': template.key})" class="focus:outline-none">
                         <span class="absolute inset-0" aria-hidden="true"/>
                         {{ template.name }}
-                    </a>
+                    </Link>
                 </h3>
                 <p class="mt-2 text-sm text-gray-500">{{ template.description }}</p>
             </div>

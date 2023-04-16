@@ -78,6 +78,18 @@ class TeamPolicy
     public function creditCheck(User $user, Team $team): bool
     {
         $teamCredits = $team->teamCredits;
-        return $teamCredits && $teamCredits->credits > 0 && $teamCredits->expiration_date > now();
+
+        if (!$teamCredits) {
+            return false;
+        }
+
+        $creditsAllocated = $teamCredits->credits; // $teamCredits->payg_credits + $teamCredits->bonus_credits;
+
+        if($teamCredits->credits_used >= $creditsAllocated){
+            return false;
+        }
+
+        return $teamCredits->expiration_date > now();
     }
+
 }

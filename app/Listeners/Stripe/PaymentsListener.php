@@ -29,18 +29,17 @@ class PaymentsListener
         if ($event->payload['type'] === 'invoice.payment_succeeded') {
             $billingReason = $event->payload['data']['object']['billing_reason'];
 
+            if ($billingReason == 'subscription_create'){
+                $this->handleSubscriptionCreated($event->payload);
+            }
+
             if ($billingReason == 'subscription_cycle') {
                 $this->handleSubscriptionRenewal($event->payload);
             }
         }
 
-        if ($event->payload['type'] === 'customer.subscription.created') {
-            $this->handleSubscriptionCreated($event->payload);
-        }
-
         if ($event->payload['type'] === 'customer.subscription.updated') {
-            // Plan upgrade
-            $this->handlePlanUpgrade($event->payload);
+            $this->handleChangeOfPlan($event->payload);
         }
 
     }
@@ -55,11 +54,13 @@ class PaymentsListener
                 $stripePlanId = $data['data']['object']['items']['data'][0]['plan']['id'];
                 $billingInterval = $data['data']['object']['items']['data'][0]['plan']['interval']; // 'month' or 'year'
 
-                $newSubscriptionPlanKey = $this->mapStripePlanIdToConfigKey($stripePlanId);
+                $planKey = $this->mapStripePlanIdToConfigKey($stripePlanId);
 
-                $plan_name = config("stripe.plans.{$newSubscriptionPlanKey}.name");
-                $newPlanCredits = config("stripe.plans.{$newSubscriptionPlanKey}.credits");
-                $currentPeriodEnd = $data['data']['object']['current_period_end'];
+                $plan_name = $this->getPlanName($planKey);
+                $newPlanCredits = $this->getPlanCredits($planKey);
+
+                $currentPeriodStart = Carbon::createFromTimestamp($data['data']['object']['current_period_start']);
+                $currentPeriodEnd = Carbon::createFromTimestamp($data['data']['object']['current_period_end']);
 
                 if ($billingInterval === 'year') {
                     $newPlanCredits *= 12;
@@ -71,15 +72,14 @@ class PaymentsListener
                     [
                         'plan' => $plan_name,
                         'credits' => $newPlanCredits,
+                        'credits_used' => 0,
                         'original_plan_credits' => $newPlanCredits,
                         'interval' => $billingInterval,
-                        'start_date' => Carbon::now(),
-                        'expiration_date' => Carbon::createFromTimestamp($currentPeriodEnd),
+                        'start_date' => $currentPeriodStart,
+                        'expiration_date' => $currentPeriodEnd,
                     ]
                 );
 
-                // Cancel the old subscription plan if the team has any existing plan
-                //$this->cancelOldPlanIfNeeded($team);
             }
 
             return $this->success();
@@ -96,26 +96,26 @@ class PaymentsListener
             $stripeCustomerId = $data['data']['object']['customer'];
             $team = $this->getTeamByStripeId($stripeCustomerId);
 
-            // Get the new subscription's current period end (due date) from the webhook data
-            $currentPeriodEnd = $data['data']['object']['current_period_end'];
-            $billingInterval = $data['data']['object']['items']['data'][0]['plan']['interval'];
+            if ($team) {
 
-            // Find the team credits record
-            $teamCredits = $team->teamCredits;
+                $billingInterval = $data['data']['object']['items']['data'][0]['plan']['interval'];
 
-            // Renew the credits based on the subscription plan
-            if ($teamCredits) {
-                //$planCredits = config("subscriptions.plans.{$teamCredits->subscription_plan}.credits");
+                $currentPeriodStart = Carbon::createFromTimestamp($data['data']['object']['current_period_start']);
+                $currentPeriodEnd = Carbon::createFromTimestamp($data['data']['object']['current_period_end']);
+
+                $teamCredits = $team->teamCredits;
+
                 $planCredits = $teamCredits->original_plan_credits;
 
-                // Check if the subscription is yearly
                 if ($billingInterval === 'year') {
                     $planCredits *= 12;
                 }
 
                 $teamCredits->update([
                     'credits' => $planCredits,
-                    'expiration_date' => Carbon::createFromTimestamp($currentPeriodEnd),
+                    'credits_used' => 0,
+                    'start_date' => $currentPeriodStart,
+                    'expiration_date' => $currentPeriodEnd,
                 ]);
             }
 
@@ -127,31 +127,27 @@ class PaymentsListener
         }
     }
 
-    public function handlePlanUpgrade($data): void
+    public function handleChangeOfPlan($data): void
     {
         // Idea: log plan changes
         $stripeCustomerId = $data['data']['object']['customer'];
         $team = $this->getTeamByStripeId($stripeCustomerId);
 
-        $billingInterval = $data['data']['object']['items']['data'][0]['plan']['interval']; // 'month' or 'year'
-
-        $previousPlanId = $data['data']['previous_attributes']['items']['data'][0]['plan']['id'];
-        $newPlanId = $data['data']['object']['items']['data'][0]['plan']['id'];
-
-        $currentPeriodEnd = Carbon::createFromTimestamp($data['data']['object']['current_period_end']);
-        $currentPeriodStart = Carbon::createFromTimestamp($data['data']['object']['current_period_start']);
-
-        $newSubscriptionPlanKey = $this->mapStripePlanIdToConfigKey($newPlanId);
-
         if ($team){
-            // things to check
-            // if the upgrade is on the same product but different plan interval
-            // if the upgrade is for different product plans, e.g from (basic yearly to standard yearly).
+            $billingInterval = $data['data']['object']['items']['data'][0]['plan']['interval'];
+
+            //$previousPlanId = $data['data']['previous_attributes']['items']['data'][0]['plan']['id'];
+            $newPlanId = $data['data']['object']['items']['data'][0]['plan']['id'];
+
+            $currentPeriodEnd = Carbon::createFromTimestamp($data['data']['object']['current_period_end']);
+            $currentPeriodStart = Carbon::createFromTimestamp($data['data']['object']['current_period_start']);
+
+            $newPlanKey = $this->mapStripePlanIdToConfigKey($newPlanId);
 
             $teamCredits = $team->teamCredits;
 
-            $newPlanName = $this->getPlanName($newSubscriptionPlanKey);
-            $newPlanCredits = $this->getPlanCredits($newSubscriptionPlanKey);
+            $newPlanName = $this->getPlanName($newPlanKey);
+            $newPlanCredits = $this->getPlanCredits($newPlanKey);
 
             if ($billingInterval === 'year') {
                 $newPlanCredits *= 12;
@@ -159,14 +155,15 @@ class PaymentsListener
 
             $remainingCredits = $teamCredits->credits;
 
-            // Add the remaining credits from the old plan to the new plan credits
-            // are we supposed to merge the credits if the plan upgrade is prorata?
+            // Add the remaining credits from the old plan to the new plan credits?
+            // are we supposed to merge the credits if the plan upgrade is pro rata?
             $totalCredits = $remainingCredits + $newPlanCredits;
 
             $team->teamCredits()->update(
                 [
                     'plan' => $newPlanName,
                     'credits' => $newPlanCredits,
+                    'credits_used' => 0, //reset credit usage
                     'original_plan_credits' => $newPlanCredits,
                     'interval' => $billingInterval,
                     'start_date' => $currentPeriodStart,
@@ -176,19 +173,10 @@ class PaymentsListener
 
             $subscription = Subscription::where('team_id', $team->id)->first();
             if ($subscription) {
-                // Update the subscription name
-                // do we have to update it on Stripe too?
                 $subscription->name = $newPlanName;
                 $subscription->save();
             }
 
-            // think about the percentage if we combine previous credits
-
-            // things to update
-            // plan name
-            // credits
-            // original_plan_credits
-            // interval
         }
     }
 
@@ -205,6 +193,9 @@ class PaymentsListener
         return Team::where('stripe_id', $stripeId)->first();
     }
 
+    /**
+     * @throws \Exception
+     */
     private function mapStripePlanIdToConfigKey($stripePlanId): int|string|null
     {
         $stripePlansConfig = config('stripe.plans');
@@ -219,19 +210,7 @@ class PaymentsListener
                 return $planKey;
             }
         }
-        return null;
-    }
-
-    public function cancelOldPlanIfNeeded(Team $team): void
-    {
-        // Check if the team has multiple active subscriptions
-        $activeSubscriptions = $team->subscriptions()->active()->get();
-
-        if ($activeSubscriptions->count() > 1) {
-            // Find the oldest active subscription and cancel it
-            $oldestSubscription = $activeSubscriptions->sortBy('created_at')->first();
-            $oldestSubscription->cancel();
-        }
+        throw new \Exception('Stripe plan was not found');
     }
 
     private function success(): \Illuminate\Http\JsonResponse

@@ -17,29 +17,27 @@ class TeamCredit extends Model
         return $this->belongsTo(Team::class);
     }
 
-    public function getCreditStats()
+    public function getStats()
     {
-        $totalCredits = $this->original_plan_credits;// + $this->free_credits;
-        $creditsLeft = $this->credits;
-        $creditsUsed = $totalCredits - $creditsLeft;
+        $planCredits = $this->original_plan_credits;
 
-        // Calculate the percentage values
-        if ($totalCredits > 0) {
-            $percentUsed = round(($creditsUsed / $totalCredits) * 100);
-            $percentLeft = round(($creditsLeft / $totalCredits) * 100);
-        } else {
-            // When there are no total credits, set percentages to zero
-            $percentUsed = 0;
-            $percentLeft = 0;
-        }
+        $creditAllocation = $this->credits + $this->payg_credits + $this->bonus_credits;
+
+        $creditsUsed = $this->credits_used;
+        $creditsLeft = $creditAllocation - $creditsUsed;
+
+        $percentUsed = $creditAllocation > 0 ? ($creditsUsed / $creditAllocation) * 100 : 0;
+        $percentLeft = $creditAllocation > 0 ? ($creditsLeft / $creditAllocation) * 100 : 0;
 
         return [
             'plan' => $this->plan,
-            'plan_credits' => number_format($totalCredits),
+            'plan_credits' => number_format($planCredits),
+            'total_credits' => number_format($creditAllocation),
             'credits_left' => number_format($creditsLeft),
-            'credits_used' => number_format($creditsUsed),
+            'credits_used' => $creditsUsed,
             'percent_used' => $percentUsed,
             'percent_left' => $percentLeft,
+            'start_date' => $this->start_date,
             'expiration_date' => $this->expiration_date
         ];
     }
@@ -47,23 +45,13 @@ class TeamCredit extends Model
     /**
      * Deducts the specified amount of credits from the team's credits.
      *
-     * @param int $creditsToDeduct
-     * @return bool
+     * @param int $consumedCredits
+     * @return void
      */
-    public function deductCredits(int $creditsToDeduct): bool
+    public function updateCreditUsage(int $consumedCredits): void
     {
-        if ($creditsToDeduct < 0) {
-            return false;
-        }
-
-        if ($this->credits >= $creditsToDeduct) {
-            $this->credits -= $creditsToDeduct;
-            $this->save();
-
-            return true;
-        }
-
-        return false;
+        $this->credits_used += $consumedCredits;
+        $this->save();
     }
 
 }

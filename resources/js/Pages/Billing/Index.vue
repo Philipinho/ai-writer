@@ -3,6 +3,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import Plans from '@/Pages/Billing/Partials/Plans.vue';
 import Stats from '@/Pages/Billing/Partials/Stats.vue';
 import Manage from "@/Pages/Billing/Partials/Manage.vue";
+import {useToast} from "vue-toastification";
 
 export default {
     components: {
@@ -11,12 +12,30 @@ export default {
         Plans,
         Stats,
     },
+
     props: {
         plans: Object,
         credits: Object,
         usage_stats: Object,
         subscribed: Boolean
     },
+
+    data() {
+        return {
+            error: this.$page.props.flash.error,
+            toast: useToast(),
+        };
+    },
+    methods: {
+        showToast() {
+            if (this.error) {
+                this.toast.error(this.error)
+            }
+        },
+    },
+    mounted() {
+        this.showToast();
+    }
 }
 
 </script>
@@ -31,7 +50,7 @@ export default {
 
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
 
-            <Stats :credits="credits" :stats="usage_stats"/>
+            <Stats v-if="usage_stats" :credits="credits" :stats="usage_stats"/>
 
             <Manage v-if="subscribed"/>
 

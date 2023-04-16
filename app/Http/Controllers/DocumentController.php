@@ -94,6 +94,12 @@ class DocumentController extends Controller
             return response("Unauthorized", 403);
         }
 
+        $team = auth()->user()->currentTeam;
+
+        if (!auth()->user()->can('creditCheck', $team)) {
+            return to_route('billing')->with('error', 'Sorry, you have exhausted your credits. Please upgrade your plan to generate more contents.');
+        }
+
         // Get the template key
         $template = $request->input('template');
 
@@ -102,7 +108,7 @@ class DocumentController extends Controller
         // Create the document
         $doc = Document::create([
             'user_id' => auth()->user()->id,
-            'team_id' => auth()->user()->currentTeam->id,
+            'team_id' => $team->id,
             'name' => now() . " untitled",
             'template_id' => $template_id,
             'template_key' => $template,
@@ -249,7 +255,7 @@ class DocumentController extends Controller
         $document->template_key = $template_key;
         $document->save();
 
-        $team->teamCredits->deductCredits($wordCount);
+        $team->teamCredits->updateCreditUsage($wordCount);
 
         $document_content_uuid = $document_content->uuid;
         $document_content_array = $document_content->toArray();

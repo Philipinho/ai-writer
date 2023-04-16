@@ -15,11 +15,13 @@ return new class extends Migration
             $table->id();
             $table->foreignId('team_id');
             $table->foreignId('subscription_id')->nullable();
+            $table->string('plan_id')->nullable();
             $table->string('plan')->nullable();
-            $table->bigInteger('credits');
+            $table->bigInteger('credits')->nullable()->default(0);
+            $table->bigInteger('credits_used')->nullable()->default(0);
             $table->bigInteger('original_plan_credits')->default(0);
             $table->bigInteger('payg_credits')->nullable()->default(0);
-            $table->bigInteger('free_credits')->nullable()->default(0);
+            $table->bigInteger('bonus_credits')->nullable()->default(0);
             $table->string('interval')->nullable();
             $table->timestamp('start_date')->nullable();
             $table->timestamp('expiration_date')->nullable();
