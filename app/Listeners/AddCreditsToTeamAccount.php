@@ -29,6 +29,7 @@ class AddCreditsToTeamAccount
             [
                 'plan' => 'Free',
                 'credits' => config('stripe.free_plan_credits'),
+                'credits_used' => 0,
                 'original_plan_credits' => config('stripe.free_plan_credits'),
                 'interval' => 'month',
                 'start_date' => Carbon::now(),

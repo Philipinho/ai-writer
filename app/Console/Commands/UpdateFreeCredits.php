@@ -37,10 +37,11 @@ class UpdateFreeCredits extends Command
             try {
                 $teamCredits = $team->teamCredit;
 
-                if ($teamCredits && $teamCredits->plan = 'Free' && $teamCredits->expiration_date->isPast()) {
+                if ($teamCredits && $teamCredits->plan == 'Free' && $teamCredits->expiration_date->isPast()) {
 
                     $teamCredits->update([
                         'credits' => config('stripe.free_plan_credits'),
+                        'credits_used' => 0,
                         'original_plan_credits' => config('stripe.free_plan_credits'),
                         'start_date' => Carbon::now(),
                         'expiration_date' => Carbon::now()->addMonth(),
