@@ -56,8 +56,6 @@ class DocumentController extends Controller
                 return $content;
             });
 
-        Log::info($contents);
-
         return Inertia::render('Documents/History', ['contents' => $contents]);
     }
 
