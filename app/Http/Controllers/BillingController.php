@@ -18,7 +18,7 @@ class BillingController extends Controller
 
         $hasActiveSubscription = false;
         if ($team->teamCredits) {
-            $hasActiveSubscription = $team->subscribed($team->teamCredits->plan);
+            $hasActiveSubscription = $team->subscribed('default');
         }
 
         return Inertia::render('Billing/Index', ['plans' => $plans,
@@ -31,7 +31,7 @@ class BillingController extends Controller
     public function checkout(Request $request): JsonResponse
     {
         $checkout = $request->user()->currentTeam
-            ->newSubscription($request->input('plan'), $request->input('price_id'))
+            ->newSubscription('default', $request->input('price_id'))
             ->allowPromotionCodes()
             ->checkout([
                 'success_url' => route('billing'),
