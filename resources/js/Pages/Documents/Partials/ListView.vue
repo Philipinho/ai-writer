@@ -41,7 +41,7 @@
                                     <span v-if="document.template">{{ document.template.name }}</span>
                                 </td>
                                 <td class="hidden md:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                    {{ formatDate(document.updated_at) }}
+                                    {{ this.moment(document.updated_at).format('MMM D, YYYY') }}
                                 </td>
 
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden">
@@ -109,6 +109,8 @@
 import {router} from "@inertiajs/vue3";
 import Dropdown from '@/Components/Jetstream/Dropdown.vue';
 import DropdownLink from '@/Components/Jetstream/DropdownLink.vue';
+import {useToast} from "vue-toastification";
+import moment from "moment";
 
 export default {
     components: {
@@ -117,6 +119,13 @@ export default {
     },
     props: {
         filteredDocuments: Object
+    },
+
+    data() {
+        return {
+            toast: useToast(),
+            moment: moment
+        };
     },
     methods: {
         rowClicked(document) {
@@ -127,20 +136,16 @@ export default {
             if (confirm('Are you sure you want to delete this document?')) {
                 axios.delete(route('documents.delete', [uuid]))
                     .then(response => {
-                        //
+                        this.toast.success('Document deleted successfully.')
                     }).catch(error => {
-                    // capture error
+                        if (error.response.status === 404){
+                            this.toast.error('Oops. This document has already been deleted.')
+                            return;
+                        }
+                        this.toast.error('Oops. Delete request failed. Might have already')
                 });
             }
         },
-
-        formatDate(timestamp) {
-            return new Intl.DateTimeFormat('en-US', {
-                year: 'numeric',
-                month: 'short',
-                day: '2-digit'
-            }).format(new Date(timestamp));
-        }
 
     }
 }
