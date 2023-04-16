@@ -34,11 +34,13 @@ class TeamCredit extends Model
         }
 
         return [
+            'plan' => $this->plan,
             'plan_credits' => number_format($totalCredits),
             'credits_left' => number_format($creditsLeft),
             'credits_used' => number_format($creditsUsed),
             'percent_used' => $percentUsed,
             'percent_left' => $percentLeft,
+            'expiration_date' => $this->expiration_date
         ];
     }
 

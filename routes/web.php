@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\BillingController;
+use App\Http\Controllers\JsonController;
 use App\Http\Controllers\TemplateController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -76,6 +77,10 @@ Route::middleware([
     Route::post('/billing/checkout', [BillingController::class, 'checkout'])->name('checkout');
 
     Route::get('/billing/portal', [BillingController::class, 'billingPortal'])->name('billing.portal');
+
+    // JSON RESPONSE
+    Route::get('/api/stats', [JsonController::class, 'usageStats'])->name('api.usage');
+
 
 
 });

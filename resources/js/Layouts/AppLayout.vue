@@ -12,6 +12,7 @@ import {
 import {ArrowLeftOnRectangleIcon, ChevronUpDownIcon} from '@heroicons/vue/20/solid'
 import ApplicationMark from '@/Components/ApplicationMark.vue';
 import DarkMode from "@/Layouts/Partials/DarkMode.vue";
+import StatsBar from "@/Shared/StatsBar.vue";
 
 defineProps({
     title: String,
@@ -115,6 +116,11 @@ const sidebarOpen = ref(false)
 
                                         <li>
                                             <DarkMode/>
+                                        </li>
+
+                                        <li>
+                                            <div class="mb-2 text-sm font-semibold">Credits Usage</div>
+                                            <StatsBar :hideDivs="true"/>
                                         </li>
 
                                         <li class="mt-auto">
@@ -280,6 +286,10 @@ const sidebarOpen = ref(false)
                         </li>
                         <li>
                             <DarkMode/>
+                        </li>
+                        <li>
+                            <div class="mb-2 text-sm font-semibold">Credits Usage</div>
+                            <StatsBar :hideDivs="true"/>
                         </li>
 
 
