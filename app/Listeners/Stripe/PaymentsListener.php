@@ -26,16 +26,19 @@ class PaymentsListener
      */
     public function handle(WebhookReceived $event): void
     {
+
+        // TODO: make sure successful webhook is handled once.
+
         if ($event->payload['type'] === 'invoice.payment_succeeded') {
             $billingReason = $event->payload['data']['object']['billing_reason'];
-
-            if ($billingReason == 'subscription_create'){
-                $this->handleSubscriptionCreated($event->payload);
-            }
 
             if ($billingReason == 'subscription_cycle') {
                 $this->handleSubscriptionRenewal($event->payload);
             }
+        }
+
+        if ($event->payload['type'] == 'customer.subscription.created'){
+            $this->handleSubscriptionCreated($event->payload);
         }
 
         if ($event->payload['type'] === 'customer.subscription.updated') {
