@@ -234,8 +234,9 @@ class DocumentController extends Controller
         $wordCount = $this->getWordCount($completion);
 
         // store the document content, attach it to the main document.
+        $content = nl2br($completion);
         $document_content = DocumentContent::create([
-            'content' => nl2br($completion), // TODO: fix editor line breaks
+            'content' => $content,
             'word_count' => $wordCount,
             'prompt' => $full_prompt,
             'metadata' => json_encode($request->all()),
@@ -254,6 +255,7 @@ class DocumentController extends Controller
 
         $document_content_uuid = $document_content->uuid;
         $document_content_array = $document_content->toArray();
+        $document_content_array['content'] = str_replace("\n", "", $content);;
         $document_content_array['uuid'] = $document_content_uuid->toString();
 
         return response()->json(['success' => true, 'data' => $document_content_array]);

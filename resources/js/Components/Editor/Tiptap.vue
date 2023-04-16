@@ -6,7 +6,7 @@
             </div>-->
             <div class="editor__name">
                 {{ editor.storage.characterCount.characters() }} chars |
-                {{ editor.storage.characterCount.words() }} words
+                {{ editor.storage.characterCount.words() }} words (auto saved)
             </div>
         </div>
 
@@ -53,7 +53,7 @@ export default {
     watch: {
         content(newContent) {
             if (newContent) {
-                this.editor.chain().focus('end').createParagraphNear().insertContent(newContent + "<br \>").run();
+                this.editor.chain().focus('end').insertContent(newContent + "<br \>").run();
                 this.editor.chain().focus().scrollIntoView().run();
             }
         }
@@ -105,7 +105,7 @@ export default {
             content: this.document_content,
             onUpdate: ({editor}) => {
                 // update the document
-                this.debouncedUpdateContent(editor.getHTML());
+                this.debouncedUpdateContent(editor.getHTML().replace(/<p><\/p>/g, "<br>"));
             },
 
             editorProps: {

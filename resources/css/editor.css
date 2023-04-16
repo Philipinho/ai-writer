@@ -7,6 +7,10 @@
     @apply text-gray-800 underline;
 }
 
+.ProseMirror p a {
+    @apply text-gray-800 underline;
+}
+
 .ProseMirror ul {
     @apply list-outside list-disc space-y-2 pl-6;
 }
