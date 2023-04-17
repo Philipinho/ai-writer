@@ -7,6 +7,26 @@ return [
 
     'plans' => [
         [
+            'name' => 'Free',
+            'description' => 'Free is right.',
+            'seats' => '1',
+            'word_limit' => '50000',
+            'credits' => '50000',
+            'archived' => false,
+            'featured' => false,
+            'free' => true,
+            'cta' => 'Subscribe',
+            'price' =>
+                [
+                    'monthly' => '$0',
+                    'yearly' => '$0'
+                ],
+            'features' => [
+                '2,000 Credits',
+                '1 seat',
+            ]
+        ],
+        [
             'name' => 'Basic',
             'description' => 'Basic is right.',
             'monthly_id' => env('BASIC_MONTHLY_ID', 'price_1MuHWOARjxFKY8qXsDGsrMzI'),
@@ -16,8 +36,8 @@ return [
             'credits' => '50000',
             'archived' => false,
             'featured' => false,
-            'popular' => false,
-            'cta' => 'Buy Now',
+            'free' => false,
+            'cta' => 'Subscribe',
             'price' =>
                 [
                     'monthly' => '$10',
@@ -39,8 +59,8 @@ return [
             'credits' => '100000',
             'archived' => false,
             'featured' => false,
-            'popular' => true,
-            'cta' => 'Buy Now',
+            'free' => false,
+            'cta' => 'Subscribe',
             'price' =>
                 [
                     'monthly' => '$29',

@@ -7,8 +7,6 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import Toast from "vue-toastification";
 import VueSelect from "vue-select";
-import vSelect from 'vue-select';
-
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 const options = {

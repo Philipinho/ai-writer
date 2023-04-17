@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\BillingController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\JsonController;
 use App\Http\Controllers\TemplateController;
 use Illuminate\Foundation\Application;
@@ -20,6 +21,7 @@ use Inertia\Inertia;
 |
 */
 
+/*
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -28,6 +30,7 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+*/
 
 Route::middleware([
     'auth:sanctum',
@@ -81,6 +84,7 @@ Route::middleware([
     // JSON RESPONSE
     Route::get('/api/stats', [JsonController::class, 'usageStats'])->name('api.usage');
 
-
+    // Frontend routes
+    Route::get('/', [FrontendController::class, 'homepage'])->name('home');
 
 });

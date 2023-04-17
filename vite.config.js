@@ -8,7 +8,8 @@ export default defineConfig({
     },
     plugins: [
         laravel({
-            input: 'resources/js/app.js',
+            input: ['resources/js/app.js', 'resources/views/layouts/js/app.js', 'resources/css/app.blade.css'],
+
             refresh: true,
         }),
         vue({
