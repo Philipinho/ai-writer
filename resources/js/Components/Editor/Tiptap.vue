@@ -71,13 +71,14 @@ export default {
 
     methods: {
         updateContent(content) {
+            const word_count = this.editor.storage.characterCount.words();
 
-            axios.put(route('documents.update', [this.data.values.uuid]), {content: content, action: 'update_content'})
+            axios.put(route('documents.update', [this.data.values.uuid]), {content: content, word_count: word_count, action: 'update_content'})
                 .then(response => {
                     // add a green tick to the editor header to signify success
                 }).catch(error => {
-                    this.toast.error('There was an error updating the document.')
-                console.log(error.response.data)
+                    this.toast.error('There was an error updating the document.');
+                    console.log(error.response.data);
             });
         },
     },

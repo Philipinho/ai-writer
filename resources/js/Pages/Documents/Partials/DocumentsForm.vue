@@ -95,11 +95,28 @@ export default {
 
             axios.post(route('documents.generate', [this.data.values.uuid]), formData)
                 .then(response => {
-                    this.$emit('contentReceived', response.data.data.content)
+                    const dataArray = response.data.data;
+
+
+                    // we received an array
+                    let content = ''
+                    if (dataArray.length === 1){
+                        content = dataArray[0].content
+                    } else {
+                        for (let i = 0; i < dataArray.length; i++) {
+                            content += dataArray[i].content;
+
+                            if (i < dataArray.length - 1) {
+                                content += "<p>------------</p>";
+                            }
+                        }
+                    }
+
+                    this.$emit('contentReceived', content)
                     this.form.processing = false;
                 }).catch(error => {
 
-                if (error.response.status === 429){
+                if (error.response.status === 1000){ // credits exhausted
                     this.toast.error(error.response.data.message)
                 } else {
                     this.toast.error('Oops. Something went wrong. Try again or contact support')

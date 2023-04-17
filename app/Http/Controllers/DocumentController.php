@@ -174,6 +174,9 @@ class DocumentController extends Controller
                 'required_if:action,update_content',
                 'string',
             ],
+            'word_count' => [
+                'integer',
+            ],
             'name' => [
                 'required_if:action,update_name',
                 'string',
@@ -183,6 +186,11 @@ class DocumentController extends Controller
         if ($action === 'update_content') {
             $content = $request->input('content');
             $document->content = $content;
+
+            if ($request->has('word_count')){
+                $document->word_count = $request->input('word_count');
+            }
+
         }
 
         if ($action === 'update_name') {
@@ -200,7 +208,7 @@ class DocumentController extends Controller
         $team = auth()->user()->currentTeam;
 
         if (!auth()->user()->can('creditCheck', $team)) {
-            return response()->json(['success' => false, 'message' => 'Sorry, you have exhausted your credits. Please upgrade your plan.'], 429);
+            return response()->json(['success' => false, 'message' => 'Sorry, you have exhausted your credits. Please upgrade your plan.'], 1000);
         }
 
         //Todo: validate fields
@@ -234,40 +242,44 @@ class DocumentController extends Controller
 
         $response = $this->getCompletions($request, $full_prompt);
 
-        $completion = $response['choices'][0]['message']['content'];
-        $wordCount = $this->getWordCount($completion);
+        // variations
+        $documentContents = [];
 
-        // store the document content, attach it to the main document.
-        $content = nl2br($completion);
-        $document_content = DocumentContent::create([
-            'content' => $content,
-            'word_count' => $wordCount,
-            'prompt' => $full_prompt,
-            'metadata' => json_encode($request->all()),
-            'user_id' => auth()->user()->id,
-            'team_id' => auth()->user()->currentTeam->id,
-            'document_id' => $document->id,
-            'template_id' => $template_id,
-            'template_key' => $template_key,
-        ]);
+        foreach ($response['choices'] as $choice){
+            $completion = $choice['message']['content'];
+            $wordCount = $this->getWordCount($completion);
 
-        $document->template_id = $template_id;
-        $document->template_key = $template_key;
-        $document->save();
+            $content = nl2br($completion);
 
-        $team->teamCredits->updateCreditUsage($wordCount);
+            $document_content = DocumentContent::create([
+                'content' => $content,
+                'word_count' => $wordCount,
+                'prompt' => $full_prompt,
+                'metadata' => json_encode($request->all()),
+                'user_id' => auth()->user()->id,
+                'team_id' => auth()->user()->currentTeam->id,
+                'document_id' => $document->id,
+                'template_id' => $template_id,
+                'template_key' => $template_key,
+            ]);
 
-        $document_content_uuid = $document_content->uuid;
-        $document_content_array = $document_content->toArray();
-        $document_content_array['content'] = str_replace("\n", "", $content);;
-        $document_content_array['uuid'] = $document_content_uuid->toString();
+            $document->template_id = $template_id;
+            $document->template_key = $template_key;
+            $document->save();
 
-        return response()->json(['success' => true, 'data' => $document_content_array]);
+            $team->teamCredits->updateCreditUsage($wordCount);
 
-        // return json response of the open api single response and multi response array
+            $document_content_array = $document_content->toArray();
+            $document_content_array['content'] = str_replace("\n", "", $content);;
+            $document_content_array['uuid'] = $document_content->uuid->toString();
+
+            $documentContents[] = $document_content_array;
+        }
+
+        return response()->json(['success' => true, 'data' => $documentContents]);
 
         // give user choice to decide whether to auto append new generation or
-        // to give them the choice to add or discard response
+        // give them the choice to add or discard response
         // with the later option, the responses will be added below the prompt form
     }
 
@@ -280,14 +292,6 @@ class DocumentController extends Controller
         $document->delete();
 
         return response()->json(['success' => true, 'message' => 'deleted']);
-    }
-
-    protected function permissionsCheck(Document $document): ?\Illuminate\Http\JsonResponse
-    {
-        if (!$document || !auth()->user()->can('update', $document)) {
-            return response()->json(['success' => false]);
-        }
-        return null;
     }
 
     public function getCompletions(Request $request, $prompt): array
@@ -307,7 +311,7 @@ class DocumentController extends Controller
                 ]
             ],
             'temperature' => $request->has('creativity') ? (float)$request->input('creativity') : 0.5,
-            'n' => $request->has('variations') ? (float)$request->input('variations') : 1.0,
+            'n' => $request->has('variations') ? (int) $request->input('variations') : 1,
             'max_tokens' => 2048,
             'frequency_penalty' => 0,
             'presence_penalty' => 0,
