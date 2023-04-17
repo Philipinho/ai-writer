@@ -174,11 +174,13 @@ class PaymentsListener
                 ]
             );
 
+            /*
             $subscription = Subscription::where('team_id', $team->id)->first();
             if ($subscription) {
                 $subscription->name = $newPlanName;
                 $subscription->save();
             }
+            */
 
         }
     }
