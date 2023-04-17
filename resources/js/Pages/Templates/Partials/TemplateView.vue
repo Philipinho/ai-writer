@@ -9,22 +9,45 @@ export default {
     },
     props: {
         templates: Object,
+        categories: Object,
     },
+
     data() {
         return {
+            selectedCategory: null,
             search: '',
-        }
+        };
     },
     computed: {
         filteredTemplates() {
-            return this.templates.filter(
-                template => {
-                    return template.name.toLowerCase().includes(this.search.toLowerCase())
-                        || template.description.toLowerCase().includes(this.search.toLowerCase());
-                }
-            )
-        }
-    }
+            let filteredTemplates = this.templates;
+
+            // Filter by category
+            if (this.selectedCategory) {
+                filteredTemplates = filteredTemplates.filter((template) =>
+                    template.categories.some(
+                        (category) => category.id === this.selectedCategory.id
+                    )
+                );
+            }
+
+            // Filter by search query
+            if (this.search.trim()) {
+                filteredTemplates = filteredTemplates.filter((template) =>
+                    template.name.toLowerCase().includes(this.search.trim().toLowerCase())
+                    || template.description.toLowerCase().includes(this.search.trim().toLowerCase())
+                );
+            }
+
+            return filteredTemplates;
+        },
+
+    },
+    methods: {
+        selectCategory(category) {
+            this.selectedCategory = category;
+        },
+    },
 
 }
 
@@ -51,29 +74,30 @@ export default {
         </div>
     </div>
 
-
     <div class="flex flex-wrap px-4">
         <ul class="flex flex-wrap mr-3 md:mr-0 text-slate-600">
-            <li class="mr-2 mb-2">
-                <a class="block cursor-pointer px-2.5 py-1 rounded border border-gray-200 bg-indigo-500 text-white font-bold">
-                    All
-                </a>
+            <li class="mr-2 mb-2 block cursor-pointer px-2.5 py-1 rounded border border-gray-200 font-bold"
+                    @click="selectCategory(null)"
+                    :class="{'bg-indigo-700 text-white': !selectedCategory, 'bg-white text-gray-700': selectedCategory}">
+                All
             </li>
-            <!--
-            <li class="mr-2 mb-2">
-                <a class="block cursor-pointer px-2.5 py-1 rounded border border-gray-200 bg-white font-bold">
-                    Content
-                </a>
+
+            <li v-for="category in categories"
+                :key="category.id"
+                class="mr-2 mb-2 block cursor-pointer px-2.5 py-1 rounded border border-gray-200 font-bold"
+                @click="selectCategory(category)"
+                :class="{ 'bg-indigo-700 text-white': selectedCategory && selectedCategory.id === category.id,
+                'bg-white text-gray-700': !selectedCategory || selectedCategory.id !== category.id}">
+                {{ category.name }}
             </li>
-            <li class="mr-2 mb-2">
-                <a class="block cursor-pointer px-2.5 py-1 rounded border border-gray-200 bg-white font-bold">
-                    Social Media
-                </a>
-            </li>
-            -->
+
         </ul>
     </div>
+
 
     <TemplatesGrid :templates="filteredTemplates"/>
 
 </template>
+
+
+

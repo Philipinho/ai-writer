@@ -9,6 +9,7 @@ export default {
     },
     props: {
         templates: Object,
+        categories: Object,
     },
 }
 
@@ -24,7 +25,7 @@ export default {
 
         <div class="max-w-5xl 2xl:max-w-6xl mx-auto sm:px-6 lg:px-8">
 
-            <TemplateView :templates="templates" />
+            <TemplateView :templates="templates" :categories="categories" />
 
         </div>
     </AppLayout>

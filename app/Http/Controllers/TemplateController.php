@@ -20,10 +20,16 @@ class TemplateController extends Controller
     public function index(): \Inertia\Response
     {
         $templates = Template::where('status', 1)
-            ->select('uuid', 'name', 'key', 'description', 'icon', 'category_id')
+            ->with('categories:id,name')
+           // ->select('uuid', 'name', 'key', 'description', 'icon')
             ->get();
 
-        return Inertia::render('Templates/Index', ['templates' => $templates]);
+        $categories = Category::has('templates')->get();
+
+        return Inertia::render('Templates/Index', [
+            'templates' => $templates,
+            'categories' => $categories,
+            ]);
     }
 
     public function list()
