@@ -114,7 +114,7 @@ const sidebarOpen = ref(false)
                                             </ul>
                                         </li>
 
-                                        <li>
+                                        <li class="hidden">
                                             <DarkMode/>
                                         </li>
 
@@ -284,7 +284,7 @@ const sidebarOpen = ref(false)
                                 </transition>
                             </Menu>
                         </li>
-                        <li>
+                        <li class="hidden">
                             <DarkMode/>
                         </li>
                         <li>
