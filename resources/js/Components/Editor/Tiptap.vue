@@ -1,9 +1,9 @@
 <template>
     <div class="editor" v-if="editor">
         <div class="editor__footer">
-           <!-- <div :class="`editor__status editor__status--`">
-                {{ "Something" }}
-            </div>-->
+            <!-- <div :class="`editor__status editor__status--`">
+                 {{ "Something" }}
+             </div>-->
             <div class="editor__name">
                 {{ editor.storage.characterCount.characters() }} chars |
                 {{ editor.storage.characterCount.words() }} words (auto saved)
@@ -29,7 +29,7 @@ import TaskList from '@tiptap/extension-task-list'
 import Placeholder from '@tiptap/extension-placeholder'
 import Link from '@tiptap/extension-link'
 import debounce from 'debounce'
-import { useToast } from "vue-toastification";
+import {useToast} from "vue-toastification";
 
 import MenuBar from '@/Components/Editor/MenuBar.vue'
 import BubbleMenuBar from '@/Components/Editor/BubbleMenuBar.vue'
@@ -53,8 +53,13 @@ export default {
     watch: {
         content(newContent) {
             if (newContent) {
-                this.editor.chain().focus('end').insertContent(newContent + "<br \>").run();
-                this.editor.chain().focus().scrollIntoView().run();
+
+                if (this.editor.isEmpty) {
+                    this.editor.commands.setContent(newContent, true)
+                } else {
+                    this.editor.chain().focus('end').insertContent('<br><br>' + newContent).run();
+                    this.editor.chain().focus().scrollIntoView().run();
+                }
             }
         }
 
@@ -73,12 +78,16 @@ export default {
         updateContent(content) {
             const word_count = this.editor.storage.characterCount.words();
 
-            axios.put(route('documents.update', [this.data.values.uuid]), {content: content, word_count: word_count, action: 'update_content'})
+            axios.put(route('documents.update', [this.data.values.uuid]), {
+                content: content,
+                word_count: word_count,
+                action: 'update_content'
+            })
                 .then(response => {
                     // add a green tick to the editor header to signify success
                 }).catch(error => {
-                    this.toast.error('There was an error updating the document.');
-                    console.log(error.response.data);
+                this.toast.error('There was an error updating the document.');
+                console.log(error.response.data);
             });
         },
     },
@@ -110,7 +119,7 @@ export default {
             },
 
             editorProps: {
-                attributes: { },
+                attributes: {},
             },
         })
     },

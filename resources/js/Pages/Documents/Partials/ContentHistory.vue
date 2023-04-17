@@ -27,6 +27,7 @@ import {
 } from '@heroicons/vue/24/outline'
 import moment from "moment";
 import {useToast} from "vue-toastification";
+import DOMPurify from "dompurify";
 
 export default {
     components: {
@@ -74,6 +75,9 @@ export default {
                 console.error("Failed to copy text: ", error);
                 this.toast.error("Failed to copy text to clipboard.");
             }
+        },
+        sanitizeHTML(html) {
+            return DOMPurify.sanitize(html);
         },
     },
     computed: {
@@ -197,7 +201,7 @@ export default {
 
                     <div :ref="el => { if (el) divRefs[index] = el; }"
                          class="mt-2 space-y-4 text-base font-medium text-gray-900"
-                         v-html="documentContent.content"/>
+                         v-html="sanitizeHTML(documentContent.content)"/>
 
 
                     <div class="mt-6 flex justify-between space-x-8">

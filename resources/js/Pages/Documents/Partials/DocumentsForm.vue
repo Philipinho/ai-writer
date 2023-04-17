@@ -97,7 +97,6 @@ export default {
                 .then(response => {
                     const dataArray = response.data.data;
 
-
                     // we received an array
                     let content = ''
                     if (dataArray.length === 1){
@@ -107,12 +106,13 @@ export default {
                             content += dataArray[i].content;
 
                             if (i < dataArray.length - 1) {
-                                content += "<p>------------</p>";
+                                content += "<p>----</p>";
                             }
                         }
                     }
 
                     this.$emit('contentReceived', content)
+                    this.$emit('outputs', dataArray)
                     this.form.processing = false;
                 }).catch(error => {
 
@@ -265,7 +265,8 @@ export default {
             </div>
 
             <PrimaryButton :class="{ 'opacity-15': form.processing }" :disabled="form.processing">
-                <i v-if="form.processing" style="font-size: 20px;" class="mr-1 animate-spin ri-loader-4-line"></i>  Generate
+                <i v-if="form.processing" style="font-size: 20px;" class="mr-1 animate-spin ri-loader-4-line"></i>
+                <span v-if="!form.processing">Generate</span>
             </PrimaryButton>
         </div>
     </form>

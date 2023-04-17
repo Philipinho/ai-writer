@@ -4,6 +4,7 @@ import Tiptap from "@/Components/Editor/Tiptap.vue";
 import DocumentsForm from "@/Pages/Documents/Partials/DocumentsForm.vue";
 import InputLabel from '@/Components/Jetstream/InputLabel.vue';
 import TextInput from '@/Components/Jetstream/TextInput.vue';
+import OutputsCard from "@/Pages/Documents/Partials/OutputsCard.vue";
 import debounce from 'debounce'
 import { useToast } from "vue-toastification";
 
@@ -15,6 +16,7 @@ export default {
         DocumentsForm,
         InputLabel,
         TextInput,
+        OutputsCard,
     },
     props: {
         data: {
@@ -32,6 +34,7 @@ export default {
             debouncedUpdateDocumentName: debounce(this.updateDocumentName, 1500),
             toast: useToast(),
             currentTemplate: '',
+            outputs: [],
         };
     },
     watch: {
@@ -58,6 +61,12 @@ export default {
         onSelectedTemplate(template) {
             this.currentTemplate = template;
         },
+        insertOutputs(outputs) {
+            this.outputs.unshift(outputs);
+        },
+        clearOutputs() {
+            this.outputs = [];
+        },
     },
 };
 </script>
@@ -66,7 +75,7 @@ export default {
     <AppLayout title="Document" >
 
 
-        <div class="sm:-mt-14 md:mt-0 bg-white md:w-1/3">
+        <div class="sm:-mt-14 md:mt-0 bg-white md:w-1/2 lg:w-1/3">
             <div class="px-4 py-5 sm:p-6">
                 <h2 class="text-xl font-semibold leading-6 text-gray-900">
                     <i :class="[currentTemplate.icon, 'mr-1 text-indigo-700']"/> {{ currentTemplate.name}}</h2>
@@ -97,14 +106,26 @@ export default {
 
             <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
 
-                <div class="lg:w-1/3 md:mt-8 border-r border-gray-200" style="max-height: 100%;">
+                <div class="md:w-1/2 lg:w-1/3 md:mt-8 border-r border-gray-200" style="max-height: 100%;">
 
                     <div class="bg-white p-4">
                         <div class="h-full">
                             <DocumentsForm @contentReceived="updateEditorContent"
                                            @selectedTemplate="onSelectedTemplate"
+                                           @outputs="insertOutputs"
                                            :data="data" :templates="templates">
                             </DocumentsForm>
+                        </div>
+                    </div>
+
+                    <div v-if="outputs.length > 0">
+                        <div class="flex justify-between px-4 py-2">
+                            <div class="text-base font-medium">Generated Outputs</div>
+                            <button  @click="clearOutputs" class="">Clear</button>
+                        </div>
+
+                        <div class="mt-4 max-h-96 lg:max-h-none overflow-y-auto">
+                            <OutputsCard :outputs="outputs" />
                         </div>
                     </div>
 
