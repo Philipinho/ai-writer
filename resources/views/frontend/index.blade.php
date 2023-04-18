@@ -98,10 +98,12 @@
             <div class="py-24 sm:py-32 lg:pb-40">
                 <div class="mx-auto max-w-7xl px-6 lg:px-8">
                     <div class="mx-auto max-w-2xl text-center">
-                        <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">AI-Powered Content
-                            Writer: Just Click, Write, and Wow!</h1>
-                        <p class="mt-6 text-lg leading-8 text-gray-600">Supercharge your writing process with the best
-                            AI writing tool that enhances your work and sets your content apart.</p>
+                        <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+                            AI-Powered Content Writer</h1>
+
+                        <p class="mt-6 text-lg leading-8 text-gray-600">
+                            Amplify your content creation. Create engaging blogpost, ads, emails, and websites with a few clicks.
+                        </p>
                         <div class="mt-10 flex items-center justify-center gap-x-6">
                             <a href="{{ route('register') }}"
                                class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
@@ -129,7 +131,6 @@
             </div>
         </div>
     </div>
-
 
 
     <div class="max-w-6xl px-8 mx-auto lg:px-20 py-8">
@@ -197,7 +198,6 @@
 
                 <li class="relative overflow-hidden lg:flex-1">
                     <div class="overflow-hidden border border-gray-200 rounded-b-md border-t-0 lg:border-0">
-                        <!-- Upcoming Step -->
                         <a href="#" class="group">
                             <span
                                 class="absolute left-0 top-0 h-full w-1 bg-transparent group-hover:bg-gray-200 lg:bottom-0 lg:top-auto lg:h-1 lg:w-full"
@@ -235,151 +235,104 @@
     </div>
 
 
-    <section id="features" class="bg-gray-100">
-        <div class="relative">
-            <div class="absolute inset-0 w-screen h-full pb-20 transform opacity-50">
-                <img src="https://cdn.devdojo.com/images/march2021/bg-gradient.png"
-                     class="absolute left-0 object-cover w-full h-full">
-            </div>
-            <div
-                class="relative px-6 py-8 ml-auto mr-auto bg-top bg-cover sm:py-16 max-w-7xl md:px-24 lg:px-16 lg:py-20">
-
-                <div class="relative grid gap-6 bg-top bg-cover sm:grid-cols-2 lg:grid-cols-4">
-                    <div
-                        class="flex flex-col items-start justify-between p-6 space-y-4 overflow-hidden transition-shadow duration-200 bg-white bg-top bg-cover border border-gray-100 shadow-xl rounded-2xl group hover:shadow-2xl">
-                        <div
-                            class="flex items-center justify-center w-10 h-10 text-center bg-top bg-cover rounded-full bg-indigo-50">
-                            <p class="relative">
-                                <svg class="w-5 h-5 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path>
-                                </svg>
-                            </p>
+    <section>
+        <div class="py-20 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-wrap items-center">
+                    <div class="w-full lg:w-1/2 mb-12 lg:mb-0">
+                        <div class="max-w-md lg:mx-auto">
+                            <span class="text-green-600 font-bold">Dolor sit amet consectutar</span>
+                            <h2 class="my-2 text-4xl lg:text-5xl font-bold font-heading">Build &amp; Launch without
+                                problems</h2>
+                            <p class="mb-6 text-gray-500 leading-loose">Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit. Pellentesque efficitur nisl sodales egestas lobortis.</p>
+                            <ul class="text-gray-500 font-bold">
+                                <li class="flex mb-4">
+                                    <svg class="mr-2 w-6 h-6 text-green-400" xmlns="http://www.w3.org/2000/svg"
+                                         viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                              clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Vestibulum viverra ante non libero</span>
+                                </li>
+                                <li class="flex mb-4">
+                                    <svg class="mr-2 w-6 h-6 text-green-400" xmlns="http://www.w3.org/2000/svg"
+                                         viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                              clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Morbi mollis metus pretium ultrices tincidunt</span>
+                                </li>
+                                <li class="flex mb-4">
+                                    <svg class="mr-2 w-6 h-6 text-green-400" xmlns="http://www.w3.org/2000/svg"
+                                         viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                              clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Etiam lectus nunc, commodo et risus in</span>
+                                </li>
+                            </ul>
                         </div>
-                        <p class="font-bold text-gray-700">User Manager</p>
-                        <p class="text-sm leading-5 text-gray-500">Easily manage the users of your application. Allow
-                            access to specific areas and sections.</p>
                     </div>
-                    <div
-                        class="flex flex-col items-start justify-between p-6 space-y-4 overflow-hidden transition-shadow duration-200 bg-white bg-top bg-cover border border-gray-100 shadow-xl rounded-2xl group hover:shadow-2xl">
-                        <div
-                            class="flex items-center justify-center w-10 h-10 text-center bg-top bg-cover rounded-full bg-indigo-50">
-                            <p class="relative">
-                                <svg class="w-5 h-5 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                          d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"
-                                          clip-rule="evenodd" class=""></path>
-                                    <path
-                                        d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"></path>
-                                </svg>
-                            </p>
+                    <div class="w-full lg:w-1/2 flex flex-wrap -mx-4">
+                        <div class="mb-8 lg:mb-0 w-full md:w-1/2 px-4">
+                            <div class="mb-8 py-6 pl-6 pr-4 shadow rounded bg-white">
+              <span class="mb-4 inline-block p-3 rounded-lg bg-green-100">
+                <svg class="w-10 h-10 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+              </span>
+                                <h4 class="mb-2 text-2xl font-bold font-heading">Intuitive AI Assistant</h4>
+                                <p class="text-gray-500 leading-loose">Lorem ipsum dolor sit amet, consectetur
+                                    adipiscing elit.</p>
+                            </div>
+                            <div class="py-6 pl-6 pr-4 shadow rounded bg-white">
+              <span class="mb-4 inline-block p-3 rounded-lg bg-green-100">
+                <svg class="w-10 h-10 text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                     fill="currentColor">
+                  <path
+                      d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
+                </svg>
+              </span>
+                                <h4 class="mb-2 text-2xl font-bold font-heading">Powerful Editor</h4>
+                                <p class="text-gray-500 leading-loose">Lorem ipsum dolor sit amet, consectetur
+                                    adipiscing elit.</p>
+                            </div>
                         </div>
-                        <p class="font-bold text-gray-700">Projects</p>
-                        <p class="text-sm leading-5 text-gray-500">Unlimted projects for you and your team. Easily
-                            create, modify, and duplicate your projects.</p>
-                    </div>
-                    <div
-                        class="flex flex-col items-start justify-between p-6 space-y-4 overflow-hidden transition-shadow duration-200 bg-white bg-top bg-cover border border-gray-100 shadow-xl rounded-2xl group hover:shadow-2xl">
-                        <div
-                            class="flex items-center justify-center w-10 h-10 text-center bg-top bg-cover rounded-full bg-indigo-50">
-                            <p class="relative">
-                                <svg class="w-5 h-5 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                          d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3.293 1.293a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L7.586 10 5.293 7.707a1 1 0 010-1.414zM11 12a1 1 0 100 2h3a1 1 0 100-2h-3z"
-                                          clip-rule="evenodd"></path>
-                                </svg>
-                            </p>
+                        <div class="w-full md:w-1/2 lg:mt-20 px-4">
+                            <div class="mb-8 py-6 pl-6 pr-4 shadow rounded-lg bg-white">
+              <span class="mb-4 inline-block p-3 rounded bg-green-100">
+                <svg class="w-10 h-10 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M16 4v12l-4-2-4 2V4M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+              </span>
+                                <h4 class="mb-2 text-2xl font-bold font-heading">50+ Templates</h4>
+                                <p class="text-gray-500 leading-loose">Lorem ipsum dolor sit amet, consectetur
+                                    adipiscing elit.</p>
+                            </div>
+                            <div class="py-6 pl-6 pr-4 shadow rounded-lg bg-white">
+              <span class="mb-4 inline-block p-3 rounded bg-green-100">
+                <svg class="w-10 h-10 text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                     fill="currentColor">
+                  <path fill-rule="evenodd"
+                        d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"
+                        clip-rule="evenodd"></path>
+                  <path
+                      d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"></path>
+                </svg>
+              </span>
+                                <h4 class="mb-2 text-2xl font-bold font-heading">Multi lingua</h4>
+                                <p class="text-gray-500 leading-loose">Lorem ipsum dolor sit amet, consectetur
+                                    adipiscing elit.</p>
+                            </div>
                         </div>
-                        <p class="font-bold text-gray-700">Developer API</p>
-                        <p class="text-sm leading-5 text-gray-500">Well documented developer API that allows you to
-                            build on top of our platform with ease.</p>
-                    </div>
-                    <div
-                        class="flex flex-col items-start justify-between p-6 space-y-4 overflow-hidden transition-shadow duration-200 bg-white bg-top bg-cover border border-gray-100 shadow-xl rounded-2xl group hover:shadow-2xl">
-                        <div
-                            class="flex items-center justify-center w-10 h-10 text-center bg-top bg-cover rounded-full bg-indigo-50">
-                            <p class="relative">
-                                <svg class="w-5 h-5 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path>
-                                </svg>
-                            </p>
-                        </div>
-                        <p class="font-bold text-gray-700">Template Designs</p>
-                        <p class="text-sm leading-5 text-gray-500">Templates and designs for your next project. You can
-                            easily drop these templates into any project.</p>
-                    </div>
-                    <div
-                        class="flex flex-col items-start justify-between p-6 space-y-4 overflow-hidden transition-shadow duration-200 bg-white bg-top bg-cover border border-gray-100 shadow-xl rounded-2xl group hover:shadow-2xl">
-                        <div
-                            class="flex items-center justify-center w-10 h-10 text-center bg-top bg-cover rounded-full bg-indigo-50">
-                            <p class="relative">
-                                <svg class="w-5 h-5 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                          d="M5 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5zm9 4a1 1 0 10-2 0v6a1 1 0 102 0V7zm-3 2a1 1 0 10-2 0v4a1 1 0 102 0V9zm-3 3a1 1 0 10-2 0v1a1 1 0 102 0v-1z"
-                                          clip-rule="evenodd"></path>
-                                </svg>
-                            </p>
-                        </div>
-                        <p class="font-bold text-gray-700">Analytics</p>
-                        <p class="text-sm leading-5 text-gray-500">User and customer analytics to help you understand
-                            which areas of your application are being used.</p>
-                    </div>
-                    <div
-                        class="flex flex-col items-start justify-between p-6 space-y-4 overflow-hidden transition-shadow duration-200 bg-white bg-top bg-cover border border-gray-100 shadow-xl rounded-2xl group hover:shadow-2xl">
-                        <div
-                            class="flex items-center justify-center w-10 h-10 text-center bg-top bg-cover rounded-full bg-indigo-50">
-                            <p class="relative">
-                                <svg class="w-5 h-5 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                          d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
-                                          clip-rule="evenodd"></path>
-                                </svg>
-                            </p>
-                        </div>
-                        <p class="font-bold text-gray-700">Filters</p>
-                        <p class="text-sm leading-5 text-gray-500">Filter your results by the criteria that is the most
-                            important and most vital to your business.</p>
-                    </div>
-                    <div
-                        class="flex flex-col items-start justify-between p-6 space-y-4 overflow-hidden transition-shadow duration-200 bg-white bg-top bg-cover border border-gray-100 shadow-xl rounded-2xl group hover:shadow-2xl">
-                        <div
-                            class="flex items-center justify-center w-10 h-10 text-center bg-top bg-cover rounded-full bg-indigo-50">
-                            <p class="relative">
-                                <svg class="w-5 h-5 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z"></path>
-                                </svg>
-                            </p>
-                        </div>
-                        <p class="font-bold text-gray-700">Customizations</p>
-                        <p class="text-sm leading-5 text-gray-500">Customize every aspect of the user interface. You can
-                            also customize the internal functionality.</p>
-                    </div>
-                    <div
-                        class="flex flex-col items-start justify-between p-6 space-y-4 overflow-hidden transition-shadow duration-200 bg-white bg-top bg-cover border border-gray-100 shadow-xl rounded-2xl group hover:shadow-2xl">
-                        <div
-                            class="flex items-center justify-center w-10 h-10 text-center bg-top bg-cover rounded-full bg-indigo-50">
-                            <p class="relative">
-                                <svg class="w-5 h-5 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z"
-                                        class=""></path>
-                                </svg>
-
-                            </p>
-                        </div>
-                        <p class="font-bold text-gray-700">Integrations</p>
-                        <p class="text-sm leading-5 text-gray-500">We have also built some amazing and powerful
-                            integrations to help you build quicker.</p>
                     </div>
                 </div>
             </div>
@@ -387,89 +340,131 @@
     </section>
 
 
-    <div id="pricing" class="bg-white py-24 sm:py-32" x-data="{yearly: false}">
+    <section id="features" class="">
+            <div class="px-6 py-8 ml-auto mr-auto bg-top bg-cover max-w-7xl">
 
+                <h2 class="mb-2 text-2xl font-bold text-center  md:text-3xl lg:text-4xl">
+                    Common Use Cases
+                </h2>
+                <p class="mb-6 text-center text-gray-600">
+                    50+ templates you can choose from
+                </p>
+
+
+                <div class="relative grid gap-6 bg-top bg-cover sm:grid-cols-2 lg:grid-cols-4">
+
+                    @foreach($templates as $template)
+
+                        <div
+                            class="flex flex-col items-start justify-between p-6 space-y-4 overflow-hidden transition-shadow duration-200 bg-white bg-top bg-cover border border-gray-100 shadow-xl rounded-2xl group hover:shadow-2xl">
+                            <div
+                                class="flex items-center justify-center w-10 h-10 text-center bg-top bg-cover rounded-full bg-indigo-50">
+                                <p class="relative">
+
+                                <span class="w-5 h-5 text-indigo-500">
+                                    <i class="{{ $template->icon }}" style="font-size: 24px;"></i>
+                                </span>
+
+                                </p>
+                            </div>
+                            <p class="font-bold text-gray-700">{{ $template->name }}</p>
+                            <p class="text-sm leading-5 text-gray-500">{{ $template->description }}</p>
+                        </div>
+
+                    @endforeach
+
+                </div>
+            </div>
+    </section>
+
+
+
+
+    <section id="pricing" class="bg-gray-50">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
-            <div class="mx-auto max-w-4xl text-center">
-                <h2 class="text-4xl font-semibold leading-7 text-indigo-600">Pricing</h2>
-                <!-- <p class="mt-2 text-2xl font-bold tracking-tight text-gray-900 sm:text2xl">Affordable, flexible pricing options tailored to suit all needs and budgets.</p>-->
-            </div>
-            <p class="mx-auto mt-4 max-w-2xl text-center text-lg leading-8 text-gray-600">
-                Affordable, flexible pricing options tailored to suit all needs and budgets.
-            </p>
-            <div class="mt-8 flex justify-center">
-                <fieldset
-                    class="grid grid-cols-2 gap-x-1 rounded-full p-1 text-center text-xs font-semibold leading-5 ring-1 ring-inset ring-gray-200">
-                    <legend class="sr-only">Payment frequency</legend>
 
-                    <!-- Checked: "bg-indigo-600 text-white", Not Checked: "text-gray-500" -->
-                    <label class="cursor-pointer rounded-full px-2.5 py-1"
-                           :class="yearly === false ? 'bg-indigo-600 text-white' : 'text-gray-500'"
-                           @click="yearly = false">
-                        <input type="radio" name="frequency" value="monthly" class="sr-only">
-                        <span>Monthly</span>
-                    </label>
-
-                    <!-- Checked: "bg-indigo-600 text-white", Not Checked: "text-gray-500" -->
-                    <label class="cursor-pointer rounded-full px-2.5 py-1"
-                           :class="yearly === true ? 'bg-indigo-600 text-white' : 'text-gray-500'"
-                           @click="yearly = true">
-
-                        <input type="radio" name="frequency" value="yearly" class="sr-only">
-                        <span>Yearly</span>
-                    </label>
-                </fieldset>
-            </div>
-
-            <div class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-
-                @foreach($plans as $plan)
-
-                    <div class="rounded-3xl p-8 ring-1 xl:p-10 ring-gray-200">
-                        <h3 id="{{ $plan['name'] }}"
-                            class="text-lg font-semibold leading-8 text-gray-900">{{ $plan['name'] }}</h3>
-                        <p class="mt-4 text-sm leading-6 text-gray-600">{{ $plan['description'] }}</p>
-                        <p class="mt-6 flex items-baseline gap-x-1">
-                            <!-- Price, update based on frequency toggle state -->
-                            <span class="text-4xl font-bold tracking-tight text-gray-900"
-                                  x-text="yearly ? '{{ $plan['price']['yearly'] }}' : '{{ $plan['price']['monthly'] }}'">{{ $plan['price']['monthly'] }}</span>
-
-
-                            <!-- Payment frequency, update based on frequency toggle state -->
-                            <span class="text-sm font-semibold leading-6 text-gray-600"
-                                  x-text="yearly ? '/year' : '/month'">/month</span>
-
-                            @if(!$plan['free'])
-                                <span x-cloak x-show="yearly" class="text-orange-700">(15% off)</span>
-                            @endif
+            <div class="py-20 bg-gray-50" x-data="{yearly: false}">
+                <div class="container mx-auto px-4">
+                    <div class="max-w-2xl mx-auto text-center mb-16">
+                        <span class="text-green-600 font-bold">Affordable Plans for All Creators</span>
+                        <h2 class="mb-2 text-4xl lg:text-5xl font-bold font-heading">Choose your best plan</h2>
+                        <p class="mb-6 text-gray-600">
+                            Explore our diverse range of pricing options, designed to accommodate every content
+                            creator's needs and budget.
                         </p>
-                        <a href="{{ route('register', ['plan' => $plan['name']]) }}" aria-describedby="tier-freelancer"
-                           class="mt-6 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-600 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline-indigo-600">
-                            Get Started
-                        </a>
 
-                        <ul role="list" class="mt-8 space-y-3 text-sm leading-6 xl:mt-10 text-gray-600">
+                        <div class="inline-block py-1 px-1 bg-white rounded-lg">
+                            <button class="mr-1 text-sm py-2 px-4 text-gray-900 rounded-lg shadow font-bold"
+                                    :class="yearly === false ? 'bg-indigo-600 text-white' : 'text-gray-500'"
+                                    @click="yearly = false">
+                                Monthly
+                                <input type="radio" name="frequency" value="monthly" class="sr-only"/>
+                            </button>
 
-                            @foreach($plan['features'] as $feature)
-                                <li class="flex gap-x-3">
-                                    <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20"
-                                         fill="currentColor" aria-hidden="true">
-                                        <path fill-rule="evenodd"
-                                              d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                                              clip-rule="evenodd"/>
-                                    </svg>
-                                    {{ $feature }}
-                                </li>
-                            @endforeach
-
-                        </ul>
+                            <button class="text-sm py-2 px-4 text-gray-900 bg-gray-50 rounded-lg shadow font-bold"
+                                    :class="yearly === true ? 'bg-indigo-600 text-white' : 'text-gray-500'"
+                                    @click="yearly = true">
+                                Yearly
+                                <input type="radio" name="frequency" value="yearly" class="sr-only"/>
+                            </button>
+                        </div>
                     </div>
-                @endforeach
+
+                    <div class="flex flex-wrap -mx-4">
+                        @foreach($plans as $plan)
+
+                            <div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-8 lg:mb-0">
+                                <div class="p-8 bg-white shadow rounded">
+                                    <h4 class="mb-2 text-2xl font-bold font-heading">{{ $plan['name'] }}</h4>
+
+                                    @if($plan['free'])
+                                        <span class="text-5xl font-bold">$0</span>
+                                    @else
+                                        <span class="text-5xl font-bold"
+                                              x-text="yearly ? '{{ $plan['price']['yearly'] }}' : '{{ $plan['price']['monthly'] }}'">
+                                    {{ $plan['price']['monthly'] }}
+                                        </span>
+
+                                        <span class="text-gray-400 text-xs"
+                                              x-text="yearly ? '/year' : '/month'">/month</span>
+
+                                        <span x-cloak x-show="yearly" class="text-indigo-500">(15% off)</span>
+
+                                    @endif
+
+                                    <p class="mt-3 mb-6 text-gray-500 leading-loose">{{ $plan['description'] }}</p>
+                                    <ul class="mb-6 text-gray-500">
+
+                                        @foreach($plan['features'] as $feature)
+                                            <li class="mb-2 flex">
+                                                <svg class="mr-2 w-5 h-5 text-indigo-600"
+                                                     xmlns="http://www.w3.org/2000/svg"
+                                                     viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd"
+                                                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                                          clip-rule="evenodd"></path>
+                                                </svg>
+                                                <span>{{ $feature }}</span>
+                                            </li>
+                                        @endforeach
 
 
+                                    </ul>
+                                    <a class="inline-block text-center py-2 px-4 w-full rounded-l-xl rounded-t-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold leading-loose transition duration-200"
+                                       href="{{ route('register', ['plan' => $plan['name']]) }}">
+                                        Get Started
+                                    </a>
+                                </div>
+                            </div>
+
+                        @endforeach
+
+                    </div>
+                </div>
             </div>
+
         </div>
-    </div>
+    </section>
 
 
     <!---- Testimonials -->
@@ -485,7 +480,7 @@
                         empowered content creators, just like you.</p>
                     <a href="{{ route('login') }}"
                        class="flex items-center justify-center px-8 py-3 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md shadow hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo md:py-4 md:text-lg md:px-10"
-                       data-primary="indigo-600" data-rounded="rounded-md">Get Started for Free</a>
+                       data-primary="indigo-600" data-rounded="rounded-md">Get Started</a>
                 </div>
                 <div class="w-full lg:w-1/2">
                     <blockquote
@@ -506,7 +501,7 @@
 
                             <h3 class="pl-12 mt-3 text-sm font-medium leading-5 text-gray-800 truncate sm:text-base lg:text-sm lg:text-base">
                                 Olivia K.
-                                <span class="mt-1 text-sm leading-5 text-gray-500 truncate">- Lifestyle Blogger and Influencer</span>
+                                <span class="mt-1 text-sm leading-5 text-gray-500 truncate">- Lifestyle Blogger</span>
                             </h3>
                         </div>
                         <img class="flex-shrink-0 w-20 h-20 bg-gray-300 rounded-full xl:w-24 xl:h-24"
@@ -529,15 +524,16 @@
                                     high-quality, professional copy.</p>
                             </div>
                             <h3 class="pl-12 mt-3 text-sm font-medium leading-5 text-gray-800 truncate sm:text-base lg:text-sm lg:text-base">
-                                Laura G.
-                                <span class="mt-1 text-sm leading-5 text-gray-500 truncate">- CEO Small Business Owner, Online Retail Store</span>
+                                Anthony G.
+                                <span class="mt-1 text-sm leading-5 text-gray-500 truncate">- Business owner</span>
                             </h3>
                             <p class="mt-1 text-sm leading-5 text-gray-500 truncate"></p>
                         </div>
                         <img class="flex-shrink-0 w-24 h-24 bg-gray-300 rounded-full"
-                             src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60"
+                             src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;aauto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60"
                              alt="">
                     </blockquote>
+
                     <blockquote
                         class="flex items-center justify-between w-full col-span-1 p-6 mt-4 bg-white rounded-lg shadow"
                         data-rounded="rounded-lg" data-rounded-max="rounded-full">
@@ -555,7 +551,7 @@
                             </div>
 
                             <h3 class="pl-12 mt-3 text-sm font-medium leading-5 text-gray-800 truncate sm:text-base lg:text-sm lg:text-base">
-                                John Smith
+                                Craig S.
                                 <span
                                     class="mt-1 text-sm leading-5 text-gray-500 truncate">- Freelance Copywriter</span>
                             </h3>
@@ -573,24 +569,26 @@
 
     <!--- FAQ -->
 
-    <section id="faq" class="py-12 bg-purple-600 sm:py-16 md:py-20 lg:py-24 pb-28" data-primary="purple-600">
+    <section id="faq" class="py-12 bg-gray-50 sm:py-16 md:py-20 lg:py-24 pb-28">
         <div class="max-w-6xl px-8 mx-auto lg:px-16">
-            <h2 class="mb-2 text-2xl font-bold text-center text-white md:text-3xl lg:text-4xl">Frequently Asked
+            <h2 class="mb-2 text-2xl font-bold text-center  md:text-3xl lg:text-4xl">Frequently Asked
                 Questions</h2>
+            <p class="mb-6 text-center text-gray-600">
+                Get quick answers to common questions about our AI-powered copywriting tool.
+            </p>
 
             <div class="relative flex flex-col mt-8 mt-16 lg:flex-row">
 
                 <!-- Left side of FAQs -->
                 <div class="relative w-full space-y-3 lg:space-y-5 lg:w-1/2 lg:pr-4">
 
-                    <!-- Question 1 -->
+                    @foreach(config('faq.left') as $faq => $detail)
                     <div x-data="{ show: false }"
-                         class="relative px-6 py-2 overflow-hidden text-white bg-purple-700 rounded-lg select-none"
-                         data-primary="purple-600" data-rounded="rounded-lg" data-rounded-max="rounded-full">
+                         class="relative px-6 py-2 overflow-hidden text-white bg-gray-200 rounded-lg select-none"
+                         data-primary="green-600" data-rounded="rounded-lg" data-rounded-max="rounded-full">
                         <h4 @click="show=!show"
-                            class="flex items-center justify-between py-4 text-base font-medium text-purple-100 cursor-pointer sm:text-lg hover:text-white"
-                            data-primary="purple-600">
-                            <span class="">How does the AI-powered writing assistant work?</span>
+                            class="flex items-center justify-between py-4 text-base font-medium text-gray-800 cursor-pointer sm:text-lg hover:text-gray-700">
+                            <span class="">{{ $faq }}</span>
                             <svg class="w-4 h-4 mr-1 transition-all duration-200 ease-out transform rotate-0"
                                  :class="{ '-rotate-180' : show }" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -598,113 +596,29 @@
                                       d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </h4>
-                        <p class="px-1 pt-0 mt-1 text-purple-200 sm:text-lg py-7" data-primary="purple-600"
+                        <p class="px-1 pt-0 mt-1 text-gray-800 sm:text-lg py-7"
                            x-transition:enter="transition-all ease-out duration-300"
                            x-transition:enter-start="opacity-0 transform -translate-y-4"
                            x-transition:enter-end="opacity-100 transform -translate-y-0"
                            x-transition:leave="transition-all ease-out hidden duration-200"
                            x-transition:leave-start="opacity-100 transform -translate-y-0"
                            x-transition:leave-end="opacity-0 transform -translate-y-4" x-show="show"
-                           style="display: none;">Our AI writing assistant uses advanced natural language processing and
-                            machine learning algorithms to understand user inputs and generate human-like text. It
-                            analyzes context, learns from patterns, and creates relevant, engaging content based on the
-                            prompts or information provided.</p>
+                           style="display: none;">{{ $detail }}</p>
                     </div>
+                    @endforeach
 
-                    <!-- Question 2 -->
-                    <div x-data="{ show: false }"
-                         class="relative px-6 py-2 overflow-hidden text-white bg-purple-700 rounded-lg select-none"
-                         data-primary="purple-600" data-rounded="rounded-lg" data-rounded-max="rounded-full">
-                        <h4 @click="show=!show"
-                            class="flex items-center justify-between py-4 text-base font-medium text-purple-100 cursor-pointer sm:text-lg hover:text-white"
-                            data-primary="purple-600">
-                            <span>Can I try the AI writing assistant before committing to a plan?</span>
-                            <svg class="w-4 h-4 mr-1 transition-all duration-200 ease-out transform rotate-0"
-                                 :class="{ '-rotate-180' : show }" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </h4>
-                        <p class="px-1 pt-0 mt-1 text-purple-200 sm:text-lg py-7" data-primary="purple-600"
-                           x-transition:enter="transition-all ease-out duration-300"
-                           x-transition:enter-start="opacity-0 transform -translate-y-4"
-                           x-transition:enter-end="opacity-100 transform -translate-y-0"
-                           x-transition:leave="transition-all ease-out hidden duration-200"
-                           x-transition:leave-start="opacity-100 transform -translate-y-0"
-                           x-transition:leave-end="opacity-0 transform -translate-y-4" x-show="show"
-                           style="display: none;">Yes, we offer a free trial so you can experience the capabilities of
-                            our AI writing tool firsthand. Simply sign up on our website to get started.</p>
-                    </div>
-
-                    <!-- Question 3 -->
-                    <div x-data="{ show: false }"
-                         class="relative px-6 py-2 overflow-hidden text-white bg-purple-700 rounded-lg select-none"
-                         data-primary="purple-600" data-rounded="rounded-lg" data-rounded-max="rounded-full">
-                        <h4 @click="show=!show"
-                            class="flex items-center justify-between py-4 text-base font-medium text-purple-100 cursor-pointer sm:text-lg hover:text-white"
-                            data-primary="purple-600">
-                            <span>Is the content generated by the AI writing tool SEO-friendly?</span>
-                            <svg class="w-4 h-4 mr-1 transition-all duration-200 ease-out transform rotate-0"
-                                 :class="{ '-rotate-180' : show }" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </h4>
-                        <p class="px-1 pt-0 mt-1 text-purple-200 sm:text-lg py-7" data-primary="purple-600"
-                           x-transition:enter="transition-all ease-out duration-300"
-                           x-transition:enter-start="opacity-0 transform -translate-y-4"
-                           x-transition:enter-end="opacity-100 transform -translate-y-0"
-                           x-transition:leave="transition-all ease-out hidden duration-200"
-                           x-transition:leave-start="opacity-100 transform -translate-y-0"
-                           x-transition:leave-end="opacity-0 transform -translate-y-4" x-show="show"
-                           style="display: none;">Yes, our AI writing assistant can create SEO-optimized content to help
-                            improve your search engine rankings. Make sure to provide relevant keywords, and the tool
-                            will incorporate them into the generated content.</p>
-                    </div>
-
-
-                    <!-- Question 4 -->
-                    <div x-data="{ show: false }"
-                         class="relative px-6 py-2 overflow-hidden text-white bg-purple-700 rounded-lg select-none"
-                         data-primary="purple-600" data-rounded="rounded-lg" data-rounded-max="rounded-full">
-                        <h4 @click="show=!show"
-                            class="flex items-center justify-between py-4 text-base font-medium text-purple-100 cursor-pointer sm:text-lg hover:text-white"
-                            data-primary="purple-600">
-                            <span>Will the AI-generated content be unique, or is there a risk of plagiarism?</span>
-                            <svg class="w-4 h-4 mr-1 transition-all duration-200 ease-out transform rotate-0"
-                                 :class="{ '-rotate-180' : show }" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </h4>
-                        <p class="px-1 pt-0 mt-1 text-purple-200 sm:text-lg py-7" data-primary="purple-600"
-                           x-transition:enter="transition-all ease-out duration-300"
-                           x-transition:enter-start="opacity-0 transform -translate-y-4"
-                           x-transition:enter-end="opacity-100 transform -translate-y-0"
-                           x-transition:leave="transition-all ease-out hidden duration-200"
-                           x-transition:leave-start="opacity-100 transform -translate-y-0"
-                           x-transition:leave-end="opacity-0 transform -translate-y-4" x-show="show"
-                           style="display: none;">Our AI writing assistant is designed to generate unique content.
-                            However, as with any automated tool, there is a slight chance of similarity with existing
-                            content. We recommend checking the generated text for originality using a plagiarism
-                            detection tool before publishing.</p>
-                    </div>
                 </div>
 
 
                 <!-- Right side of FAQs -->
                 <div class="relative w-full mt-3 space-y-3 lg:mt-0 lg:space-y-5 lg:w-1/2 lg:pl-4">
-                    <!-- Question 1 -->
-                    <div x-data="{ show: false }"
-                         class="relative px-6 py-2 overflow-hidden text-white bg-purple-700 rounded-lg select-none"
-                         data-primary="purple-600" data-rounded="rounded-lg" data-rounded-max="rounded-full">
+                    @foreach(config('faq.right') as $faq => $detail)
+                        <div x-data="{ show: false }"
+                         class="relative px-6 py-2 overflow-hidden text-white bg-gray-200 rounded-lg select-none"
+                         data-primary="indigo-600" data-rounded="rounded-lg" data-rounded-max="rounded-full">
                         <h4 @click="show=!show"
-                            class="flex items-center justify-between py-4 text-base font-medium text-purple-100 cursor-pointer sm:text-lg hover:text-white"
-                            data-primary="purple-600">
-                            <span class="">How does the credit system work for the AI writing tool?</span>
+                            class="flex items-center justify-between py-4 text-base font-medium text-gray-800 cursor-pointer sm:text-lg hover:text-gray-700">
+                            <span class="">{{ $faq }}</span>
                             <svg class="w-4 h-4 mr-1 transition-all duration-200 ease-out transform rotate-0"
                                  :class="{ '-rotate-180' : show }" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -712,36 +626,8 @@
                                       d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </h4>
-                        <p class="px-1 pt-0 mt-1 text-purple-200 sm:text-lg py-7" data-primary="purple-600"
-                           x-transition:enter="transition-all ease-out duration-300"
-                           x-transition:enter-start="opacity-0 transform -translate-y-4"
-                           x-transition:enter-end="opacity-100 transform -translate-y-0"
-                           x-transition:leave="transition-all ease-out hidden duration-200"
-                           x-transition:leave-start="opacity-100 transform -translate-y-0"
-                           x-transition:leave-end="opacity-0 transform -translate-y-4" x-show="show"
-                           style="display: none;">Our credit system is based on the number of words generated by the AI
-                            writing assistant. Each credit corresponds to one word. Your plan determines the total
-                            number of credits available to you, which get consumed as you use the tool to create
-                            content.
-                        </p>
-                    </div>
 
-                    <!-- Question 2 -->
-                    <div x-data="{ show: false }"
-                         class="relative px-6 py-2 overflow-hidden text-white bg-purple-700 rounded-lg select-none"
-                         data-primary="purple-600" data-rounded="rounded-lg" data-rounded-max="rounded-full">
-                        <h4 @click="show=!show"
-                            class="flex items-center justify-between py-4 text-base font-medium text-purple-100 cursor-pointer sm:text-lg hover:text-white"
-                            data-primary="purple-600">
-                            <span class="">How do I provide input or prompts to the AI writing assistant?</span>
-                            <svg class="w-4 h-4 mr-1 transition-all duration-200 ease-out transform rotate-0"
-                                 :class="{ '-rotate-180' : show }" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </h4>
-                        <p class="px-1 pt-0 mt-1 text-purple-200 sm:text-lg py-7" data-primary="purple-600"
+                        <p class="px-1 pt-0 mt-1 text-gray-800 sm:text-lg py-7"
                            x-transition:enter="transition-all ease-out duration-300"
                            x-transition:enter-start="opacity-0 transform -translate-y-4"
                            x-transition:enter-end="opacity-100 transform -translate-y-0"
@@ -749,64 +635,11 @@
                            x-transition:leave-start="opacity-100 transform -translate-y-0"
                            x-transition:leave-end="opacity-0 transform -translate-y-4" x-show="show"
                            style="display: none;">
-                            Simply type your desired prompt, topic, or keywords into the input field, and the AI writing
-                            tool will generate content based on the information provided. You can also adjust settings
-                            to fine-tune the output according to your preferences.
+                            {{ $detail }}
                         </p>
                     </div>
+                    @endforeach
 
-                    <!-- Question 3 -->
-                    <div x-data="{ show: false }"
-                         class="relative px-6 py-2 overflow-hidden text-white bg-purple-700 rounded-lg select-none"
-                         data-primary="purple-600" data-rounded="rounded-lg" data-rounded-max="rounded-full">
-                        <h4 @click="show=!show"
-                            class="flex items-center justify-between py-4 text-base font-medium text-purple-100 cursor-pointer sm:text-lg hover:text-white"
-                            data-primary="purple-600">
-                            <span>Can I use the AI writing tool to create content in multiple languages?</span>
-                            <svg class="w-4 h-4 mr-1 transition-all duration-200 ease-out transform rotate-0"
-                                 :class="{ '-rotate-180' : show }" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </h4>
-                        <p class="px-1 pt-0 mt-1 text-purple-200 sm:text-lg py-7" data-primary="purple-600"
-                           x-transition:enter="transition-all ease-out duration-300"
-                           x-transition:enter-start="opacity-0 transform -translate-y-4"
-                           x-transition:enter-end="opacity-100 transform -translate-y-0"
-                           x-transition:leave="transition-all ease-out hidden duration-200"
-                           x-transition:leave-start="opacity-100 transform -translate-y-0"
-                           x-transition:leave-end="opacity-0 transform -translate-y-4" x-show="show"
-                           style="display: none;">Yes, our AI-powered writing assistant supports multiple languages.</p>
-                    </div>
-
-
-                    <!-- Question 4 -->
-                    <div x-data="{ show: false }"
-                         class="relative px-6 py-2 overflow-hidden text-white bg-purple-700 rounded-lg select-none"
-                         data-primary="purple-600" data-rounded="rounded-lg" data-rounded-max="rounded-full">
-                        <h4 @click="show=!show"
-                            class="flex items-center justify-between py-4 text-base font-medium text-purple-100 cursor-pointer sm:text-lg hover:text-white"
-                            data-primary="purple-600">
-                            <span>Is the AI writing tool suitable for my specific industry or niche?</span>
-                            <svg class="w-4 h-4 mr-1 transition-all duration-200 ease-out transform rotate-0"
-                                 :class="{ '-rotate-180' : show }" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </h4>
-                        <p class="px-1 pt-0 mt-1 text-purple-200 sm:text-lg py-7" data-primary="purple-600"
-                           x-transition:enter="transition-all ease-out duration-300"
-                           x-transition:enter-start="opacity-0 transform -translate-y-4"
-                           x-transition:enter-end="opacity-100 transform -translate-y-0"
-                           x-transition:leave="transition-all ease-out hidden duration-200"
-                           x-transition:leave-start="opacity-100 transform -translate-y-0"
-                           x-transition:leave-end="opacity-0 transform -translate-y-4" x-show="show"
-                           style="display: none;">Absolutely! Our AI-powered writing assistant is designed to adapt to
-                            various industries and niches. Simply provide context and relevant information, and the tool
-                            will generate content tailored to your specific needs.</p>
-                    </div>
                 </div>
 
 
@@ -821,8 +654,8 @@
     <section class="bg-white tails-selected-element">
         <div class="px-8 py-8 mx-auto sm:py-10 lg:py-16 max-w-7xl">
             <div
-                class="relative py-6 overflow-hidden rounded-lg bg-gradient-to-r from-pink-500 to-purple-500 lg:py-12 md:px-6 lg:p-16 lg:flex lg:items-center lg:justify-between md:shadow-xl md:bg-purple-1000"
-                data-primary="purple-600" data-rounded="rounded-lg" data-rounded-max="rounded-full">
+                class="relative py-6 overflow-hidden rounded-lg bg-gradient-to-r from-pink-500 to-indigo-500 lg:py-12 md:px-6 lg:p-16 lg:flex lg:items-center lg:justify-between md:shadow-xl md:bg-indigo-1000"
+                data-primary="indigo-600" data-rounded="rounded-lg" data-rounded-max="rounded-full">
                 <div
                     class="absolute top-0 right-0 hidden w-full -mt-20 transform rotate-45 translate-x-1/2 bg-white sm:block h-96 opacity-5"></div>
                 <div
@@ -839,8 +672,8 @@
                 <div
                     class="relative flex flex-col items-center w-full px-6 space-y-5 md:space-x-5 md:space-y-0 md:flex-row md:w-auto lg:flex-shrink-0 md:px-0">
                     <a href="{{ route('register') }}"
-                       class="block w-full px-5 py-3 text-base font-medium leading-6 text-center text-purple-600 transition duration-150 ease-in-out bg-purple-100 rounded-md md:inline-flex md:shadow md:w-auto hover:bg-white focus:outline-none focus:shadow-outline"
-                       data-primary="purple-600" data-rounded="rounded-md">Try it free!</a>
+                       class="block w-full px-5 py-3 text-base font-medium leading-6 text-center text-indigo-600 transition duration-150 ease-in-out bg-indigo-100 rounded-md md:inline-flex md:shadow md:w-auto hover:bg-white focus:outline-none focus:shadow-outline"
+                       data-primary="indigo-600" data-rounded="rounded-md">Try it free!</a>
                     <!--<a href="#_" class="text-white">Try it free</a>-->
                 </div>
             </div>
