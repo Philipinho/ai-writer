@@ -26,8 +26,8 @@ class TeamCredit extends Model
         $creditsUsed = $this->credits_used;
         $creditsLeft = $creditAllocation - $creditsUsed;
 
-        $percentUsed = $creditAllocation > 0 ? ($creditsUsed / $creditAllocation) * 100 : 0;
-        $percentLeft = $creditAllocation > 0 ? ($creditsLeft / $creditAllocation) * 100 : 0;
+        $percentUsed = round($creditAllocation > 0 ? ($creditsUsed / $creditAllocation) * 100 : 0);
+        $percentLeft = round($creditAllocation > 0 ? ($creditsLeft / $creditAllocation) * 100 : 0);
 
         return [
             'plan' => $this->plan,

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Cache;
 class FrontendController extends Controller
 {
 
-    public function homepage()
+    public function home()
     {
         $plans = config('stripe.plans');
 
@@ -31,5 +31,17 @@ class FrontendController extends Controller
             'categories' => $categories
         ]);
     }
+
+    public function privacy()
+    {
+        return view('frontend.pages.privacy');
+    }
+
+    public function terms()
+    {
+        return view('frontend.pages.terms');
+    }
+
+
 
 }

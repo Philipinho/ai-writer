@@ -32,6 +32,12 @@ Route::get('/', function () {
 });
 */
 
+// Frontend routes
+Route::get('/', [FrontendController::class, 'home'])->name('home');
+Route::get('/privacy', [FrontendController::class, 'privacy'])->name('privacy');
+Route::get('/terms', [FrontendController::class, 'terms'])->name('terms');
+
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -83,8 +89,5 @@ Route::middleware([
 
     // JSON RESPONSE
     Route::get('/api/stats', [JsonController::class, 'usageStats'])->name('api.usage');
-
-    // Frontend routes
-    Route::get('/', [FrontendController::class, 'homepage'])->name('home');
 
 });

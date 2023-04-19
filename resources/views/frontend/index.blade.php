@@ -1,94 +1,6 @@
 <x-appLayout>
-
-
     <div class="bg-white">
-        <header x-data="{ open: false }" @keydown.window.escape="open = false" class="absolute inset-x-0 top-0 z-50">
-            <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
-                <div class="flex lg:flex-1">
-                    <a href="#" class="-m-1.5 p-1.5">
-                        <span class="sr-only">CopyPhrase</span>
-                        <img class="h-8 w-auto"
-                             src="https://tailwindui.com/img/logos/mark.svg?color=indigo&amp;shade=600" alt="">
-                    </a>
-                </div>
-                <div class="flex lg:hidden">
-                    <button type="button"
-                            class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-                            @click="open = true">
-                        <span class="sr-only">Open main menu</span>
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                             aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
-                        </svg>
-                    </button>
-                </div>
-                <div class="hidden lg:flex lg:gap-x-12">
-
-                    <a href="/#features" class="text-sm font-semibold leading-6 text-gray-900">Features</a>
-
-                    <a href="/#pricing" class="text-sm font-semibold leading-6 text-gray-900">Pricing</a>
-
-                    <a href="/#faq" class="text-sm font-semibold leading-6 text-gray-900">FAQ</a>
-
-                    <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Company</a>
-
-                </div>
-                <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-                    <a href="{{ route('login') }}" class="text-sm font-semibold leading-6 text-gray-900">Log in <span
-                            aria-hidden="true">→</span></a>
-                </div>
-            </nav>
-            <div x-description="Mobile menu, show/hide based on menu open state." class="lg:hidden" x-ref="dialog"
-                 x-show="open" aria-modal="true" style="display: none;">
-                <div x-description="Background backdrop, show/hide based on slide-over state."
-                     class="fixed inset-0 z-50"></div>
-                <div
-                    class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
-                    @click.away="open = false">
-                    <div class="flex items-center justify-between">
-                        <a href="#" class="-m-1.5 p-1.5">
-                            <span class="sr-only">CopyPhrase</span>
-                            <img class="h-8 w-auto"
-                                 src="https://tailwindui.com/img/logos/mark.svg?color=indigo&amp;shade=600" alt="">
-                        </a>
-                        <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" @click="open = false">
-                            <span class="sr-only">Close menu</span>
-                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                 stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="mt-6 flow-root">
-                        <div class="-my-6 divide-y divide-gray-500/10">
-                            <div class="space-y-2 py-6">
-
-                                <a href="/#features"
-                                   class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Features</a>
-
-                                <a href="/#pricing"
-                                   class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Pricing</a>
-
-                                <a href="/#faq"
-                                   class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">FAQ</a>
-
-                                <a href="#"
-                                   class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Company</a>
-
-                            </div>
-                            <div class="py-6">
-                                <a href="{{ route('login') }}"
-                                   class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log
-                                    in</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <div class="relative isolate pt-14">
+        <div class="relative isolate sm:pt-6 md:pt-14">
             <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
                  aria-hidden="true">
                 <div
@@ -102,12 +14,13 @@
                             AI-Powered Content Writer</h1>
 
                         <p class="mt-6 text-lg leading-8 text-gray-600">
-                            Amplify your content creation. Create engaging blogpost, ads, emails, and websites with a few clicks.
+                            Amplify your content creation. Create engaging blogpost, ads, emails, and website copies in
+                            a few clicks.
                         </p>
                         <div class="mt-10 flex items-center justify-center gap-x-6">
                             <a href="{{ route('register') }}"
                                class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                Get started</a>
+                                Get started for free</a>
                             <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Learn more <span
                                     aria-hidden="true">→</span></a>
                         </div>
@@ -115,7 +28,7 @@
                     <div class="mt-16 flow-root sm:mt-24">
                         <div
                             class="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
-                            <img src="https://tailwindui.com/img/component-images/project-app-screenshot.png"
+                            <img src="https://i.imgur.com/Oc4Hi5M.png"
                                  alt="App screenshot" width="2432" height="1442"
                                  class="rounded-md shadow-2xl ring-1 ring-gray-900/10">
                         </div>
@@ -146,44 +59,43 @@
                 <li class="relative overflow-hidden lg:flex-1">
                     <div class="overflow-hidden border border-gray-200 rounded-t-md border-b-0 lg:border-0">
                         <!-- Completed Step -->
-                        <a href="#" class="group">
                             <span
                                 class="absolute left-0 top-0 h-full w-1 bg-transparent group-hover:bg-gray-200 lg:bottom-0 lg:top-auto lg:h-1 lg:w-full"
                                 aria-hidden="true"></span>
                             <span class="flex items-start px-6 py-5 text-sm font-medium">
-              <span class="flex-shrink-0">
-                  <span class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-300">
-                  <span class="text-gray-500">01</span>
-                </span>
-              </span>
-              <span class="ml-4 mt-0.5 flex min-w-0 flex-col">
-                <span class="text-sm font-medium">Select Template</span>
-                <span class="text-sm font-medium text-gray-500">Select a Template and provide a topic, keywords, or context to guide the AI writing assistant in generating relevant content tailored to your needs.</span>
-              </span>
-            </span>
-                        </a>
+                                <span class="flex-shrink-0">
+                                    <span
+                                        class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-300">
+                                        <span class="text-gray-500">01</span>
+                                    </span>
+                                </span>
+                                <span class="ml-4 mt-0.5 flex min-w-0 flex-col">
+                                    <span class="text-sm font-medium">Select Template</span>
+                                    <span class="text-sm font-medium text-gray-500">Select a Template and provide a topic, keywords, or context to guide the AI writing assistant in generating relevant content tailored to your needs.</span>
+                                </span>
+                            </span>
                     </div>
                 </li>
 
                 <li class="relative overflow-hidden lg:flex-1">
                     <div class="overflow-hidden border border-gray-200 lg:border-0">
                         <!-- Current Step -->
-                        <a href="#" aria-current="step">
-                            <span
-                                class="absolute left-0 top-0 h-full w-1 bg-indigo-600 lg:bottom-0 lg:top-auto lg:h-1 lg:w-full"
-                                aria-hidden="true"></span>
-                            <span class="flex items-start px-6 py-5 text-sm font-medium lg:pl-9">
-              <span class="flex-shrink-0">
-                <span class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-indigo-600">
-                  <span class="text-indigo-600">02</span>
-                </span>
-              </span>
-              <span class="ml-4 mt-0.5 flex min-w-0 flex-col">
-                <span class="text-sm font-medium text-indigo-600">Generate Content</span>
-                <span class="text-sm font-medium text-gray-500">Watch as the AI-powered tool processes your input and creates engaging, high-quality text in a matter of seconds.</span>
-              </span>
-            </span>
-                        </a>
+                        <span
+                            class="absolute left-0 top-0 h-full w-1 bg-indigo-600 lg:bottom-0 lg:top-auto lg:h-1 lg:w-full"
+                            aria-hidden="true"></span>
+                        <span class="flex items-start px-6 py-5 text-sm font-medium lg:pl-9">
+                            <span class="flex-shrink-0">
+                                <span class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-indigo-600">
+                                    <span class="text-indigo-600">02</span>
+                                </span>
+                            </span>
+                            <span class="ml-4 mt-0.5 flex min-w-0 flex-col">
+                                <span class="text-sm font-medium text-indigo-600">Generate Content</span>
+                                <span class="text-sm font-medium text-gray-500">
+                                    Watch as the AI-powered tool processes your input and creates engaging, high-quality text in a matter of seconds.
+                                </span>
+                            </span>
+                        </span>
 
                         <!-- Separator -->
                         <div class="absolute inset-0 left-0 top-0 hidden w-3 lg:block" aria-hidden="true">
@@ -198,27 +110,25 @@
 
                 <li class="relative overflow-hidden lg:flex-1">
                     <div class="overflow-hidden border border-gray-200 rounded-b-md border-t-0 lg:border-0">
-                        <a href="#" class="group">
                             <span
                                 class="absolute left-0 top-0 h-full w-1 bg-transparent group-hover:bg-gray-200 lg:bottom-0 lg:top-auto lg:h-1 lg:w-full"
                                 aria-hidden="true"></span>
                             <span class="flex items-start px-6 py-5 text-sm font-medium lg:pl-9">
-              <span class="flex-shrink-0">
-                <span class="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-600">
-                    <svg class="h-6 w-6 text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z"
-                              clip-rule="evenodd"/></svg>
+                                <span class="flex-shrink-0">
+                                    <span class="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-600">
+                                        <svg class="h-6 w-6 text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd"
+                                                  d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z"
+                                                  clip-rule="evenodd"/></svg>
 
-                </span>
-              </span>
+                                    </span>
+                                </span>
 
-              <span class="ml-4 mt-0.5 flex min-w-0 flex-col">
-                <span class="text-sm font-medium text-gray-500">Edit & Perfect</span>
-                <span class="text-sm font-medium text-gray-500">Utilize our built-in rich-text editor to effortlessly refine the AI-created content, making adjustments and enhancements to ensure your final content is both compelling and on-point."</span>
-              </span>
-            </span>
-                        </a>
+                                <span class="ml-4 mt-0.5 flex min-w-0 flex-col">
+                                    <span class="text-sm font-medium text-gray-500">Edit & Perfect</span>
+                                    <span class="text-sm font-medium text-gray-500">Utilize our built-in rich-text editor to effortlessly refine the AI-created content, making adjustments and enhancements to ensure your final content is both compelling and on-point."</span>
+                                </span>
+                            </span>
 
                         <!-- Separator -->
                         <div class="absolute inset-0 left-0 top-0 hidden w-3 lg:block" aria-hidden="true">
@@ -242,95 +152,104 @@
                     <div class="w-full lg:w-1/2 mb-12 lg:mb-0">
                         <div class="max-w-md lg:mx-auto">
                             <span class="text-green-600 font-bold">Dolor sit amet consectutar</span>
-                            <h2 class="my-2 text-4xl lg:text-5xl font-bold font-heading">Build &amp; Launch without
-                                problems</h2>
-                            <p class="mb-6 text-gray-500 leading-loose">Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Pellentesque efficitur nisl sodales egestas lobortis.</p>
-                            <ul class="text-gray-500 font-bold">
-                                <li class="flex mb-4">
-                                    <svg class="mr-2 w-6 h-6 text-green-400" xmlns="http://www.w3.org/2000/svg"
-                                         viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd"
-                                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                              clip-rule="evenodd"></path>
-                                    </svg>
-                                    <span>Vestibulum viverra ante non libero</span>
-                                </li>
-                                <li class="flex mb-4">
-                                    <svg class="mr-2 w-6 h-6 text-green-400" xmlns="http://www.w3.org/2000/svg"
-                                         viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd"
-                                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                              clip-rule="evenodd"></path>
-                                    </svg>
-                                    <span>Morbi mollis metus pretium ultrices tincidunt</span>
-                                </li>
-                                <li class="flex mb-4">
-                                    <svg class="mr-2 w-6 h-6 text-green-400" xmlns="http://www.w3.org/2000/svg"
-                                         viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd"
-                                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                              clip-rule="evenodd"></path>
-                                    </svg>
-                                    <span>Etiam lectus nunc, commodo et risus in</span>
-                                </li>
-                            </ul>
+                            <h2 class="my-2 text-4xl lg:text-5xl font-bold font-heading">
+                                Build &amp; Launch without problems
+                            </h2>
+                            <p class="mb-6 text-gray-500 leading-loose">
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit. Pellentesque efficitur nisl sodales egestas lobortis.
+                            </p>
+
+
+                            <div class="flex flex-wrap text-gray-500 font-bold">
+                                <div class="w-1/2 p-2">
+                                    <i class="ri-ball-pen-line text-indigo-500 mr-1"></i>
+                                    <span>Writers</span>
+                                </div>
+
+                                <div class="w-1/2 p-2">
+                                    <i class="ri-bar-chart-box-line text-indigo-500 mr-1"></i>
+                                    <span>Marketers</span>
+                                </div>
+
+                                <div class="w-1/2 p-2">
+                                    <i class="ri-bubble-chart-line text-indigo-500 mr-1"></i>
+                                    <span>Entrepreneurs</span>
+                                </div>
+
+                                <div class="w-1/2 p-2">
+                                    <i class="ri-wordpress-line text-indigo-500 mr-1"></i>
+                                    <span>Bloggers</span>
+                                </div>
+
+                                <div class="w-1/2 p-2">
+                                    <i class="ri-graduation-cap-line text-indigo-500 mr-1"></i>
+                                    <span>Academics</span>
+                                </div>
+
+                                <div class="w-1/2 p-2">
+                                    <i class="ri-briefcase-line text-indigo-500 mr-1"></i>
+                                    <span>Professionals</span>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
+
                     <div class="w-full lg:w-1/2 flex flex-wrap -mx-4">
                         <div class="mb-8 lg:mb-0 w-full md:w-1/2 px-4">
                             <div class="mb-8 py-6 pl-6 pr-4 shadow rounded bg-white">
-              <span class="mb-4 inline-block p-3 rounded-lg bg-green-100">
-                <svg class="w-10 h-10 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                </svg>
-              </span>
+                                 <span class="mb-4 inline-flex p-3 rounded bg-indigo-100">
+                                        <span class="h-10 w-10 flex items-center justify-center text-indigo-600"
+                                              aria-hidden="true">
+                                            <i class="ri-ai-generate" style="font-size: 40px;"></i>
+                                        </span>
+                                </span>
+
                                 <h4 class="mb-2 text-2xl font-bold font-heading">Intuitive AI Assistant</h4>
-                                <p class="text-gray-500 leading-loose">Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit.</p>
+                                <p class="text-gray-500 leading-loose">
+                                    Let our smart AI help you craft impactful content effortlessly for any format or
+                                    purpose.
+                                </p>
                             </div>
                             <div class="py-6 pl-6 pr-4 shadow rounded bg-white">
-              <span class="mb-4 inline-block p-3 rounded-lg bg-green-100">
-                <svg class="w-10 h-10 text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                     fill="currentColor">
-                  <path
-                      d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
-                </svg>
-              </span>
+                                 <span class="mb-4 inline-flex p-3 rounded bg-indigo-100">
+                                        <span class="h-10 w-10 flex items-center justify-center text-indigo-600"
+                                              aria-hidden="true">
+                                            <i class="ri-edit-box-line" style="font-size: 40px;"></i>
+                                        </span>
+                                </span>
+
                                 <h4 class="mb-2 text-2xl font-bold font-heading">Powerful Editor</h4>
-                                <p class="text-gray-500 leading-loose">Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit.</p>
+                                <p class="text-gray-500 leading-loose">
+                                    Effortlessly refine your content with our sleek, user-friendly editor.
+                                </p>
                             </div>
                         </div>
                         <div class="w-full md:w-1/2 lg:mt-20 px-4">
                             <div class="mb-8 py-6 pl-6 pr-4 shadow rounded-lg bg-white">
-              <span class="mb-4 inline-block p-3 rounded bg-green-100">
-                <svg class="w-10 h-10 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M16 4v12l-4-2-4 2V4M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                </svg>
-              </span>
+                                <span class="mb-4 inline-flex p-3 rounded bg-indigo-100">
+                                        <span class="h-10 w-10 flex items-center justify-center text-indigo-600"
+                                              aria-hidden="true">
+                                            <i class="ri-bar-chart-horizontal-line" style="font-size: 40px;"></i>
+                                        </span>
+                                </span>
                                 <h4 class="mb-2 text-2xl font-bold font-heading">50+ Templates</h4>
-                                <p class="text-gray-500 leading-loose">Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit.</p>
+                                <p class="text-gray-500 leading-loose">
+                                    Choose from over 50+ templates that suits your use case.
+                                </p>
                             </div>
                             <div class="py-6 pl-6 pr-4 shadow rounded-lg bg-white">
-              <span class="mb-4 inline-block p-3 rounded bg-green-100">
-                <svg class="w-10 h-10 text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                     fill="currentColor">
-                  <path fill-rule="evenodd"
-                        d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"
-                        clip-rule="evenodd"></path>
-                  <path
-                      d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"></path>
-                </svg>
-              </span>
-                                <h4 class="mb-2 text-2xl font-bold font-heading">Multi lingua</h4>
-                                <p class="text-gray-500 leading-loose">Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit.</p>
+                                 <span class="mb-4 inline-flex p-3 rounded bg-indigo-100">
+                                        <span class="h-10 w-10 flex items-center justify-center text-indigo-600"
+                                              aria-hidden="true">
+                                            <i class="ri-global-line" style="font-size: 40px;"></i>
+                                        </span>
+                                </span>
+                                <h4 class="mb-2 text-2xl font-bold font-heading">Multi-Lingua</h4>
+                                <p class="text-gray-500 leading-loose">
+                                    Expand your global reach with our multi-ligua support.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -341,43 +260,41 @@
 
 
     <section id="features" class="">
-            <div class="px-6 py-8 ml-auto mr-auto bg-top bg-cover max-w-7xl">
+        <div class="px-6 py-8 ml-auto mr-auto bg-top bg-cover max-w-7xl">
 
-                <h2 class="mb-2 text-2xl font-bold text-center  md:text-3xl lg:text-4xl">
-                    Common Use Cases
-                </h2>
-                <p class="mb-6 text-center text-gray-600">
-                    50+ templates you can choose from
-                </p>
+            <h2 class="mb-2 text-2xl font-bold text-center  md:text-3xl lg:text-4xl">
+                Common Use Cases
+            </h2>
+            <p class="mb-6 text-center text-gray-600">
+                50+ templates you can choose from
+            </p>
 
 
-                <div class="relative grid gap-6 bg-top bg-cover sm:grid-cols-2 lg:grid-cols-4">
+            <div class="relative grid gap-6 bg-top bg-cover sm:grid-cols-2 lg:grid-cols-4">
 
-                    @foreach($templates as $template)
+                @foreach($templates as $template)
 
+                    <div
+                        class="flex flex-col items-start justify-between p-6 space-y-4 overflow-hidden transition-shadow duration-200 bg-white bg-top bg-cover border border-gray-100 shadow-xl rounded-2xl group hover:shadow-2xl">
                         <div
-                            class="flex flex-col items-start justify-between p-6 space-y-4 overflow-hidden transition-shadow duration-200 bg-white bg-top bg-cover border border-gray-100 shadow-xl rounded-2xl group hover:shadow-2xl">
-                            <div
-                                class="flex items-center justify-center w-10 h-10 text-center bg-top bg-cover rounded-full bg-indigo-50">
-                                <p class="relative">
+                            class="flex items-center justify-center w-10 h-10 text-center bg-top bg-cover rounded-full bg-indigo-50">
+                            <p class="relative">
 
                                 <span class="w-5 h-5 text-indigo-500">
                                     <i class="{{ $template->icon }}" style="font-size: 24px;"></i>
                                 </span>
 
-                                </p>
-                            </div>
-                            <p class="font-bold text-gray-700">{{ $template->name }}</p>
-                            <p class="text-sm leading-5 text-gray-500">{{ $template->description }}</p>
+                            </p>
                         </div>
+                        <p class="font-bold text-gray-700">{{ $template->name }}</p>
+                        <p class="text-sm leading-5 text-gray-500">{{ $template->description }}</p>
+                    </div>
 
-                    @endforeach
+                @endforeach
 
-                </div>
             </div>
+        </div>
     </section>
-
-
 
 
     <section id="pricing" class="bg-gray-50">
@@ -583,28 +500,29 @@
                 <div class="relative w-full space-y-3 lg:space-y-5 lg:w-1/2 lg:pr-4">
 
                     @foreach(config('faq.left') as $faq => $detail)
-                    <div x-data="{ show: false }"
-                         class="relative px-6 py-2 overflow-hidden text-white bg-gray-200 rounded-lg select-none"
-                         data-primary="green-600" data-rounded="rounded-lg" data-rounded-max="rounded-full">
-                        <h4 @click="show=!show"
-                            class="flex items-center justify-between py-4 text-base font-medium text-gray-800 cursor-pointer sm:text-lg hover:text-gray-700">
-                            <span class="">{{ $faq }}</span>
-                            <svg class="w-4 h-4 mr-1 transition-all duration-200 ease-out transform rotate-0"
-                                 :class="{ '-rotate-180' : show }" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </h4>
-                        <p class="px-1 pt-0 mt-1 text-gray-800 sm:text-lg py-7"
-                           x-transition:enter="transition-all ease-out duration-300"
-                           x-transition:enter-start="opacity-0 transform -translate-y-4"
-                           x-transition:enter-end="opacity-100 transform -translate-y-0"
-                           x-transition:leave="transition-all ease-out hidden duration-200"
-                           x-transition:leave-start="opacity-100 transform -translate-y-0"
-                           x-transition:leave-end="opacity-0 transform -translate-y-4" x-show="show"
-                           style="display: none;">{{ $detail }}</p>
-                    </div>
+                        <div x-data="{ show: false }"
+                             class="relative px-6 py-2 overflow-hidden text-white bg-gray-200 rounded-lg select-none"
+                             data-primary="green-600" data-rounded="rounded-lg" data-rounded-max="rounded-full">
+                            <h4 @click="show=!show"
+                                class="flex items-center justify-between py-4 text-base font-medium text-gray-800 cursor-pointer sm:text-lg hover:text-gray-700">
+                                <span class="">{{ $faq }}</span>
+                                <svg class="w-4 h-4 mr-1 transition-all duration-200 ease-out transform rotate-0"
+                                     :class="{ '-rotate-180' : show }" fill="none" stroke="currentColor"
+                                     viewBox="0 0 24 24"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </h4>
+                            <p class="px-1 pt-0 mt-1 text-gray-800 sm:text-lg py-7"
+                               x-transition:enter="transition-all ease-out duration-300"
+                               x-transition:enter-start="opacity-0 transform -translate-y-4"
+                               x-transition:enter-end="opacity-100 transform -translate-y-0"
+                               x-transition:leave="transition-all ease-out hidden duration-200"
+                               x-transition:leave-start="opacity-100 transform -translate-y-0"
+                               x-transition:leave-end="opacity-0 transform -translate-y-4" x-show="show"
+                               style="display: none;">{{ $detail }}</p>
+                        </div>
                     @endforeach
 
                 </div>
@@ -614,30 +532,31 @@
                 <div class="relative w-full mt-3 space-y-3 lg:mt-0 lg:space-y-5 lg:w-1/2 lg:pl-4">
                     @foreach(config('faq.right') as $faq => $detail)
                         <div x-data="{ show: false }"
-                         class="relative px-6 py-2 overflow-hidden text-white bg-gray-200 rounded-lg select-none"
-                         data-primary="indigo-600" data-rounded="rounded-lg" data-rounded-max="rounded-full">
-                        <h4 @click="show=!show"
-                            class="flex items-center justify-between py-4 text-base font-medium text-gray-800 cursor-pointer sm:text-lg hover:text-gray-700">
-                            <span class="">{{ $faq }}</span>
-                            <svg class="w-4 h-4 mr-1 transition-all duration-200 ease-out transform rotate-0"
-                                 :class="{ '-rotate-180' : show }" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </h4>
+                             class="relative px-6 py-2 overflow-hidden text-white bg-gray-200 rounded-lg select-none"
+                             data-primary="indigo-600" data-rounded="rounded-lg" data-rounded-max="rounded-full">
+                            <h4 @click="show=!show"
+                                class="flex items-center justify-between py-4 text-base font-medium text-gray-800 cursor-pointer sm:text-lg hover:text-gray-700">
+                                <span class="">{{ $faq }}</span>
+                                <svg class="w-4 h-4 mr-1 transition-all duration-200 ease-out transform rotate-0"
+                                     :class="{ '-rotate-180' : show }" fill="none" stroke="currentColor"
+                                     viewBox="0 0 24 24"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </h4>
 
-                        <p class="px-1 pt-0 mt-1 text-gray-800 sm:text-lg py-7"
-                           x-transition:enter="transition-all ease-out duration-300"
-                           x-transition:enter-start="opacity-0 transform -translate-y-4"
-                           x-transition:enter-end="opacity-100 transform -translate-y-0"
-                           x-transition:leave="transition-all ease-out hidden duration-200"
-                           x-transition:leave-start="opacity-100 transform -translate-y-0"
-                           x-transition:leave-end="opacity-0 transform -translate-y-4" x-show="show"
-                           style="display: none;">
-                            {{ $detail }}
-                        </p>
-                    </div>
+                            <p class="px-1 pt-0 mt-1 text-gray-800 sm:text-lg py-7"
+                               x-transition:enter="transition-all ease-out duration-300"
+                               x-transition:enter-start="opacity-0 transform -translate-y-4"
+                               x-transition:enter-end="opacity-100 transform -translate-y-0"
+                               x-transition:leave="transition-all ease-out hidden duration-200"
+                               x-transition:leave-start="opacity-100 transform -translate-y-0"
+                               x-transition:leave-end="opacity-0 transform -translate-y-4" x-show="show"
+                               style="display: none;">
+                                {{ $detail }}
+                            </p>
+                        </div>
                     @endforeach
 
                 </div>

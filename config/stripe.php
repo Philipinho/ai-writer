@@ -10,8 +10,8 @@ return [
             'name' => 'Free',
             'description' => 'Free is right.',
             'seats' => '1',
-            'word_limit' => '50000',
-            'credits' => '50000',
+            'word_limit' => '2000',
+            'credits' => '2000',
             'archived' => false,
             'featured' => false,
             'free' => true,
@@ -24,6 +24,10 @@ return [
             'features' => [
                 '2,000 Credits',
                 '1 seat',
+                '50+ Templates',
+                'Support for 25+ languages',
+                'Rich text editor',
+                'Priority support',
             ]
         ],
         [
@@ -40,12 +44,17 @@ return [
             'cta' => 'Subscribe',
             'price' =>
                 [
-                    'monthly' => '$10',
-                    'yearly' => '$100'
+                    'monthly' => '$9',
+                    'yearly' => '$99'
                 ],
             'features' => [
                 '50,000 Credits',
                 '2 seats',
+                '50+ Templates',
+                'Support for 25+ languages',
+                'Rich text editor',
+                'Unlimited documents',
+                'Priority support',
             ]
         ],
 
@@ -68,8 +77,13 @@ return [
                 ],
             'features' => [
                 '100,000 Credits',
-                '5 seats'
-            ],
+                '5 seats',
+                '50+ Templates',
+                'Support for 25+ languages',
+                'Rich text editor',
+                'Unlimited documents',
+                'Priority support',
+            ]
         ]
     ]
 ];

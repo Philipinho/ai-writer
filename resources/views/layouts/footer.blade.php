@@ -1,6 +1,7 @@
 <footer class="bg-white">
     <div class="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
         <nav class="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12" aria-label="Footer">
+            <!--
             <div class="pb-6">
                 <a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900">About</a>
             </div>
@@ -12,20 +13,22 @@
             <div class="pb-6">
                 <a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Jobs</a>
             </div>
+            -->
 
             <div class="pb-6">
-                <a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Press</a>
+                <a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Contact</a>
             </div>
 
             <div class="pb-6">
-                <a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Accessibility</a>
+                <a href="{{ route('privacy') }}" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Privacy</a>
             </div>
 
             <div class="pb-6">
-                <a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Partners</a>
+                <a href="{{ route('terms') }}" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Terms</a>
             </div>
         </nav>
         <div class="mt-10 flex justify-center space-x-10">
+            <!--
             <a href="#" class="text-gray-400 hover:text-gray-500">
                 <span class="sr-only">Facebook</span>
                 <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -60,7 +63,8 @@
                     <path fill-rule="evenodd" d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z" clip-rule="evenodd" />
                 </svg>
             </a>
+            -->
         </div>
-        <p class="mt-10 text-center text-xs leading-5 text-gray-500">&copy; 2020 Your Company, Inc. All rights reserved.</p>
+        <p class="mt-10 text-center text-xs leading-5 text-gray-500">&copy; {{ date('Y') }} Your Company, Inc. All rights reserved.</p>
     </div>
 </footer>
