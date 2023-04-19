@@ -84,6 +84,7 @@ return [
                 'Unlimited documents',
                 'Priority support',
             ]
-        ]
+        ],
+
     ]
 ];

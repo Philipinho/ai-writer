@@ -14,14 +14,14 @@
                             AI-Powered Content Writer</h1>
 
                         <p class="mt-6 text-lg leading-8 text-gray-600">
-                            Amplify your content creation. Create engaging blogpost, ads, emails, and website copies in
+                            Amplify your content creation. Create engaging blog posts, ads, emails, ecommerce and website copies in
                             a few clicks.
                         </p>
                         <div class="mt-10 flex items-center justify-center gap-x-6">
                             <a href="{{ route('register') }}"
                                class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                                 Get started for free</a>
-                            <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Learn more <span
+                            <a href="#how" class="text-sm font-semibold leading-6 text-gray-900">Learn more <span
                                     aria-hidden="true">→</span></a>
                         </div>
                     </div>
@@ -46,7 +46,8 @@
     </div>
 
 
-    <div class="max-w-6xl px-8 mx-auto lg:px-20 py-8">
+    <section id="how">
+    <div class="max-w-7xl px-8 mx-auto lg:px-20 py-8">
         <h2 class="mb-2 text-2xl font-bold text-center text-gray-700 md:text-3xl lg:text-4xl">
             How it works
         </h2>
@@ -143,21 +144,21 @@
             </ol>
         </nav>
     </div>
+    </section>
 
 
-    <section>
+    <section id="features">
         <div class="py-20 bg-gray-50">
             <div class="container mx-auto px-4">
                 <div class="flex flex-wrap items-center">
                     <div class="w-full lg:w-1/2 mb-12 lg:mb-0">
                         <div class="max-w-md lg:mx-auto">
-                            <span class="text-green-600 font-bold">Dolor sit amet consectutar</span>
+                            <span class="text-green-600 font-bold">The perfect AI writing tool</span>
                             <h2 class="my-2 text-4xl lg:text-5xl font-bold font-heading">
-                                Build &amp; Launch without problems
+                                For everyone
                             </h2>
                             <p class="mb-6 text-gray-500 leading-loose">
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Pellentesque efficitur nisl sodales egestas lobortis.
+                                Write like a pro. Say Goodbye to Writer's Block!
                             </p>
 
 
@@ -248,7 +249,7 @@
                                 </span>
                                 <h4 class="mb-2 text-2xl font-bold font-heading">Multi-Lingua</h4>
                                 <p class="text-gray-500 leading-loose">
-                                    Expand your global reach with our multi-ligua support.
+                                    Expand your global reach with our multi-language support.
                                 </p>
                             </div>
                         </div>
@@ -327,10 +328,10 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-wrap -mx-4">
+                    <div class="flex flex-wrap justify-center -mx-4">
                         @foreach($plans as $plan)
 
-                            <div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-8 lg:mb-0">
+                            <div class="w-full md:w-1/3 lg:w-1/4 px-4 mb-8 lg:mb-0">
                                 <div class="p-8 bg-white shadow rounded">
                                     <h4 class="mb-2 text-2xl font-bold font-heading">{{ $plan['name'] }}</h4>
 
