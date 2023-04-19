@@ -4,6 +4,9 @@ namespace App\Models;
 
 use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Laravel\Cashier\Billable;
 use Laravel\Jetstream\Events\TeamCreated;
 use Laravel\Jetstream\Events\TeamDeleted;
@@ -46,24 +49,29 @@ class Team extends JetstreamTeam
         'deleted' => TeamDeleted::class,
     ];
 
-    public function documents()
+    public function documents(): HasMany
     {
         return $this->hasMany(Document::class);
     }
 
-    public function documentContents()
+    public function documentContents(): HasMany
     {
         return $this->hasMany(DocumentContent::class);
     }
 
-    public function favoriteTemplates()
+    public function favoriteTemplates(): BelongsToMany
     {
         return $this->belongsToMany(Template::class, 'favorite_template');
     }
 
-    public function teamCredits()
+    public function teamCredits(): HasOne
     {
         return $this->hasOne(TeamCredit::class);
+    }
+
+    public function subscription(): HasOne
+    {
+        return $this->hasOne(Subscription::class);
     }
 
 }
