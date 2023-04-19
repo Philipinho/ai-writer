@@ -48,7 +48,22 @@ class TeamPolicy
      */
     public function addTeamMember(User $user, Team $team): bool
     {
-        return $user->ownsTeam($team);
+        /*
+        $planName = $team->currentPlan();
+        $maxSeats = Config::get("plans.{$planName}.seats");
+
+        // Retrieve the current number of team members
+        $currentTeamMembersCount = $team->users->count();
+
+        // Check if the current number of team members is less than the maximum allowed seats
+        if ($currentTeamMembersCount < $maxSeats) {
+            return $user->ownsTeam($team);
+        } else {
+            return false;
+        }
+        */
+
+        return true;
     }
 
     /**
