@@ -16,12 +16,11 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->text('features')->nullable();
-            $table->text('payment_gateway')->nullable();
-            $table->string('product_id')->nullable();
-            $table->string('monthly_id')->nullable();
-            $table->string('yearly_id')->nullable();
-            $table->string('monthly_price')->nullable();
-            $table->string('yearly_price')->nullable();
+            $table->string('stripe_product_id')->nullable();
+            $table->string('stripe_monthly_price_id')->nullable();
+            $table->string('stripe_yearly_price_id')->nullable();
+            $table->string('monthly_amount')->nullable();
+            $table->string('yearly_amount')->nullable();
             $table->string('currency')->nullable();
             $table->integer('word_limit')->default(0);
             $table->integer('credits')->default(0);
