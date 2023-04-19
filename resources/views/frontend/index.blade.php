@@ -13,6 +13,10 @@
                         <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
                             AI-Powered Content Writer</h1>
 
+                        <!--<div x-data="textRotator()" class="">
+                            <span x-text="currentWord"></span>
+                        </div>-->
+
                         <p class="mt-6 text-lg leading-8 text-gray-600">
                             Amplify your content creation. Create engaging blog posts, ads, emails, ecommerce and website copies in
                             a few clicks.
@@ -25,11 +29,10 @@
                                     aria-hidden="true">→</span></a>
                         </div>
                     </div>
-                    <div class="mt-16 flow-root sm:mt-24">
-                        <div
-                            class="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
+                    <div class="mt-16 flow-root sm:mt-24 grid place-items-center">
+                        <div class="max-w-3xl lg:max-w-5xl -m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
                             <img src="https://i.imgur.com/Oc4Hi5M.png"
-                                 alt="App screenshot" width="2432" height="1442"
+                                 alt="editor screenshot"
                                  class="rounded-md shadow-2xl ring-1 ring-gray-900/10">
                         </div>
                     </div>
@@ -59,7 +62,6 @@
                 class="overflow-hidden rounded-md lg:flex lg:rounded-none lg:border-l lg:border-r lg:border-gray-200">
                 <li class="relative overflow-hidden lg:flex-1">
                     <div class="overflow-hidden border border-gray-200 rounded-t-md border-b-0 lg:border-0">
-                        <!-- Completed Step -->
                             <span
                                 class="absolute left-0 top-0 h-full w-1 bg-transparent group-hover:bg-gray-200 lg:bottom-0 lg:top-auto lg:h-1 lg:w-full"
                                 aria-hidden="true"></span>
@@ -80,7 +82,6 @@
 
                 <li class="relative overflow-hidden lg:flex-1">
                     <div class="overflow-hidden border border-gray-200 lg:border-0">
-                        <!-- Current Step -->
                         <span
                             class="absolute left-0 top-0 h-full w-1 bg-indigo-600 lg:bottom-0 lg:top-auto lg:h-1 lg:w-full"
                             aria-hidden="true"></span>
@@ -194,7 +195,18 @@
                                 </div>
 
                             </div>
+
+                            <div class="mt-4">
+                                <a class="w-40 inline-block text-center py-2 px-2 rounded-l-xl rounded-t-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold leading-loose transition duration-200"
+                                   href="{{ route('login') }}">
+                                    Get Started
+                                </a>
+                            </div>
+
+
+
                         </div>
+
                     </div>
 
                     <div class="w-full lg:w-1/2 flex flex-wrap -mx-4">
@@ -591,7 +603,7 @@
                 </div>
                 <div
                     class="relative flex flex-col items-center w-full px-6 space-y-5 md:space-x-5 md:space-y-0 md:flex-row md:w-auto lg:flex-shrink-0 md:px-0">
-                    <a href="{{ route('register') }}"
+                    <a href="{{ route('login') }}"
                        class="block w-full px-5 py-3 text-base font-medium leading-6 text-center text-indigo-600 transition duration-150 ease-in-out bg-indigo-100 rounded-md md:inline-flex md:shadow md:w-auto hover:bg-white focus:outline-none focus:shadow-outline"
                        data-primary="indigo-600" data-rounded="rounded-md">Try it free!</a>
                     <!--<a href="#_" class="text-white">Try it free</a>-->
@@ -603,3 +615,19 @@
 
 </x-appLayout>
 
+<script>
+    function textRotator() {
+        return {
+            words: ['Content', 'Ads', 'Blogpost'],
+            currentIndex: 0,
+            currentWord: 'Content',
+
+            init() {
+                setInterval(() => {
+                    this.currentIndex = (this.currentIndex + 1) % this.words.length;
+                    this.currentWord = this.words[this.currentIndex];
+                }, 2000);
+            }
+        }
+    }
+</script>

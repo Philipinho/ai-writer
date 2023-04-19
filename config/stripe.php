@@ -64,8 +64,8 @@ return [
             'monthly_id' => env('STANDARD_MONTHLY_ID','price_1MuMMzARjxFKY8qXcZijigqm'),
             'yearly_id' => env('STANDARD_YEARLY_ID','price_1MuMMzARjxFKY8qXeU0D0x77'),
             'seats' => '5',
-            'word_limit' => '100000',
-            'credits' => '100000',
+            'word_limit' => '400000',
+            'credits' => '400000',
             'archived' => false,
             'featured' => false,
             'free' => false,
@@ -76,7 +76,7 @@ return [
                     'yearly' => '$299'
                 ],
             'features' => [
-                '100,000 Credits',
+                '400,000 Credits',
                 '5 seats',
                 '50+ Templates',
                 'Support for 25+ languages',
