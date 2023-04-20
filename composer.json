@@ -15,6 +15,7 @@
         "laravel/tinker": "^2.8",
         "league/csv": "^9.9",
         "orhanerday/open-ai": "^4.7",
+        "spatie/laravel-stripe-webhooks": "^3.2",
         "stripe/stripe-php": "^10.12",
         "tightenco/ziggy": "^1.0"
     },

@@ -5,6 +5,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\JsonController;
+use App\Http\Controllers\Payments\StripeController;
 use App\Http\Controllers\TemplateController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -81,11 +82,10 @@ Route::middleware([
     });
 
     Route::get('/settings/billing', [BillingController::class, 'index'])->name('billing');
-    Route::get('/subscription', [BillingController::class, 'subscription'])->name('subscription');
 
-    Route::post('/billing/checkout', [BillingController::class, 'checkout'])->name('checkout');
+    Route::post('/billing/checkout', [StripeController::class, 'checkout'])->name('checkout');
 
-    Route::get('/billing/portal', [BillingController::class, 'billingPortal'])->name('billing.portal');
+    Route::get('/billing/portal', [StripeController::class, 'billingPortal'])->name('billing.portal');
 
     // JSON RESPONSE
     Route::get('/api/stats', [JsonController::class, 'usageStats'])->name('api.usage');
