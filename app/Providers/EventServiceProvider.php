@@ -4,6 +4,11 @@ namespace App\Providers;
 
 use App\Listeners\AddCreditsToTeamAccount;
 use App\Listeners\Stripe\PaymentsListener;
+use App\Listeners\Stripe\StripeCustomerUpdated;
+use App\Listeners\Stripe\StripePaymentSucceeded;
+use App\Listeners\Stripe\StripeSubscriptionCancelled;
+use App\Listeners\Stripe\StripeSubscriptionCreated;
+use App\Listeners\Stripe\StripeSubscriptionUpdated;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -22,12 +27,28 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        WebhookReceived::class => [
-            PaymentsListener::class,
-        ],
+       // WebhookReceived::class => [
+         //   PaymentsListener::class,
+       // ],
         TeamCreated::class => [
             AddCreditsToTeamAccount::class,
         ],
+        'stripe-webhooks::invoice.payment_succeeded' => [
+            StripePaymentSucceeded::class,
+        ],
+        'stripe-webhooks::customer.subscription.created' => [
+            StripeSubscriptionCreated::class,
+        ],
+        'stripe-webhooks::customer.subscription.deleted' => [
+            StripeSubscriptionCancelled::class
+        ],
+        'stripe-webhooks::customer.subscription.updated' => [
+            StripeSubscriptionUpdated::class
+        ],
+        'stripe-webhooks::customer.updated' => [
+            StripeCustomerUpdated::class
+        ],
+
     ];
 
     /**

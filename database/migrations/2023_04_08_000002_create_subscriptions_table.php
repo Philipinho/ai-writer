@@ -25,10 +25,11 @@ return new class extends Migration
             $table->string('currency')->nullable();
             $table->integer('quantity')->nullable();
             $table->string('interval')->nullable();
+            $table->string('payment_provider')->nullable();
             $table->timestamp('trial_ends_at')->nullable();
-            $table->datetime('start_date')->nullable();
+            $table->timestamp('start_date')->nullable();
             $table->timestamp('ends_at')->nullable();
-            $table->datetime('next_payment_date')->nullable();
+            $table->timestamp('next_payment_date')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->softDeletes();
             $table->timestamps();

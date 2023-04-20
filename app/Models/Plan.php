@@ -10,8 +10,16 @@ class Plan extends Model
 {
     use HasFactory;
 
+    public static function findByStripePriceId($stripePlanId): Plan
+    {
+        return self::where('stripe_monthly_price_id', $stripePlanId)
+            ->orWhere('stripe_yearly_price_id', $stripePlanId)
+            ->first();
+    }
+
     public function subscriptions(): HasMany
     {
         return $this->hasMany(Subscription::class);
     }
+
 }

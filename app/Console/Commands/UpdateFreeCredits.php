@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Plan;
 use App\Models\Team;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -36,8 +37,10 @@ class UpdateFreeCredits extends Command
 
             try {
                 $teamCredits = $team->teamCredit;
+                $freePlan = Plan::where('free', true)->first();
 
-                if ($teamCredits && $teamCredits->plan == 'Free' && $teamCredits->expiration_date->isPast()) {
+
+                if ($teamCredits && $teamCredits->plan_id == $freePlan->id && $teamCredits->expiration_date->isPast()) {
 
                     $teamCredits->update([
                         'credits' => config('stripe.free_plan_credits'),

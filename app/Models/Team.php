@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Laravel\Cashier\Billable;
 use Laravel\Jetstream\Events\TeamCreated;
 use Laravel\Jetstream\Events\TeamDeleted;
 use Laravel\Jetstream\Events\TeamUpdated;
@@ -17,7 +16,6 @@ class Team extends JetstreamTeam
 {
     use HasFactory;
     use HasUuid;
-    use Billable;
 
     /**
      * The attributes that should be cast.
@@ -71,7 +69,7 @@ class Team extends JetstreamTeam
 
     public function subscription(): HasOne
     {
-        return $this->hasOne(Subscription::class);
+        return $this->hasOne(Subscription::class, 'stripe_customer_id', 'stripe_id');
     }
 
 }

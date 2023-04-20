@@ -19,7 +19,7 @@ class TeamCredit extends Model
 
     public function getStats()
     {
-        $planCredits = $this->original_plan_credits;
+        $planCredits = $this->original_plan_credits; // grandfather credits
 
         $creditAllocation = $this->credits + $this->payg_credits + $this->bonus_credits;
 
@@ -29,9 +29,13 @@ class TeamCredit extends Model
         $percentUsed = round($creditAllocation > 0 ? ($creditsUsed / $creditAllocation) * 100 : 0);
         $percentLeft = round($creditAllocation > 0 ? ($creditsLeft / $creditAllocation) * 100 : 0);
 
+        $plan = Plan::find($this->plan_id);
+
+
         return [
-            'plan' => $this->plan,
-            'plan_credits' => number_format($planCredits),
+            'plan' => $plan->name,
+            'plan_credits' => number_format($this->credits),
+            'original_plan_credits' => number_format($planCredits),
             'total_credits' => number_format($creditAllocation),
             'credits_left' => number_format($creditsLeft),
             'credits_used' => $creditsUsed,

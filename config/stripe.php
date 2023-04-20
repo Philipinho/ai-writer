@@ -2,6 +2,8 @@
 
 return [
 
+    'secret_key' => env('STRIPE_SECRET'),
+
     'trial_days' => 7,
     'free_plan_credits' => 2000,
 

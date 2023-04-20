@@ -38,6 +38,8 @@ Route::get('/', [FrontendController::class, 'home'])->name('home');
 Route::get('/privacy', [FrontendController::class, 'privacy'])->name('privacy');
 Route::get('/terms', [FrontendController::class, 'terms'])->name('terms');
 
+Route::stripeWebhooks('stripe/webhook');
+
 
 Route::middleware([
     'auth:sanctum',

@@ -14,9 +14,7 @@ return new class extends Migration
         Schema::create('team_credits', function (Blueprint $table) {
             $table->id();
             $table->foreignId('team_id');
-            $table->foreignId('subscription_id')->nullable();
-            $table->string('plan_id')->nullable();
-            $table->string('plan')->nullable();
+            $table->foreignId('plan_id')->nullable();
             $table->bigInteger('credits')->nullable()->default(0);
             $table->bigInteger('credits_used')->nullable()->default(0);
             $table->bigInteger('original_plan_credits')->default(0);
