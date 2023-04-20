@@ -19,7 +19,7 @@ class TeamCredit extends Model
 
     public function getStats()
     {
-        $planCredits = $this->original_plan_credits; // grandfather credits
+        $planCredits = $this->original_plan_credits; // grandfathered credits
 
         $creditAllocation = $this->credits + $this->payg_credits + $this->bonus_credits;
 
@@ -32,15 +32,18 @@ class TeamCredit extends Model
         $plan = Plan::find($this->plan_id);
 
 
+
+
         return [
             'plan' => $plan->name,
             'plan_credits' => number_format($this->credits),
             'original_plan_credits' => number_format($planCredits),
             'total_credits' => number_format($creditAllocation),
             'credits_left' => number_format($creditsLeft),
-            'credits_used' => $creditsUsed,
+            'credits_used' => number_format($creditsUsed),
             'percent_used' => $percentUsed,
             'percent_left' => $percentLeft,
+            'interval' => $this->interval,
             'start_date' => $this->start_date,
             'expiration_date' => $this->expiration_date
         ];
