@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('team_id')->nullable();
             $table->foreignId('subscription_id')->nullable();
+            $table->foreignId('plan_id')->nullable();
             $table->string('payment_provider')->nullable();
             $table->string('invoice_id')->unique();
             $table->string('customer')->nullable();

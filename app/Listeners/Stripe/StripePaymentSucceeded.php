@@ -3,6 +3,7 @@
 namespace App\Listeners\Stripe;
 
 use App\Models\Invoice;
+use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\Team;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -100,6 +101,7 @@ class StripePaymentSucceeded implements ShouldQueue
         $invoiceData = $payload['data']['object'];
         $stripeCustomerId = $invoiceData['customer'];
         $stripeSubscriptionId = $invoiceData['subscription'];
+        $stripePlanId = $invoiceData['items']['data'][0]['plan']['id'];
 
         if (Invoice::where('invoice_id', $invoiceData['id'])->exists()) {
             throw new \Exception('Invoice already saved');
@@ -107,10 +109,13 @@ class StripePaymentSucceeded implements ShouldQueue
 
         $teamId = Team::where('stripe_id', $stripeCustomerId)->pluck('id')->first();
         $subscriptionId = Subscription::where('stripe_id', $stripeSubscriptionId)->pluck('id')->first();
+        $planId = Plan::where('stripe_price_id', $stripePlanId)->pluck('id')->first();
+
 
         $invoice = new Invoice([
             'team_id' => $teamId,
             'subscription_id' => $subscriptionId,
+            'plan_id' => $planId,
             'payment_provider' => 'stripe',
             'invoice_id' => $invoiceData['id'],
             'customer' => $stripeCustomerId,

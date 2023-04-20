@@ -31,7 +31,7 @@ class AddCreditsToTeamAccount
             ['team_id' => $team->id],
             [
                 'plan_id' => $freePlan->id,
-                'credits' => config('stripe.free_plan_credits'),
+                'credits' => $freePlan->credits,
                 'credits_used' => 0,
                 'original_plan_credits' => $freePlan->credits,
                 'interval' => 'month',
