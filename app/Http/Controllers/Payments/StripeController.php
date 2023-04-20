@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Team;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Stripe\Checkout\Session as CheckoutSession;
 use Stripe\BillingPortal\Session as BillingPortal;
 use Stripe\Stripe;
@@ -49,7 +50,7 @@ class StripeController extends Controller
             'return_url' => route('billing'),
         ]);
 
-        return redirect($portal->url);
+       return Redirect::to($portal->url, 303);
     }
 
     function createOrGetStripeCustomer(Team $team): string

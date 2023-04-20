@@ -76,7 +76,7 @@ class StripePaymentSucceeded implements ShouldQueue
         }
 
         $subscription->stripe_status = 'active';
-        $subscription->next_payment_date = isset($subscriptionData['lines']['data'][0]['period']['end']) ? Carbon::createFromTimestamp($subscriptionData['lines']['data'][0]['period']['end']) : null;
+        $subscription->next_payment_date = isset($subscriptionData['current_period_end']) ? Carbon::createFromTimestamp($subscriptionData['current_period_end']) : null;
 
         if (isset($subscriptionData['cancel_at'])) {
             $subscription->ends_at = Carbon::createFromTimestamp($subscriptionData['cancel_at']);
@@ -102,7 +102,7 @@ class StripePaymentSucceeded implements ShouldQueue
         $stripeSubscriptionId = $invoiceData['subscription'];
 
         if (Invoice::where('invoice_id', $invoiceData['id'])->exists()) {
-            throw new \Exception(' invoice already exists');
+            throw new \Exception('Invoice already saved');
         }
 
         $teamId = Team::where('stripe_id', $stripeCustomerId)->pluck('id')->first();
@@ -119,7 +119,7 @@ class StripePaymentSucceeded implements ShouldQueue
             'product' => $invoiceData['lines']['data'][0]['price']['product'],
             'price_id' => $invoiceData['lines']['data'][0]['price']['id'],
             'currency' => $invoiceData['currency'],
-            'amount' => $invoiceData['amount_due'],
+            'amount' => $invoiceData['amount_due'] / 100,
             'invoice_url' => $invoiceData['hosted_invoice_url'],
             'status' => 1,
         ]);

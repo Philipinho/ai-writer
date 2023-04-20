@@ -2,6 +2,7 @@
 
 namespace App\Listeners\Stripe;
 
+use App\Models\Invoice;
 use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\Team;
@@ -90,12 +91,21 @@ class StripeSubscriptionUpdated implements ShouldQueue
 
         // Check if the subscription has already been updated
         // more work to do
-        if ($subscription->stripe_status === $stripeSubscription['status'] &&
-            $subscription->stripe_price_id === $stripeSubscription['items']['data'][0]['price']['id'] &&
-            Carbon::parse($subscription->start_date)->eq(Carbon::createFromTimestamp($stripeSubscription['current_period_start'])) &&
+        if ($subscription->stripe_price_id === $stripeSubscription['items']['data'][0]['price']['id'] &&
             Carbon::parse($subscription->next_payment_date)->eq(Carbon::createFromTimestamp($stripeSubscription['current_period_end']))
         ) {
             throw new \Exception('Subscription already updated');
+        }
+
+        $localLatestInvoiceId = Invoice::orderBy('created_at', 'desc')->first()->id;
+
+        $existingInvoice = Invoice::where('invoice_id', $stripeSubscription['latest_invoice'])
+            ->whereNotIn('id', [$localLatestInvoiceId])
+            ->first();
+
+        if ($existingInvoice){
+            // prevent old webhooks from taking effect
+            throw new \Exception('This invoice exists - subscription update aborted');
         }
 
         $subscription->update([
@@ -104,6 +114,7 @@ class StripeSubscriptionUpdated implements ShouldQueue
             'interval' => $stripeSubscription['items']['data'][0]['price']['recurring']['interval'],
             'stripe_status' => $stripeSubscription['status'],
             'quantity' => $stripeSubscription['items']['data'][0]['quantity'],
+            'next_payment_date' => Carbon::createFromTimestamp($stripeSubscription['current_period_end']),
             'ends_at' => $stripeSubscription['cancel_at_period_end'] ? Carbon::createFromTimestamp($stripeSubscription['current_period_end']) : null,
         ]);
 
