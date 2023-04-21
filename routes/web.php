@@ -37,9 +37,9 @@ Route::get('/', function () {
 Route::get('/', [FrontendController::class, 'home'])->name('home');
 Route::get('/privacy', [FrontendController::class, 'privacy'])->name('privacy');
 Route::get('/terms', [FrontendController::class, 'terms'])->name('terms');
+Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 
 Route::stripeWebhooks('stripe/webhook');
-
 
 Route::middleware([
     'auth:sanctum',

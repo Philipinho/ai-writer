@@ -1,4 +1,4 @@
-<x-appLayout>
+<x-appLayout :title="$meta->title" :description="$meta->description">
     <div class="bg-white">
         <div class="relative isolate sm:pt-6 md:pt-14">
             <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"

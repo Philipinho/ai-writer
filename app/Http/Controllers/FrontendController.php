@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\MetaData;
 use App\Models\Template;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -26,21 +27,53 @@ class FrontendController extends Controller
             return Category::has('templates')->get();
         });
 
+        $title = "AI Content Writer";
+        $description = "Transform your writing process with our AI copywriting platform. Produce captivating content across diverse formats with the best AI writer.";
+
+        $meta = new MetaData();
+        $meta->setTitle($title);
+        $meta->setDescription($description);
+
         return view('frontend.index')->with([
             'plans' => $plans, 'templates' => $templates,
-            'categories' => $categories
+            'categories' => $categories,
+            'meta' => $meta
         ]);
     }
 
     public function privacy()
     {
-        return view('frontend.pages.privacy');
+        $title = "Privacy Policy";
+
+        $meta = new MetaData();
+        $meta->setTitle($title);
+
+        return view('frontend.pages.privacy')
+            ->with(['meta' =>$meta]);
     }
 
     public function terms()
     {
-        return view('frontend.pages.terms');
+        $title = "Terms of Service";
+
+        $meta = new MetaData();
+        $meta->setTitle($title);
+
+        return view('frontend.pages.terms')
+            ->with(['meta' =>$meta]);
     }
+
+    public function contact()
+    {
+        $title = "Contact us";
+
+        $meta = new MetaData();
+        $meta->setTitle($title);
+
+        return view('frontend.pages.contact')
+            ->with(['meta' =>$meta]);
+    }
+
 
 
 

@@ -16,7 +16,7 @@
             -->
 
             <div class="pb-6">
-                <a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Contact</a>
+                <a href="{{ route('contact') }}" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Contact</a>
             </div>
 
             <div class="pb-6">
