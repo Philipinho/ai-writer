@@ -249,7 +249,7 @@ class DocumentController extends Controller
             $completion = $choice['message']['content'];
             $wordCount = $this->getWordCount($completion);
 
-            $content = nl2br($completion);
+            $content = nl2br(trim($completion));
 
             $document_content = DocumentContent::create([
                 'content' => $content,
