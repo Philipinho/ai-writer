@@ -31,7 +31,7 @@
                     </div>
                     <div class="mt-16 flow-root sm:mt-24 grid place-items-center">
                         <div class="max-w-3xl lg:max-w-5xl -m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
-                            <img src="https://i.imgur.com/Oc4Hi5M.png"
+                            <img src="{{ asset('img/header-img.png') }}"
                                  alt="editor screenshot"
                                  class="rounded-md shadow-2xl ring-1 ring-gray-900/10">
                         </div>
