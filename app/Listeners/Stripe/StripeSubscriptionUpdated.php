@@ -41,7 +41,8 @@ class StripeSubscriptionUpdated implements ShouldQueue
         $stripeCustomerId = $data['customer'];
 
         try {
-            $this->updateSubscription($payload);
+            $subscription = $this->updateSubscription($payload);
+            $this->saveUpdatedInvoice($payload);
 
             $team = Team::where('stripe_id', $stripeCustomerId)->first();
 
@@ -59,6 +60,9 @@ class StripeSubscriptionUpdated implements ShouldQueue
                 if ($billingInterval === 'year') {
                     $newPlanCredits *= 12;
                 }
+
+                $subscription->plan_id = $newPlan->id;
+                $subscription->save();
 
                 $team->teamCredits()->update(
                     [
@@ -90,7 +94,6 @@ class StripeSubscriptionUpdated implements ShouldQueue
         }
 
         // Check if the subscription has already been updated
-        // more work to do
         if ($subscription->stripe_price_id === $stripeSubscription['items']['data'][0]['price']['id'] &&
             Carbon::parse($subscription->next_payment_date)->eq(Carbon::createFromTimestamp($stripeSubscription['current_period_end']))
         ) {
@@ -104,7 +107,7 @@ class StripeSubscriptionUpdated implements ShouldQueue
             ->first();
 
         if ($existingInvoice){
-            // prevent old webhooks from taking effect
+            // prevent old webhooks from making any chnages
             throw new \Exception('This invoice exists - subscription update aborted');
         }
 
@@ -118,6 +121,47 @@ class StripeSubscriptionUpdated implements ShouldQueue
             'ends_at' => $stripeSubscription['cancel_at_period_end'] ? Carbon::createFromTimestamp($stripeSubscription['current_period_end']) : null,
         ]);
 
+        return $subscription;
+
+    }
+
+    protected function saveUpdatedInvoice($payload)
+    {
+        $invoiceData = $payload['data']['object'];
+
+        $invoiceId = $invoiceData['latest_invoice'];
+        $stripeCustomerId = $invoiceData['customer'];
+
+        $stripeSubscriptionId = $invoiceData['id'];
+
+        $stripePlanId = $invoiceData['items']['data'][0]['plan']['id'];
+
+        if (Invoice::where('invoice_id', $invoiceId)->exists()) {
+            throw new \Exception('Invoice already saved');
+        }
+
+        $teamId = Team::where('stripe_id', $stripeCustomerId)->pluck('id')->first();
+        $subscriptionId = Subscription::where('stripe_id', $stripeSubscriptionId)->pluck('id')->first();
+        $plan = Plan::findByStripePriceId($stripePlanId);
+
+        $invoice = new Invoice([
+            'team_id' => $teamId,
+            'subscription_id' => $subscriptionId,
+            'plan_id' => $plan->id,
+            'payment_provider' => 'stripe',
+            'invoice_id' => $invoiceId,
+            'customer' => $stripeCustomerId,
+            'subscription' => $stripeSubscriptionId,
+            'subscription_item' => $invoiceData['items']['data'][0]['id'],
+            'product' => $invoiceData['items']['data'][0]['plan']['product'],
+            'price_id' => $stripePlanId,
+            'currency' => $invoiceData['currency'],
+            'amount' => $invoiceData['items']['data'][0]['plan']['amount'] / 100,
+           // 'invoice_url' => $invoiceData['hosted_invoice_url'],
+            'status' => 1,
+        ]);
+
+        $invoice->save();
     }
 
 }

@@ -31,9 +31,6 @@ class TeamCredit extends Model
 
         $plan = Plan::find($this->plan_id);
 
-
-
-
         return [
             'plan' => $plan->name,
             'plan_credits' => number_format($this->credits),

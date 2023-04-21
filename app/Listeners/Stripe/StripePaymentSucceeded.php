@@ -21,7 +21,9 @@ class StripePaymentSucceeded implements ShouldQueue
         if ($billingReason == 'subscription_cycle') {
             $this->handleSubscriptionRenewal($webhookCall->payload);
         } else {
-            $this->handleInvoice($webhookCall->payload);
+            if ($billingReason != 'subscription_update'){
+                $this->handleInvoice($webhookCall->payload);
+            }
         }
     }
 
@@ -97,11 +99,11 @@ class StripePaymentSucceeded implements ShouldQueue
 
     protected function saveInvoice($payload)
     {
-        // link it to a plan
         $invoiceData = $payload['data']['object'];
+
         $stripeCustomerId = $invoiceData['customer'];
         $stripeSubscriptionId = $invoiceData['subscription'];
-        $stripePlanId = $invoiceData['items']['data'][0]['plan']['id'];
+        $stripePlanId = $invoiceData['lines']['data'][0]['price']['id'];
 
         if (Invoice::where('invoice_id', $invoiceData['id'])->exists()) {
             throw new \Exception('Invoice already saved');
@@ -109,13 +111,12 @@ class StripePaymentSucceeded implements ShouldQueue
 
         $teamId = Team::where('stripe_id', $stripeCustomerId)->pluck('id')->first();
         $subscriptionId = Subscription::where('stripe_id', $stripeSubscriptionId)->pluck('id')->first();
-        $planId = Plan::where('stripe_price_id', $stripePlanId)->pluck('id')->first();
-
+        $plan = Plan::findByStripePriceId($stripePlanId);
 
         $invoice = new Invoice([
             'team_id' => $teamId,
             'subscription_id' => $subscriptionId,
-            'plan_id' => $planId,
+            'plan_id' => $plan->id,
             'payment_provider' => 'stripe',
             'invoice_id' => $invoiceData['id'],
             'customer' => $stripeCustomerId,

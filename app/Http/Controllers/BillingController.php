@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Plan;
+use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class BillingController extends Controller
@@ -10,7 +13,10 @@ class BillingController extends Controller
 
     public function index(Request $request): \Inertia\Response
     {
-        $plans = config('stripe.plans');
+        $plans = Plan::where('free', false)->where('status', 1)->get()->map(function ($plan) {
+            $plan->features = json_decode($plan->features, true);
+            return $plan;
+        });
 
         $team = auth()->user()->currentTeam;
         $subscription = $team->subscription;
