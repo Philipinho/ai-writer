@@ -39,7 +39,7 @@ export default {
                 <ButtonIcon>Create Document</ButtonIcon>
             </Link>
 
-           <!-- <Stats/> -->
+           <Stats/>
 
             <div class="mt-5">
                 <div class="flex justify-between">
