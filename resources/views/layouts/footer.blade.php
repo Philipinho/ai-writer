@@ -65,6 +65,6 @@
             </a>
             -->
         </div>
-        <p class="mt-10 text-center text-xs leading-5 text-gray-500">&copy; {{ date('Y') }} Your Company, Inc. All rights reserved.</p>
+        <p class="mt-10 text-center text-xs leading-5 text-gray-500">&copy; {{ date('Y') }} CopyPhrase. All rights reserved.</p>
     </div>
 </footer>

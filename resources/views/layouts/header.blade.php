@@ -2,10 +2,10 @@
     <header x-data="{ open: false }" @keydown.window.escape="open = false" class="absolute inset-x-0 top-0 z-50">
         <nav class="mx-auto max-w-7xl flex items-center justify-between p-6 lg:px-8" aria-label="Global">
             <div class="flex lg:flex-1">
-                <a href="#" class="-m-1.5 p-1.5">
+                <a href="/" class="-m-1.5 p-1.5">
                     <span class="sr-only">CopyPhrase</span>
                     <img class="h-8 w-auto"
-                         src="https://tailwindui.com/img/logos/mark.svg?color=indigo&amp;shade=600" alt="">
+                         src="{{ asset('logo.png') }}" alt="">
                 </a>
             </div>
             <div class="flex lg:hidden">
@@ -28,8 +28,6 @@
                 <a href="/#pricing" class="text-base font-semibold leading-6 text-gray-900">Pricing</a>
 
                 <a href="/#faq" class="text-base font-semibold leading-6 text-gray-900">FAQ</a>
-
-                <a href="#" class="text-base font-semibold leading-6 text-gray-900">Company</a>
 
             </div>
             <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:gap-x-6">
@@ -83,10 +81,6 @@
 
                             <a href="/#faq"
                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">FAQ</a>
-
-                            <a href="#"
-                               class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Company</a>
-
                         </div>
                         <div class="py-6">
 
