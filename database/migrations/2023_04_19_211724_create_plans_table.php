@@ -38,7 +38,7 @@ return new class extends Migration
         DB::table('plans')->insert([
             'name' => 'Free',
             'description' => 'A free plan with limited features',
-            'features' => ["2,000 Credits", "1 seat", "50+ Templates", "Support for 25+ languages", "Rich text editor", "Priority support"],
+            'features' => json_encode(["2,000 Credits", "1 seat", "50+ Templates", "Support for 25+ languages", "Rich text editor", "Priority support"]),
             'currency' => 'usd',
             'word_limit' => 2000,
             'credits' => 2000,
