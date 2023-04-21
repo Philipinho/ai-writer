@@ -21,6 +21,13 @@
         }
         document.querySelector('html').classList.remove('dark');
     </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T79YPDGG2G"></script>
+
+
+    @include('layouts.analytics')
+
 </head>
 
 <body class="font-inter antialiased bg-slate-100 text-slate-600 dark:bg-slate-900 dark:text-slate-200">
