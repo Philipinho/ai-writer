@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\MetaData;
+use App\Models\Plan;
 use App\Models\Template;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class FrontendController extends Controller
 
     public function home()
     {
-        $plans = config('stripe.plans');
+        $plans = Plan::where('status', 1)->get();
 
         $templates = Cache::remember('templates', Carbon::now()->addHour(), function () {
             return Template::where('status', 1)

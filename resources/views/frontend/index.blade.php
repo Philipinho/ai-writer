@@ -351,8 +351,8 @@
                                         <span class="text-5xl font-bold">$0</span>
                                     @else
                                         <span class="text-5xl font-bold"
-                                              x-text="yearly ? '{{ $plan['price']['yearly'] }}' : '{{ $plan['price']['monthly'] }}'">
-                                    {{ $plan['price']['monthly'] }}
+                                              x-text="yearly ? '{{ $plan['yearly_amount'] }}' : '{{ $plan['monthly_amount'] }}'">
+                                    {{ $plan['monthly_amount'] }}
                                         </span>
 
                                         <span class="text-gray-400 text-xs"
@@ -365,7 +365,7 @@
                                     <p class="mt-3 mb-6 text-gray-500 leading-loose">{{ $plan['description'] }}</p>
                                     <ul class="mb-6 text-gray-500">
 
-                                        @foreach($plan['features'] as $feature)
+                                        @foreach(json_decode($plan['features']) as $feature)
                                             <li class="mb-2 flex">
                                                 <svg class="mr-2 w-5 h-5 text-indigo-600"
                                                      xmlns="http://www.w3.org/2000/svg"
