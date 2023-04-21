@@ -39,6 +39,11 @@ class TemplateController extends Controller
                 $query->select('name');
             }])
             ->get();
+
+        $templates->each(function ($template) {
+            $template->makeVisible('prompt');
+        });
+
         return Inertia::render('Templates/List', [
             'templates' => $templates,
         ]);
@@ -52,6 +57,7 @@ class TemplateController extends Controller
     public function edit($id): \Inertia\Response
     {
         $template = Template::with('fields')->findOrFail($id);
+        $template->makeVisible('prompt');
         return Inertia::render('Templates/Edit', ['template' => $template]);
     }
 
@@ -94,6 +100,9 @@ class TemplateController extends Controller
     public function massEdit(): \Inertia\Response
     {
         $templates = Template::with('fields')->get();
+        $templates->each(function ($template) {
+            $template->makeVisible('prompt');
+        });
         return Inertia::render('Templates/MassEdit', ['templates' => $templates]);
     }
 
