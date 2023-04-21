@@ -352,7 +352,7 @@
                                     @else
                                         <span class="text-5xl font-bold"
                                               x-text="yearly ? '{{ $plan['yearly_amount'] }}' : '{{ $plan['monthly_amount'] }}'">
-                                    {{ $plan['monthly_amount'] }}
+                                            {{ $plan['monthly_amount'] }}
                                         </span>
 
                                         <span class="text-gray-400 text-xs"

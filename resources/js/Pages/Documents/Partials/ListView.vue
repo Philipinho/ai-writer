@@ -83,7 +83,7 @@
 
                                                     <div class="border-t border-gray-200 dark:border-gray-600"/>
 
-                                                    <DropdownLink @click="deleteDocument(document.uuid)">
+                                                    <DropdownLink href="" @click="deleteDocument(document.uuid)">
                                                         <i class="ri-delete-bin-line"></i>
                                                         Delete
                                                     </DropdownLink>
