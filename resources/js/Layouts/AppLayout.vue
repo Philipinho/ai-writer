@@ -219,7 +219,7 @@ const sidebarOpen = ref(false)
                                                 Settings
                                             </Link>
 
-                                            <form method="POST" @submit.prevent="logout">
+                                            <a :href="route('logout')">
                                                 <button
                                                     class="w-full group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
                                                     <ArrowLeftOnRectangleIcon
@@ -227,7 +227,7 @@ const sidebarOpen = ref(false)
                                                         aria-hidden="true"/>
                                                     Logout
                                                 </button>
-                                            </form>
+                                            </a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -380,7 +380,7 @@ const sidebarOpen = ref(false)
                                 Settings
                             </Link>
 
-                            <form method="POST" @submit.prevent="logout">
+                            <a :href="route('logout')">
                                 <button
                                     class="w-full group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
                                     <ArrowLeftOnRectangleIcon
@@ -388,7 +388,7 @@ const sidebarOpen = ref(false)
                                         aria-hidden="true"/>
                                     Logout
                                 </button>
-                            </form>
+                            </a>
 
                         </li>
                     </ul>

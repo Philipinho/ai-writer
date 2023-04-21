@@ -3,8 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Template;
+use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
+use Laravel\Fortify\Actions\ConfirmPassword;
+use Laravel\Jetstream\Contracts\DeletesUsers;
 
 class DashboardController extends Controller
 {
@@ -34,5 +41,15 @@ class DashboardController extends Controller
                 'templates' => $top_templates,
                 'documents' => $documents
             ]);
+    }
+
+    public function logout(Request $request, StatefulGuard $guard)
+    {
+        $guard->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect(route('home'));
     }
 }
