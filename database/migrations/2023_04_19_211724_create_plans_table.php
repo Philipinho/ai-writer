@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -33,6 +34,19 @@ return new class extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
+
+        DB::table('plans')->insert([
+            'name' => 'Free',
+            'description' => 'A free plan with limited features',
+            'features' => ["2,000 Credits", "1 seat", "50+ Templates", "Support for 25+ languages", "Rich text editor", "Priority support"],
+            'currency' => 'usd',
+            'word_limit' => 2000,
+            'credits' => 2000,
+            'seats' => 1,
+            'free' => true,
+            'order' => 1,
+            'status' => 1,
+        ]);
     }
 
     /**
