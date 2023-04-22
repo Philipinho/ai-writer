@@ -78,7 +78,7 @@ class TemplateController extends Controller
         $newFields = collect($request->input('fields'))->map(function ($field) use ($template) {
             return new Field([
                 'label' => $field['label'],
-                'optional' => $field['optional'],
+                'required' => $field['required'],
                 'name' => $field['name'],
                 'placeholder' => $field['placeholder'],
                 'type' => $field['type'],
@@ -126,7 +126,7 @@ class TemplateController extends Controller
             $fields = collect($templateData['fields'])->map(function ($field) use ($template) {
                 return new Field([
                     'label' => $field['label'],
-                    'optional' => $field['optional'],
+                    'required' => $field['required'],
                     'name' => $field['name'],
                     'placeholder' => $field['placeholder'],
                     'type' => $field['type'],
@@ -154,7 +154,7 @@ class TemplateController extends Controller
             'icon' => 'string',
             'fields' => 'required|array',
             'fields.*.label' => 'required|string',
-            'fields.*.optional' => 'required|boolean',
+            'fields.*.required' => 'required|boolean',
             'fields.*.name' => 'required|string',
             'fields.*.placeholder' => 'nullable|string',
             'fields.*.type' => 'required|string',
@@ -173,7 +173,7 @@ class TemplateController extends Controller
         $fields = collect($request->input('fields'))->map(function ($field) use ($template) {
             return new Field([
                 'label' => $field['label'],
-                'optional' => $field['optional'],
+                'required' => $field['required'],
                 'name' => $field['name'],
                 'placeholder' => $field['placeholder'],
                 'type' => $field['type'],

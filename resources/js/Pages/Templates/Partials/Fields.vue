@@ -165,10 +165,10 @@ export default {
             </div>
 
             <div class="col-span-6 sm:col-span-4">
-                <InputLabel :for="'optional-' + index" value="Required"/>
+                <InputLabel :for="'required-' + index" value="Required"/>
                 <TextInput
-                    :id="'optional-' + index"
-                    v-model="field.optional"
+                    :id="'required-' + index"
+                    v-model="field.required"
                     type="number"
                     class="mt-1 block w-full"
                 />

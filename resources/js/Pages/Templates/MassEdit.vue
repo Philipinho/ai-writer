@@ -46,7 +46,7 @@ export default {
         addField(template) {
             template.fields.push({
                 label: '',
-                optional: false,
+                required: false,
                 name: '',
                 placeholder: '',
                 type: '',

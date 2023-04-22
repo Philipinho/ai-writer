@@ -15,7 +15,7 @@ class Template extends Model
 
     protected $guarded = [''];
 
-    protected $hidden = ['id','uuid', 'user_id', 'prompt', 'created_at', 'updated_at'];
+    protected $hidden = ['uuid', 'user_id', 'prompt', 'created_at', 'updated_at'];
 
     public function user(): BelongsTo
     {
