@@ -41,6 +41,7 @@ class TemplateController extends Controller
             ->get();
 
         $templates->each(function ($template) {
+            $template->makeVisible('id');
             $template->makeVisible('prompt');
         });
 
