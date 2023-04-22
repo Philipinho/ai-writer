@@ -4,6 +4,7 @@ import { VueDraggableNext } from 'vue-draggable-next';
 import Fields from "@/Pages/Templates/Partials/Fields.vue";
 import FormSection from '@/Components/Jetstream/FormSection.vue';
 import PrimaryButton from '@/Components/Jetstream/PrimaryButton.vue';
+import {useToast} from "vue-toastification";
 
 export default {
     components: {
@@ -33,6 +34,7 @@ export default {
     }
     ,
     methods: {
+        toast: useToast(),
         updateTemplateOrder(){
             this.templates.forEach((template, index) => {
                 template.order = index + 1;
@@ -63,13 +65,10 @@ export default {
                     templates: this.templates,
                 });
 
-                console.log('saving response')
-                console.log(response)
-
-                // Handle success, e.g., show a success message or redirect to another page
+                this.toast.success("Templates were successfully.");
             } catch (error) {
+                this.toast.error("Templates update failed.");
                 console.log(error)
-                // Handle error, e.g., show an error message
             }
         },
     },

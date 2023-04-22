@@ -31,7 +31,7 @@ export default {
         addField() {
             this.template.fields.push({
                 label: '',
-                optional: 1,
+                required: 1,
                 name: '',
                 placeholder: '',
                 type: 'text',

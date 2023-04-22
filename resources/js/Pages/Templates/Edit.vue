@@ -3,6 +3,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import {VueDraggableNext} from 'vue-draggable-next';
 import FormSection from '@/Components/Jetstream/FormSection.vue';
 import Fields from "@/Pages/Templates/Partials/Fields.vue";
+import {useToast} from "vue-toastification";
 
 export default {
     components: {
@@ -19,18 +20,20 @@ export default {
         return {};
     },
     methods: {
+        toast: useToast(),
+
         async submit() {
             try {
                 const response = await axios.put(route('templates.update', this.template.id), {
                     name: this.template.name,
                     fields: this.template.fields,
                 });
-                console.log('saving response')
+                this.toast.success("Template was updated successfully.");
                 console.log(response)
                 // Handle success
             } catch (error) {
+                this.toast.error("Template update failed.");
                 console.log(error)
-                // Handle error, e.g., show an error message
             }
         },
     },

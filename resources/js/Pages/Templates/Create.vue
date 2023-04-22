@@ -4,6 +4,7 @@ import {VueDraggableNext} from 'vue-draggable-next';
 import Fields from "@/Pages/Templates/Partials/Fields.vue";
 
 import FormSection from '@/Components/Jetstream/FormSection.vue';
+import {useToast} from "vue-toastification";
 
 
 export default {
@@ -22,6 +23,8 @@ export default {
         };
     },
     methods: {
+        toast: useToast(),
+
         async submit() {
             try {
                 const response = await axios.post(route('templates.store', this.template.id), {
@@ -29,13 +32,11 @@ export default {
                     fields: this.template.fields,
                 });
 
-                console.log('saving response')
-                console.log(response)
-
+                this.toast.success("Template was created successfully.");
                 // Handle success, e.g., show a success message or redirect to another page
             } catch (error) {
+                this.toast.error("Template creation failed.");
                 console.log(error)
-                // Handle error, e.g., show an error message
             }
         },
     },
