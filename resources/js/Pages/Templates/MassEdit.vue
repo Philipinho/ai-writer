@@ -20,6 +20,7 @@ export default {
 
     data() {
         return {
+            toast: useToast(),
         };
     },
     computed: {
@@ -34,7 +35,6 @@ export default {
     }
     ,
     methods: {
-        toast: useToast(),
         updateTemplateOrder(){
             this.templates.forEach((template, index) => {
                 template.order = index + 1;

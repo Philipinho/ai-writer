@@ -17,11 +17,11 @@ export default {
     },
 
     data() {
-        return {};
+        return {
+            toast: useToast(),
+        };
     },
     methods: {
-        toast: useToast(),
-
         async submit() {
             try {
                 const response = await axios.put(route('templates.update', this.template.id), {
@@ -29,7 +29,6 @@ export default {
                     fields: this.template.fields,
                 });
                 this.toast.success("Template was updated successfully.");
-                console.log(response)
                 // Handle success
             } catch (error) {
                 this.toast.error("Template update failed.");

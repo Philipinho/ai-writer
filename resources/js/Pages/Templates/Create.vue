@@ -19,12 +19,11 @@ export default {
             template: {
                 name: '',
                 fields: [],
+                toast: useToast(),
             },
         };
     },
     methods: {
-        toast: useToast(),
-
         async submit() {
             try {
                 const response = await axios.post(route('templates.store', this.template.id), {
