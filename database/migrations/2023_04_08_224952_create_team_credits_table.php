@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('team_credits', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('team_id');
+            $table->foreignId('team_id')->constrained()->cascadeOnDelete();
             $table->foreignId('plan_id')->nullable();
             $table->bigInteger('credits')->nullable()->default(0);
             $table->bigInteger('credits_used')->nullable()->default(0);

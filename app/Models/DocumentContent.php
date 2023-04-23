@@ -14,11 +14,16 @@ class DocumentContent extends Model
     use HasUuid;
     use SoftDeletes;
 
-    protected $guarded = [''];
+    protected $guarded = [];
 
     public function document(): BelongsTo
     {
         return $this->belongsTo(Document::class);
+    }
+
+    public function team(): BelongsTo
+    {
+        return $this->belongsTo(Team::class);
     }
 
     public function template(): BelongsTo

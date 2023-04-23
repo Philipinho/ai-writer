@@ -15,11 +15,11 @@ class Document extends Model
     use HasUuid;
     use SoftDeletes;
 
-    protected $guarded = [''];
+    protected $guarded = [];
 
-    public function user(): BelongsTo
+    public function team(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Team::class);
     }
 
     public function template(): BelongsTo
