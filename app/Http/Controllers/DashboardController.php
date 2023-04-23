@@ -36,10 +36,14 @@ class DashboardController extends Controller
                 return auth()->user()->can('view', $document);
             });
 
+        $team = auth()->user()->currentTeam;
+        $stats = $team->teamCredits->getStats();
+
         return Inertia::render('Dashboard',
             [
                 'templates' => $top_templates,
-                'documents' => $documents
+                'documents' => $documents,
+                'stats' => $stats
             ]);
     }
 
