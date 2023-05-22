@@ -29,18 +29,18 @@ class UpdateFreeCredits extends Command
      */
     public function handle()
     {
-        $teams = Team::whereDoesntHave('subscriptions', function ($query) {
-            $query->where('stripe_status', 'active');
-        })->get();
+        $teams = Team::whereDoesntHave('subscription', function ($query) {
+            $query->where('status', 1);
+        })->with('teamCredits')->get();
 
         foreach ($teams as $team) {
 
             try {
-                $teamCredits = $team->teamCredit;
+                $teamCredits = $team->teamCredits;
                 $freePlan = Plan::where('free', true)->first();
 
-
-                if ($teamCredits && $teamCredits->plan_id == $freePlan->id && $teamCredits->expiration_date->isPast()) {
+                if ($teamCredits && $teamCredits->plan_id == $freePlan->id &&
+                    Carbon::parse($teamCredits->expiration_date)->isPast()) {
 
                     $teamCredits->update([
                         'credits' => config('stripe.free_plan_credits'),
@@ -49,6 +49,7 @@ class UpdateFreeCredits extends Command
                         'start_date' => Carbon::now(),
                         'expiration_date' => Carbon::now()->addMonth(),
                     ]);
+                    $this->info("Updated Team #{$team->id}. Team Name: {$team->name}");
                 }
             } catch (\Exception $e) {
                 $errorMessage = "Error updating team credits for team ID: {$team->id}. Exception: {$e->getMessage()}";
