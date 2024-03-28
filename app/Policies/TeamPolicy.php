@@ -98,7 +98,7 @@ class TeamPolicy
             return false;
         }
 
-        $creditsAllocated = $teamCredits->credits; // $teamCredits->payg_credits + $teamCredits->bonus_credits;
+        $creditsAllocated = $teamCredits->credits;
 
         if($teamCredits->credits_used >= $creditsAllocated){
             return false;

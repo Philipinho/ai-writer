@@ -238,8 +238,6 @@ class DocumentController extends Controller
         }
         $full_prompt .= "\nIt should be in " . $language . " language.";
 
-        Log::info($full_prompt);
-
         $response = $this->getCompletions($request, $full_prompt);
 
         // variations
